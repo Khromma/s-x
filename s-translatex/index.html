@@ -528,6 +528,8 @@
         const speakOutputBtn = document.getElementById('speakOutputBtn');
         const copyOutputBtn = document.getElementById('copyOutputBtn');
         const clearBtn = document.getElementById('clearBtn');
+
+        inputText.focus()
         
         function clearVis() {
             const val = inputText.value.trim();
@@ -542,6 +544,14 @@
         clearVis()
         
         inputText.addEventListener('input', clearVis);
+
+        function clearInput() {
+          inputText.value = "";
+          clearVis();
+          inputText.focus();
+        }
+
+clearButton.addEventListener('click', clearInput);
 
         function populateDropdowns() {
             Object.entries(languages).forEach(([code, name]) => {
