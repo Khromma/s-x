@@ -527,13 +527,7 @@
         const copyInputBtn = document.getElementById('copyInputBtn');
         const speakOutputBtn = document.getElementById('speakOutputBtn');
         const copyOutputBtn = document.getElementById('copyOutputBtn');
-        const clearButton = document.getElementById('clearBtn');
-
-        inputText.value = "a";
-        
-        setTimeout(() => {
-          inputText.value = "";
-        }, 1);
+        const clearBtn = document.getElementById('clearBtn');
         
         function clearVis() {
             const val = inputText.value.trim();
@@ -545,7 +539,8 @@
             }
         }
 
-        inputText.addEventListener('DOMContentLoaded', clearVis);
+        clearVis()
+        
         inputText.addEventListener('input', clearVis);
 
         function populateDropdowns() {
