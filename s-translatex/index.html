@@ -529,7 +529,7 @@
         const copyOutputBtn = document.getElementById('copyOutputBtn');
         const clearBtn = document.getElementById('clearBtn');
 
-        inputText.focus()
+        inputText.focus();
         
         function clearVis() {
             const val = inputText.value.trim();
@@ -541,7 +541,7 @@
             }
         }
 
-        clearVis()
+        clearVis();
         
         inputText.addEventListener('input', clearVis);
 
