@@ -532,13 +532,13 @@
         inputText.focus();
         
         function clearVis() {
-            const val = inputText.value.trim();
-            if (val === '') {
-              clearBtn.style.display = "none";
-            }
-            else {
-              clearBtn.style.display = "";
-            }
+          const val = inputText.value.trim();
+          if (val === '') {
+            clearBtn.style.display = "none";
+          }
+          else {
+            clearBtn.style.display = "";
+          }
         }
 
         clearVis();
@@ -550,6 +550,9 @@
           outputText.value = "";
           clearVis();
           inputText.focus();
+          var cParams = new URLSearchParams(window.location.search);
+          var qPar = cParams.get('q');
+          cParams.delete('q');
         }
 
        clearBtn.addEventListener('click', clearInput);
