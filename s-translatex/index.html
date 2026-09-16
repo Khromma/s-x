@@ -668,6 +668,58 @@
         copyOutputBtn.addEventListener('click', () => {
             copyToClipboard(outputText.value, copyOutputBtn);
         });
+
+
+        function updateUrlParameters() {
+          var slValue = sourceLang.value;
+          var tlValue = targetLang.value;
+          var qValue = inputText.value.trim();
+  
+          var baseUrl = window.location.origin + window.location.pathname;
+          var params = new URLSearchParams();
+  
+          params.set('sl', slValue);
+          params.set('tl', tlValue);
+  
+          if (qValue) {
+            params.set('q', qValue);
+          } else {
+            params.delete('q');
+          }
+            
+          var newUrl = baseUrl + '?' + params.toString();
+          history.replaceState(null, '', newUrl);
+            
+         }
+
+         inputText.addEventListener('input', updateUrlParameters);
+         sourceLang.addEventListener('change', updateUrlParameters);
+         targetLang.addEventListener('change', updateUrlParameters);
+
+         function matchInput() {
+           var params = new URLSearchParams(window.location.search);
+           var slParam = params.get('sl');
+           var tlParam = params.get('tl');
+           var qParam = params.get('q');
+  
+           if (slParam) {
+             sourceLang.value = slParam;
+           }
+  
+           if (tlParam) {
+             targetLang.value = tlParam;
+           }
+  
+          if (qParam) {
+            inputText.value = qParam;
+          } else {
+          inputText.value = '';
+          }
+ 
+            updateUrlParameters();
+          }
+
+          window.addEventListener('DOMContentLoaded', matchInput);
     </script>
 </body>
 </html>
