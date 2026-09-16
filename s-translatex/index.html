@@ -550,9 +550,7 @@
           outputText.value = "";
           clearVis();
           inputText.focus();
-          var cParams = new URLSearchParams(window.location.search);
-          var qPar = cParams.get('q');
-          cParams.delete('q');
+          updateUrlParameters();
         }
 
        clearBtn.addEventListener('click', clearInput);
