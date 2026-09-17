@@ -341,11 +341,12 @@ function calculate() {
 
     const prev = parseFloat(previousInput);
     const current = parseFloat(currentInput);
+    const currentOperator = operator;
+    const secondValue = currentInput;
+
     let result = 0;
 
     if (isNaN(prev) || isNaN(current)) return;
-
-    const currentOperator = operator;
 
     switch (currentOperator) {
         case '+': result = prev + current; break;
@@ -356,7 +357,7 @@ function calculate() {
     }
 
     historyDisplay.innerText =
-        `${previousInput} ${getOpSymbol(currentOperator)} ${currentInput} =`;
+        `${previousInput} ${getOpSymbol(currentOperator)} ${secondValue} =`;
 
     currentInput = result.toString();
 
@@ -367,13 +368,14 @@ function calculate() {
 
     params.set('a', previousInput);
     params.set('op', getUrlOperator(currentOperator));
-    params.set('b', currentInput);
+    params.set('b', secondValue);
 
-    history.replaceState(null, '', baseUrl + '?' + params.toString());
+    history.replaceState(null, '', baseUrl + '?' + params.toString()
+    );
 
     operator = null;
     shouldResetDisplay = true;
-}
+}        
 
 function clearAll() {
     currentInput = '0';
