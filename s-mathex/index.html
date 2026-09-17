@@ -426,28 +426,28 @@ document.addEventListener('keydown', (e) => {
     function updateUrlParameters() {
     var historyText = historyDisplay.textContent.trim();
     
-    var fsValue = historyText ? historyText.split(' ')[0] : previousInput;
-    var scValue = currentInput;
+    var aValue = historyText ? historyText.split(' ')[0] : previousInput;
+    var bValue = currentInput;
     var opValue = operator;
 
     var baseUrl = window.location.origin + window.location.pathname;
     var params = new URLSearchParams();
 
     var operatorMap = {
-        '+': 'a', 'a': 'a',
-        '-': 's', '−': 's', 's': 's',
-        '*': 'm', '×': 'm', 'm': 'm',
-        '/': 'd', '÷': 'd', 'd': 'd',
-        '%': 'p', 'p': 'p'
+        '+': 'add', 'a': 'add', 'add': 'add',
+        '-': 'sub', '−': 'sub', 's': 'sub', 'sub': 'sub',
+        '*': 'mul', '×': 'mul', 'm': 'mul', 'mul': 'mul',
+        '/': 'div', '÷': 'div', 'd': 'div', 'div': 'div',
+        '%': 'per', 'p': 'per', 'per': 'per'
     };
 
     var safeOp = operatorMap[opValue] || opValue;
 
-    if (fsValue && fsValue !== '0') {
-        params.set('fs', fsValue);
+    if (aValue && aValue !== '0') {
+        params.set('a', aValue);
     }
-    if (scValue && scValue !== '0' && !historyText.includes('=')) {
-        params.set('sc', scValue);
+    if (bValue && bValue !== '0' && !historyText.includes('=')) {
+        params.set('b', bValue);
     }
     if (safeOp && safeOp !== '=') {
         params.set('op', safeOp);
@@ -460,25 +460,25 @@ document.addEventListener('keydown', (e) => {
 
 function matchInput() {
     var params = new URLSearchParams(window.location.search);
-    var fsParam = params.get('fs');
-    var scParam = params.get('sc');
+    var aParam = params.get('a');
+    var bParam = params.get('b');
     var opParam = params.get('op');
 
     var reverseOperatorMap = {
-        'a': '+',
-        's': '-',
-        'm': '*',
-        'd': '/',
-        'p': '%'
+        'add': '+',
+        'sub': '-',
+        'mul': '*',
+        'div': '/',
+        'per': '%'
     };
 
-    if (fsParam) { previousInput = fsParam; }
-    if (scParam) { currentInput = scParam; }
+    if (aParam) { previousInput = aParam; }
+    if (bParam) { currentInput = bParam; }
     if (opParam) {
         operator = reverseOperatorMap[opParam.toLowerCase()] || opParam;
     }
 
-    if (fsParam !== null && scParam !== null && opParam !== null) {
+    if (aParam !== null && bParam !== null && opParam !== null) {
         shouldResetDisplay = false;
         calculate();
     } else {
@@ -487,8 +487,7 @@ function matchInput() {
     }
 }
 
-window.addEventListener('DOMContentLoaded', matchInput);
-        
+window.addEventListener('DOMContentLoaded', matchInput);      
 </script>
 </body>
 </html>
