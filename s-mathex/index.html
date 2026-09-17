@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="s-mathex-logo-calc.png">
+    <title>S-Mathex</title>
+    <style>
+        :root {
+            --sxpr: #ff005f;
+            --sxib: #4444ff;
+            --sxgy: #ffbb00;
+            --sxcg: #00ff66;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            color: #000000;
+        }
+
+        html, body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            padding: 0 12px;
+            overflow-x: hidden;
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            background-color: #ffffff !important;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 16px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            width: clamp(48px, 10vw, 64px);
+            height: clamp(48px, 10vw, 64px);
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .sticky-header h1 {
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #000000 !important;
+        }
+
+        .calculator-container {
+            background: #ffffff !important;
+            width: 100%;
+            max-width: 420px;
+            padding: clamp(16px, 3vw, 24px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            margin: 16px 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .display-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .calc-display {
+            width: 100%;
+            height: clamp(60px, 12vh, 80px);
+            padding: 14px;
+            font-size: clamp(20px, 5vw, 28px);
+            font-weight: 600;
+            text-align: right;
+            border-radius: 8px;
+            outline: none;
+            line-height: 1.5;
+            background-color: var(--sxcg) !important;
+            color: #ffffff !important;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            border: 2px solid var(--sxcg) !important;
+        }
+
+        .calc-display:focus {
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-display {
+            font-size: clamp(12px, 2.5vw, 14px);
+            color: #666666 !important;
+            text-align: right;
+            min-height: 20px;
+            padding: 0 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn {
+            background: var(--sxib) !important;
+            border: 2px solid var(--sxib) !important;
+            border-radius: 8px;
+            padding: 14px 6px;
+            font-size: clamp(14px, 3vw, 18px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.2s ease;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-op {
+            background: var(--sxpr) !important;
+            border: 2px solid var(--sxpr) !important;
+        }
+
+        .btn-clear {
+            background: var(--sxgy) !important;
+            border: 2px solid var(--sxgy) !important;
+        }
+
+        .btn-gradient {
+            background: 
+                radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
+                radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
+                radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
+                radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+            border: none !important;
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            font-weight: 700;
+        }
+
+        .action-bar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .action-btn {
+            background: 
+                radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
+                radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
+                radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
+                radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+            border: none;
+            border-radius: 50%;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: transform 0.15s ease, opacity 0.2s ease;
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            width: 30px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+        }
+
+        .action-btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-icon {
+          width: 24px !important;
+          height: 24px !important;
+          display: block;
+          flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sticky-header">
+        <img class="logo" src="s-mathex-logo-calc.png" alt="S-Mathex Logo">
+        <h1>S-Mathex</h1>
+    </header>
+
+    <div class="calculator-container">
+        <div class="display-wrapper">
+            <div class="history-display" id="historyDisplay"></div>
+            <input type="text" class="calc-display" id="calcDisplay" value="0" readonly>
+        </div>
+
+        <div class="keypad">
+            <button class="btn btn-clear" onclick="clearAll()">AC</button>
+            <button class="btn btn-clear" onclick="deleteLast()">DEL</button>
+            <button class="btn btn-op" onclick="appendOperator('%')">%</button>
+            <button class="btn btn-op" onclick="appendOperator('/')">÷</button>
+
+            <button class="btn" onclick="appendNum('7')">7</button>
+            <button class="btn" onclick="appendNum('8')">8</button>
+            <button class="btn" onclick="appendNum('9')">9</button>
+            <button class="btn btn-op" onclick="appendOperator('*')">×</button>
+
+            <button class="btn" onclick="appendNum('4')">4</button>
+            <button class="btn" onclick="appendNum('5')">5</button>
+            <button class="btn" onclick="appendNum('6')">6</button>
+            <button class="btn btn-op" onclick="appendOperator('-')">−</button>
+
+            <button class="btn" onclick="appendNum('1')">1</button>
+            <button class="btn" onclick="appendNum('2')">2</button>
+            <button class="btn" onclick="appendNum('3')">3</button>
+            <button class="btn btn-op" onclick="appendOperator('+')">+</button>
+
+            <button class="btn" onclick="toggleSign()">±</button>
+            <button class="btn" onclick="appendNum('0')">0</button>
+            <button class="btn" onclick="appendDot()">.</button>
+            <button class="btn btn-gradient" onclick="calculate()">=</button>
+        </div>
+
+        <div class="action-bar">
+            <button class="action-btn" id="speakBtn" onclick="speakResult()">
+                <svg xmlns="http://w3.org" viewBox="0 0 520 520" class="btn-icon">
+                  <path fill="#ffffff" d="M120 244H175L244 175V394L175 325H120Z"></path>
+                  <path fill="#ffffff" d="M147 271H186L216 241V328L186 298H147Z"></path>
+                  <path fill="#ffffff" d="M271 165C328 178 367 222 367 284C367 346 328 390 271 403V374C311 363 339 331 339 284C339 237 311 205 271 194Z"></path>
+                  <path fill="#ffffff" d="M271 213C294 222 306 249 306 284C306 319 294 346 271 355Z"></path>
+                </svg>
+            </button>
+            <button class="action-btn" id="copyBtn" onclick="copyResult()">
+                <svg xmlns="http://w3.org" viewBox="0 0 24 24" class="btn-icon">
+                  <path d="M8 7V5C8 3.9 8.9 3 10 3H19C20.1 3 21 3.9 21 5V14C21 15.1 20.1 16 19 16H17" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <rect x="3" y="7" width="14" height="14" rx="2" fill="none" stroke="#ffffff" stroke-width="2"></rect>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('calcDisplay');
+        const historyDisplay = document.getElementById('historyDisplay');
+        let currentInput = '0';
+let previousInput = '';
+let operator = null;
+let shouldResetDisplay = false;
+
+function updateDisplay() {
+    display.value = currentInput;
+}
+
+function appendNum(num) {
+    if (currentInput === '0' || shouldResetDisplay) {
+        currentInput = num;
+        shouldResetDisplay = false;
+    } else {
+        currentInput += num;
+    }
+    updateDisplay();
+}
+
+function appendDot() {
+    if (shouldResetDisplay) {
+        currentInput = '0.';
+        shouldResetDisplay = false;
+    } else if (!currentInput.includes('.')) {
+        currentInput += '.';
+    }
+    updateDisplay();
+}
+
+function appendOperator(op) {
+    if (operator !== null && !shouldResetDisplay) {
+        calculate();
+    }
+    previousInput = currentInput;
+    operator = op;
+    shouldResetDisplay = true;
+    historyDisplay.innerText = `${previousInput} ${getOpSymbol(op)}`;
+}
+
+function getOpSymbol(op) {
+    switch(op) {
+        case '*': return '×';
+        case '/': return '÷';
+        case '-': return '−';
+        default: return op;
+    }
+}
+
+function calculate() {
+    if (operator === null || shouldResetDisplay) return;
+
+    const prev = parseFloat(previousInput);
+    const current = parseFloat(currentInput);
+    let result = 0;
+
+    if (isNaN(prev) || isNaN(current)) return;
+
+    switch (operator) {
+        case '+': result = prev + current; break;
+        case '-': result = prev - current; break;
+        case '*': result = prev * current; break;
+        case '/':
+            result = current === 0 ? 'Error' : prev / current;
+            break;
+        case '%': result = prev % current; break;
+    }
+
+    historyDisplay.innerText = `${previousInput} ${getOpSymbol(operator)} ${currentInput} =`;
+    currentInput = result.toString();
+    operator = null;
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function clearAll() {
+    currentInput = '0';
+    previousInput = '';
+    operator = null;
+    shouldResetDisplay = false;
+    historyDisplay.innerText = '';
+    updateDisplay();
+}
+
+function deleteLast() {
+    if (shouldResetDisplay) return;
+    if (currentInput.length === 1 || (currentInput.length === 2 && currentInput.startsWith('-'))) {
+        currentInput = '0';
+    } else {
+        currentInput = currentInput.slice(0, -1);
+    }
+    updateDisplay();
+}
+
+function toggleSign() {
+    if (currentInput !== '0') {
+        currentInput = (parseFloat(currentInput) * -1).toString();
+        updateDisplay();
+    }
+}
+
+function speakResult() {
+    if (!('speechSynthesis' in window)) {
+        alert('Text-to-speech is not supported in this browser.');
+        return;
+    }
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(display.value);
+    utterance.lang = 'en-US';
+
+    window.speechSynthesis.speak(utterance);
+}
+
+async function copyResult() {
+    const btn = document.getElementById('copyBtn');
+    try {
+        await navigator.clipboard.writeText(display.value);
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<svg class="btn-icon" xmlns="http://w3.org" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#ffffff" stroke-width="2"/><path d="M7.5 12L10.5 15L16.5 9" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+        }, 2000);
+    } catch (err) {
+        alert('Failed to copy result.');
+    }
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.key >= '0' && e.key <= '9') appendNum(e.key);
+    if (e.key === '.') appendDot();
+    if (e.key === '+') appendOperator('+');
+    if (e.key === '-') appendOperator('-');
+    if (e.key === '*') appendOperator('*');
+    if (e.key === '/') { e.preventDefault(); appendOperator('/'); }
+    if (e.key === '%') appendOperator('%');
+    if (e.key === 'Enter' || e.key === '=') calculate();
+    if (e.key === 'Backspace') deleteLast();
+    if (e.key === 'Escape') clearAll();
+});
+</script>
+</body>
+</html>
