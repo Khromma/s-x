@@ -283,9 +283,9 @@
     </div>
 
     <script>
-        const display = document.getElementById('calcDisplay');
-        const historyDisplay = document.getElementById('historyDisplay');
-        let currentInput = '0';
+const display = document.getElementById('calcDisplay');
+const historyDisplay = document.getElementById('historyDisplay');
+let currentInput = '0';
 let previousInput = '';
 let operator = null;
 let shouldResetDisplay = false;
@@ -302,6 +302,7 @@ function appendNum(num) {
         currentInput += num;
     }
     updateDisplay();
+    updateUrlParameters();
 }
 
 function appendDot() {
@@ -312,6 +313,7 @@ function appendDot() {
         currentInput += '.';
     }
     updateDisplay();
+    updateUrlParameters();
 }
 
 function appendOperator(op) {
@@ -322,6 +324,7 @@ function appendOperator(op) {
     operator = op;
     shouldResetDisplay = true;
     historyDisplay.innerText = `${previousInput} ${getOpSymbol(op)}`;
+    updateUrlParameters();
 }
 
 function getOpSymbol(op) {
@@ -355,6 +358,7 @@ function calculate() {
     operator = null;
     shouldResetDisplay = true;
     updateDisplay();
+    updateUrlParameters();
 }
 
 function clearAll() {
@@ -422,7 +426,83 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Backspace') deleteLast();
     if (e.key === 'Escape') clearAll();
 });
-        
+
+        function getUrlOperator(op) {
+    switch (op) {
+        case '+': return 'add';
+        case '-': return 'sub';
+        case '*': return 'mul';
+        case '/': return 'div';
+        case '%': return 'per';
+        default: return '';
+    }
+}
+
+function getCalculatorOperator(op) {
+    switch (op) {
+        case 'add': return '+';
+        case 'sub': return '-';
+        case 'mul': return '*';
+        case 'div': return '/';
+        case 'per': return '%';
+        default: return null;
+    }
+}
+
+function updateUrlParameters() {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const params = new URLSearchParams();
+
+    if (previousInput !== '') {
+        params.set('a', previousInput);
+    }
+
+    if (operator !== null) {
+        params.set('op', getUrlOperator(operator));
+    }
+
+    if (operator !== null && currentInput !== '') {
+        params.set('b', currentInput);
+    }
+
+    const newUrl = params.toString()
+        ? baseUrl + '?' + params.toString()
+        : baseUrl;
+
+    history.replaceState(null, '', newUrl);
+}
+
+function matchInput() {
+    const params = new URLSearchParams(window.location.search);
+
+    const aParam = params.get('a');
+    const opParam = params.get('op');
+    const bParam = params.get('b');
+
+    if (aParam !== null && !isNaN(parseFloat(aParam))) {
+        previousInput = aParam;
+        currentInput = bParam !== null && !isNaN(parseFloat(bParam))
+            ? bParam
+            : aParam;
+
+        operator = getCalculatorOperator(opParam);
+
+        if (operator !== null && bParam !== null) {
+            shouldResetDisplay = false;
+            historyDisplay.innerText =
+                `${previousInput} ${getOpSymbol(operator)} ${currentInput}`;
+        } else {
+            operator = null;
+            shouldResetDisplay = true;
+        }
+
+        updateDisplay();
+    } else {
+        clearAll();
+    }
+}
+
+window.addEventListener('DOMContentLoaded', matchInput);
 </script>
 </body>
 </html>
