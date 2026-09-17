@@ -346,10 +346,8 @@ function calculate() {
         case '+': result = prev + current; break;
         case '-': result = prev - current; break;
         case '*': result = prev * current; break;
-        case '/':
-            result = current === 0 ? 'Error' : prev / current;
-            break;
-        case '%': result = prev % current; break;
+        case '/': result = current === 0 ? 'Error' : prev / current; break;
+        case '%': result = prev * (current / 100); break;
     }
 
     historyDisplay.innerText = `${previousInput} ${getOpSymbol(operator)} ${currentInput} =`;
