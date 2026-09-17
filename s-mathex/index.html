@@ -359,10 +359,6 @@ function calculate() {
     historyDisplay.innerText =
         `${previousInput} ${getOpSymbol(currentOperator)} ${secondValue} =`;
 
-    currentInput = result.toString();
-
-    updateDisplay();
-
     const baseUrl = window.location.origin + window.location.pathname;
     const params = new URLSearchParams();
 
@@ -373,9 +369,12 @@ function calculate() {
     history.replaceState(null, '', baseUrl + '?' + params.toString()
     );
 
+    currentInput = result.toString();
     operator = null;
     shouldResetDisplay = true;
-}        
+
+    updateDisplay();
+}      
 
 function clearAll() {
     currentInput = '0';
@@ -383,6 +382,8 @@ function clearAll() {
     operator = null;
     shouldResetDisplay = false;
     historyDisplay.innerText = '';
+    const baseUrl = window.location.origin + window.location.pathname;
+    history.replaceState(null, '', baseUrl);
     updateDisplay();
 }
 
@@ -442,8 +443,8 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Backspace') deleteLast();
     if (e.key === 'Escape') clearAll();
 });
-
-        function getUrlOperator(op) {
+        
+function getUrlOperator(op) {
     switch (op) {
         case '+': return 'add';
         case '-': return 'sub';
@@ -495,24 +496,38 @@ function matchInput() {
     const opParam = params.get('op');
     const bParam = params.get('b');
 
-    if (aParam !== null && !isNaN(parseFloat(aParam))) {
-        previousInput = aParam;
-        currentInput = bParam !== null && !isNaN(parseFloat(bParam))
-            ? bParam
-            : aParam;
+    if (
+        aParam !== null &&
+        bParam !== null &&
+        getCalculatorOperator(opParam) !== null &&
+        !isNaN(parseFloat(aParam)) &&
+        !isNaN(parseFloat(bParam))
+    ) {
+        const prev = parseFloat(aParam);
+        const current = parseFloat(bParam);
+        const loadedOperator = getCalculatorOperator(opParam);
 
-        operator = getCalculatorOperator(opParam);
+        let result = 0;
 
-        if (operator !== null && bParam !== null) {
-            shouldResetDisplay = false;
-            historyDisplay.innerText =
-                `${previousInput} ${getOpSymbol(operator)} ${currentInput}`;
-        } else {
-            operator = null;
-            shouldResetDisplay = true;
+        switch (loadedOperator) {
+            case '+': result = prev + current; break;
+            case '-': result = prev - current; break;
+            case '*': result = prev * current; break;
+            case '/': result = current === 0 ? 'Error' : prev / current; break;
+            case '%': result = prev * (current / 100); break;
         }
 
+        previousInput = aParam;
+        operator = loadedOperator;
+        currentInput = result.toString();
+        shouldResetDisplay = true;
+
+        historyDisplay.innerText =
+            `${aParam} ${getOpSymbol(loadedOperator)} ${bParam} =`;
+
         updateDisplay();
+
+        operator = null;
     } else {
         clearAll();
     }
