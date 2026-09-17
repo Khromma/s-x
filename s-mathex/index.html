@@ -238,30 +238,117 @@
         </div>
 
         <div class="keypad">
-            <button class="btn btn-clear" onclick="clearAll()">AC</button>
-            <button class="btn btn-clear" onclick="deleteLast()">DEL</button>
-            <button class="btn btn-op" onclick="appendOperator('%')">%</button>
-            <button class="btn btn-op" onclick="appendOperator('/')">÷</button>
+            <button class="btn btn-clear" onclick="clearAll()">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M6 6L18 18M18 6L6 18" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M4 20H20" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="btn btn-clear" onclick="deleteLast()">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M9 6H20V18H9L4 12L9 6Z" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M13 9L17 15M17 9L13 15" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="btn btn-op" onclick="appendOperator('%')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="7" cy="7" r="2" fill="#ffffff"/>
+                    <circle cx="17" cy="17" r="2" fill="#ffffff"/>
+                    <path d="M18 6L6 18" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="btn btn-op" onclick="appendOperator('/')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="6" r="1.5" fill="#ffffff"/>
+                    <path d="M5 12H19" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="12" cy="18" r="1.5" fill="#ffffff"/>
+                </svg>
+            </button>
 
-            <button class="btn" onclick="appendNum('7')">7</button>
-            <button class="btn" onclick="appendNum('8')">8</button>
-            <button class="btn" onclick="appendNum('9')">9</button>
-            <button class="btn btn-op" onclick="appendOperator('*')">×</button>
+            <button class="btn" onclick="appendNum('7')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">7</text>
+                </svg>
+            </button>
+            <button class="btn" onclick="appendNum('8')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">8</text>
+                </svg>
+            </button>
+            <button class="btn" onclick="appendNum('9')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">9</text>
+                </svg>
+            </button>
+            <button class="btn btn-op" onclick="appendOperator('*')">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                   <path d="M8 8L16 16M16 8L8 16" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+               </svg> 
+            </button>
 
-            <button class="btn" onclick="appendNum('4')">4</button>
-            <button class="btn" onclick="appendNum('5')">5</button>
-            <button class="btn" onclick="appendNum('6')">6</button>
-            <button class="btn btn-op" onclick="appendOperator('-')">−</button>
+            <button class="btn" onclick="appendNum('4')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">4</text>
+                </svg>
+            </button>
+            <button class="btn" onclick="appendNum('5')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">5</text>
+                </svg>
+            </button>
+            <button class="btn" onclick="appendNum('6')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">6</text>
+                </svg>
+            </button>
+            <button class="btn btn-op" onclick="appendOperator('-')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
 
-            <button class="btn" onclick="appendNum('1')">1</button>
-            <button class="btn" onclick="appendNum('2')">2</button>
-            <button class="btn" onclick="appendNum('3')">3</button>
-            <button class="btn btn-op" onclick="appendOperator('+')">+</button>
+            <button class="btn" onclick="appendNum('1')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                   <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">1</text>
+                </svg>
+            </button>
+            <button class="btn" onclick="appendNum('2')">
+             <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                 <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">2</text>
+             </svg>   
+            </button>
+            <button class="btn" onclick="appendNum('3')">
+             <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                 <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">3</text>
+             </svg>   
+            </button>
+            <button class="btn btn-op" onclick="appendOperator('+')">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 5V19M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
 
-            <button class="btn" onclick="toggleSign()">±</button>
-            <button class="btn" onclick="appendNum('0')">0</button>
-            <button class="btn" onclick="appendDot()">.</button>
-            <button class="btn btn-gradient" onclick="calculate()">=</button>
+            <button class="btn" onclick="toggleSign()">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M5 8H19M12 5V11" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M5 17H19" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="btn" onclick="appendNum('0')">
+               <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                   <text x="12" y="17" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial, sans-serif">0</text>
+               </svg> 
+            </button>
+            <button class="btn" onclick="appendDot()">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="17" r="2" fill="#ffffff"/>
+                </svg>
+            </button>
+            <button class="btn btn-gradient" onclick="calculate()">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M5 9H19M5 15H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
         </div>
 
         <div class="action-bar">
