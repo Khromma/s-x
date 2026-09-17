@@ -438,6 +438,10 @@ function updateUrlParameters(isCompleted = false) {
 
     var safeOp = operatorMap[operator] || operator;
 
+    if (isCompleted) {
+        return;
+    }
+
     if (operator && safeOp !== '=') {
         if (previousInput !== null && previousInput !== undefined && previousInput !== '') {
             params.set('a', previousInput);
@@ -483,7 +487,6 @@ function matchInput() {
     if (aParam !== null && bParam !== null && opParam !== null) {
         shouldResetDisplay = false;
         calculate();
-        updateUrlParameters();
     } else if (aParam !== null && opParam === null) {
         currentInput = aParam;
         previousInput = '';
@@ -494,7 +497,7 @@ function matchInput() {
     }
 }
 
-window.addEventListener('DOMContentLoaded', matchInput);
+window.addEventListener('DOMContentLoaded', matchInput);/
 </script>
 </body>
 </html>
