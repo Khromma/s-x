@@ -423,8 +423,8 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Backspace') deleteLast();
     if (e.key === 'Escape') clearAll();
 });
-
-function updateUrlParameters(isCompleted = false) {
+        
+function updateUrlParameters() {
     var baseUrl = window.location.origin + window.location.pathname;
     var params = new URLSearchParams();
 
@@ -438,25 +438,18 @@ function updateUrlParameters(isCompleted = false) {
 
     var safeOp = operatorMap[operator] || operator;
 
-    if (isCompleted) {
-        return;
+    if (previousInput !== null && previousInput !== undefined && previousInput !== '') {
+        params.set('a', previousInput);
+    } else if (currentInput !== null && currentInput !== undefined && currentInput !== '') {
+        params.set('a', currentInput);
     }
 
-    if (operator && safeOp !== '=') {
-        if (previousInput !== null && previousInput !== undefined && previousInput !== '') {
-            params.set('a', previousInput);
-        }
-        if (safeOp) {
-            params.set('op', safeOp);
-        }
-        if (currentInput !== null && currentInput !== undefined && currentInput !== '') {
-            params.set('b', currentInput);
-        }
-    } else {
-        var firstVal = currentInput || previousInput;
-        if (firstVal !== null && firstVal !== undefined && firstVal !== '') {
-            params.set('a', firstVal);
-        }
+    if (operator && safeOp && safeOp !== '=') {
+        params.set('op', safeOp);
+    }
+
+    if (previousInput && currentInput !== null && currentInput !== undefined && currentInput !== '') {
+        params.set('b', currentInput);
     }
 
     var queryString = params.toString();
@@ -497,7 +490,7 @@ function matchInput() {
     }
 }
 
-window.addEventListener('DOMContentLoaded', matchInput);/
+window.addEventListener('DOMContentLoaded', matchInput);
 </script>
 </body>
 </html>
