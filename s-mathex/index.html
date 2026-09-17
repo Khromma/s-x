@@ -422,6 +422,73 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Backspace') deleteLast();
     if (e.key === 'Escape') clearAll();
 });
+
+    function updateUrlParameters() {
+    var historyText = historyDisplay.textContent.trim();
+    
+    var fsValue = historyText ? historyText.split(' ')[0] : previousInput;
+    var scValue = currentInput;
+    var opValue = operator;
+
+    var baseUrl = window.location.origin + window.location.pathname;
+    var params = new URLSearchParams();
+
+    var operatorMap = {
+        '+': 'a', 'a': 'a',
+        '-': 's', '−': 's', 's': 's',
+        '*': 'm', '×': 'm', 'm': 'm',
+        '/': 'd', '÷': 'd', 'd': 'd',
+        '%': 'p', 'p': 'p'
+    };
+
+    var safeOp = operatorMap[opValue] || opValue;
+
+    if (fsValue && fsValue !== '0') {
+        params.set('fs', fsValue);
+    }
+    if (scValue && scValue !== '0' && !historyText.includes('=')) {
+        params.set('sc', scValue);
+    }
+    if (safeOp && safeOp !== '=') {
+        params.set('op', safeOp);
+    }
+
+    var queryString = params.toString();
+    var newUrl = queryString ? baseUrl + '?' + queryString : baseUrl;
+    history.replaceState(null, '', newUrl);
+}
+
+function matchInput() {
+    var params = new URLSearchParams(window.location.search);
+    var fsParam = params.get('fs');
+    var scParam = params.get('sc');
+    var opParam = params.get('op');
+
+    var reverseOperatorMap = {
+        'a': '+',
+        's': '-',
+        'm': '*',
+        'd': '/',
+        'p': '%'
+    };
+
+    if (fsParam) { previousInput = fsParam; }
+    if (scParam) { currentInput = scParam; }
+    if (opParam) {
+        operator = reverseOperatorMap[opParam.toLowerCase()] || opParam;
+    }
+
+    if (fsParam !== null && scParam !== null && opParam !== null) {
+        shouldResetDisplay = false;
+        calculate();
+    } else {
+        updateDisplay();
+        updateUrlParameters();
+    }
+}
+
+window.addEventListener('DOMContentLoaded', matchInput);
+        
 </script>
 </body>
 </html>
