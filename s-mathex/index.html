@@ -442,16 +442,20 @@ function updateUrlParameters(isCompleted = false) {
         if (currentInput !== null && currentInput !== undefined && currentInput !== '') {
             params.set('a', currentInput);
         }
-    } 
-    else {
-        if (previousInput !== null && previousInput !== undefined && previousInput !== '') {
-            params.set('a', previousInput);
-        }
-        if (currentInput !== null && currentInput !== undefined && currentInput !== '') {
-            params.set('b', currentInput);
-        }
-        if (safeOp && safeOp !== '=') {
+    } else {
+        if (operator && safeOp !== '=') {
+            if (previousInput !== null && previousInput !== undefined && previousInput !== '') {
+                params.set('a', previousInput);
+            }
+            if (currentInput !== null && currentInput !== undefined && currentInput !== '') {
+                params.set('b', currentInput);
+            }
             params.set('op', safeOp);
+        } else {
+            var firstVal = currentInput || previousInput;
+            if (firstVal !== null && firstVal !== undefined && firstVal !== '') {
+                params.set('a', firstVal);
+            }
         }
     }
 
@@ -474,15 +478,19 @@ function matchInput() {
         'per': '%'
     };
 
-    if (aParam) { previousInput = aParam; }
-    if (bParam) { currentInput = bParam; }
-    if (opParam) {
+    if (aParam !== null) { previousInput = aParam; }
+    if (bParam !== null) { currentInput = bParam; }
+    if (opParam !== null) {
         operator = reverseOperatorMap[opParam.toLowerCase()] || opParam;
     }
 
     if (aParam !== null && bParam !== null && opParam !== null) {
         shouldResetDisplay = false;
         calculate();
+    } else if (aParam !== null && opParam === null) {
+        currentInput = aParam;
+        previousInput = '';
+        updateDisplay();
     } else {
         updateDisplay();
         updateUrlParameters();
