@@ -91,13 +91,12 @@
             width: 100%;
             padding: 10px 6px;
             font-size: clamp(12px, 2.5vw, 14px);
-            border-radius: 8px;
+            border-radius: 25px;
             outline: none;
-            background-color: #ffffff !important;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            color: #000000 !important;
+            color: #ffffff !important;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
@@ -105,10 +104,12 @@
 
         #sourceLang {
             border: 2px solid var(--sxpr) !important;
+            background-color: var(--sxpr) !important;
         }
 
         #targetLang {
             border: 2px solid var(--sxib) !important;
+            background-color: var(--sxib) !important;
         }
 
         select:focus {
@@ -169,28 +170,28 @@
             outline: none;
             line-height: 1.5;
             background-color: #ffffff !important;
-            color: #000000 !important;
+            color: #ffffff !important;
             transition: all 0.2s ease;
             box-sizing: border-box;
         }
 
         #inputText {
             border: 2px solid var(--sxgy) !important;
-            background-color: #ffffff !important;
+            background-color: var(--sxgy) !important;
             padding: 16px;
             box-sizing: border-box;
         }
 
         #outputText {
             border: 2px solid var(--sxcg) !important;
-            background-color: #ffffff !important;
+            background-color: var(--sxcg) !important;
             padding: 16px;
             box-sizing: border-box;
         }
 
         textarea::placeholder {
-            color: #000000 !important;
-            opacity: 0.6;
+            color: #000000 !important
+            opacity: 0.4;
         }
 
         textarea:focus {
