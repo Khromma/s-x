@@ -355,6 +355,7 @@ function calculate() {
     operator = null;
     shouldResetDisplay = true;
     updateDisplay();
+    updateUrlParameters(true);
 }
 
 function clearAll() {
@@ -423,13 +424,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') clearAll();
 });
 
-    function updateUrlParameters() {
-    var historyText = historyDisplay.textContent.trim();
-    
-    var aValue = historyText ? historyText.split(' ')[0] : previousInput;
-    var bValue = currentInput;
-    var opValue = operator;
-
+function updateUrlParameters(isCompleted = false) {
     var baseUrl = window.location.origin + window.location.pathname;
     var params = new URLSearchParams();
 
@@ -441,16 +436,23 @@ document.addEventListener('keydown', (e) => {
         '%': 'per', 'p': 'per', 'per': 'per'
     };
 
-    var safeOp = operatorMap[opValue] || opValue;
+    var safeOp = operatorMap[operator] || operator;
 
-    if (aValue && aValue !== '0') {
-        params.set('a', aValue);
-    }
-    if (bValue && bValue !== '0' && !historyText.includes('=')) {
-        params.set('b', bValue);
-    }
-    if (safeOp && safeOp !== '=') {
-        params.set('op', safeOp);
+    if (isCompleted) {
+        if (currentInput !== null && currentInput !== undefined && currentInput !== '') {
+            params.set('a', currentInput);
+        }
+    } 
+    else {
+        if (previousInput !== null && previousInput !== undefined && previousInput !== '') {
+            params.set('a', previousInput);
+        }
+        if (currentInput !== null && currentInput !== undefined && currentInput !== '') {
+            params.set('b', currentInput);
+        }
+        if (safeOp && safeOp !== '=') {
+            params.set('op', safeOp);
+        }
     }
 
     var queryString = params.toString();
