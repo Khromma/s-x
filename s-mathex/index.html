@@ -345,7 +345,9 @@ function calculate() {
 
     if (isNaN(prev) || isNaN(current)) return;
 
-    switch (operator) {
+    const currentOperator = operator;
+
+    switch (currentOperator) {
         case '+': result = prev + current; break;
         case '-': result = prev - current; break;
         case '*': result = prev * current; break;
@@ -353,12 +355,24 @@ function calculate() {
         case '%': result = prev * (current / 100); break;
     }
 
-    historyDisplay.innerText = `${previousInput} ${getOpSymbol(operator)} ${currentInput} =`;
+    historyDisplay.innerText =
+        `${previousInput} ${getOpSymbol(currentOperator)} ${currentInput} =`;
+
     currentInput = result.toString();
+
+    updateDisplay();
+
+    const baseUrl = window.location.origin + window.location.pathname;
+    const params = new URLSearchParams();
+
+    params.set('a', previousInput);
+    params.set('op', getUrlOperator(currentOperator));
+    params.set('b', currentInput);
+
+    history.replaceState(null, '', baseUrl + '?' + params.toString());
+
     operator = null;
     shouldResetDisplay = true;
-    updateDisplay();
-    updateUrlParameters();
 }
 
 function clearAll() {
