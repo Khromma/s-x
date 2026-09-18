@@ -479,6 +479,7 @@ function clearAll() {
     const baseUrl = window.location.origin + window.location.pathname;
     history.replaceState(null, '', baseUrl);
     updateDisplay();
+    updateTitleFromDisplay();
 }
 
 function deleteLast() {
@@ -496,6 +497,7 @@ function toggleSign() {
     if (currentInput !== '0') {
         currentInput = (parseFloat(currentInput) * -1).toString();
         updateDisplay();
+        updateTitleFromDisplay();
     }
 }
 
