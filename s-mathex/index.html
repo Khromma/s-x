@@ -466,8 +466,8 @@ function calculate() {
     operator = null;
     shouldResetDisplay = true;
 
-    updateDisplay();
-    
+    updateDisplay(); 
+    updateTitleFromDisplay();
 }      
 
 function clearAll() {
@@ -489,6 +489,7 @@ function deleteLast() {
         currentInput = currentInput.slice(0, -1);
     }
     updateDisplay();
+    updateTitleFromDisplay();
 }
 
 function toggleSign() {
@@ -625,16 +626,14 @@ function matchInput() {
     } else {
         clearAll();
     }
+    updateTitleFromDisplay();
 }
 
 window.addEventListener('DOMContentLoaded', matchInput);
 
 function updateTitleFromDisplay() {
   const baseTitle = "S-Mathex";
-  const displayVal = historyDisplay && historyDisplay.value 
-    ? historyDisplay.value.trim().split('=')[0].trim() 
-    : "";
-
+  const displayVal = historyDisplay && historyDisplay.value ? historyDisplay.value.trim().split('=')[0].trim() : "";
   if (displayVal !== "" && displayVal !== "0") {
     document.title = `${displayVal} - ${baseTitle}`;
   } else {
