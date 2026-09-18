@@ -393,6 +393,7 @@ function appendNum(num) {
     }
     updateDisplay();
     updateUrlParameters();
+    updateTitleFromDisplay();
 }
 
 function appendDot() {
@@ -404,6 +405,7 @@ function appendDot() {
     }
     updateDisplay();
     updateUrlParameters();
+    updateTitleFromDisplay();
 }
 
 function appendOperator(op) {
@@ -415,6 +417,7 @@ function appendOperator(op) {
     shouldResetDisplay = true;
     historyDisplay.innerText = `${previousInput} ${getOpSymbol(op)}`;
     updateUrlParameters();
+    updateTitleFromDisplay();
 }
 
 function getOpSymbol(op) {
@@ -464,6 +467,7 @@ function calculate() {
     shouldResetDisplay = true;
 
     updateDisplay();
+    
 }      
 
 function clearAll() {
@@ -624,6 +628,19 @@ function matchInput() {
 }
 
 window.addEventListener('DOMContentLoaded', matchInput);
+
+function updateTitleFromDisplay() {
+  const baseTitle = "S-Mathex";
+  const displayVal = historyDisplay && historyDisplay.value 
+    ? historyDisplay.value.trim().split('=')[0].trim() 
+    : "";
+
+  if (displayVal !== "" && displayVal !== "0") {
+    document.title = `${displayVal} - ${baseTitle}`;
+  } else {
+    document.title = baseTitle;
+  }
+}
 </script>
 </body>
 </html>
