@@ -730,6 +730,18 @@
         }
 
         window.addEventListener('DOMContentLoaded', matchInput);
+
+function updateTitleFromInput() {
+    const baseTitle = "S-Translatex";
+
+    if (inputText && inputText.value.trim() !== "") {
+        document.title = `${inputText.value.trim()} - ${baseTitle}`;
+    } else {
+        document.title = baseTitle;
+    }
+}
+
+        inputText.addEventListener('input', updateTitleFromInput);
     </script>
 </body>
 </html>
