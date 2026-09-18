@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="s-colorx-logo-circ.png">
+    <title>S-Colorx</title>
+    <style>
+        :root {
+            --sxpr: #ff005f;
+            --sxib: #4444ff;
+            --sxgy: #ffbb00;
+            --sxcg: #00ff66;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            color: #000000;
+        }
+
+        html, body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            padding: 0 12px;
+            overflow-x: hidden;
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            background-color: #ffffff !important;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 16px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            width: clamp(72px, 15vw, 96px);
+            height: clamp(72px, 15vw, 96px);
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .sticky-header h1 {
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #000000 !important;
+        }
+
+        .translator-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 800px;
+            padding: clamp(16px, 3vw, 24px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            margin: 24px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .controls-grid {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        input {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            padding: 10px 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            outline: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .sxpr {
+            background-color: var(--sxpr) !important;
+            color: #000000 !important;
+            border: 2px solid var(--sxpr) !important;
+        }
+
+        .sxib {
+            background-color: var(--sxib) !important;
+            color: #000000 !important;
+            border: 2px solid var(--sxib) !important;
+        }
+
+        .sxgy {
+            background-color: var(--sxgy) !important;
+            color: #000000 !important;
+            border: 2px solid var(--sxgy) !important;
+        }
+
+        .sxcg {
+            background-color: var(--sxcg) !important;
+            color: #000000 !important;
+            border: 2px solid var(--sxcg) !important;
+        }
+
+        input[type="number"] {
+            width: 50px;
+        }
+
+        input[type="text"] {
+            width: 80px;
+        }
+
+        input:focus {
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            border: none;
+            border-radius: 50%
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            user-select: none;
+            transition: transform 0.15s ease, opacity 0.2s ease;
+            width: 30px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button.btn-apply,
+        button.btn-copy,
+        button.btn-speak {
+            background:
+                radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
+                radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
+                radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
+                radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+            border: none !important;
+            color: #ffffff !important;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        button.btn-apply {
+            padding: 10px 16px;
+            font-size: 14px;
+            border-radius: 50%;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        button:active {
+            transform: scale(0.96);
+        }
+
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .preview-section h3 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .colorappl {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sticky-header">
+        <img class="logo" src="s-colorx-logo-circ.png" alt="S-Colorx Logo">
+        <h1>S-Colorx</h1>
+    </header>
+
+    <div class="translator-container">
+        <div class="controls-grid">
+
+            <div class="input-group">
+                <label>HEX</label>
+                <input type="text" id="hexarg" class="sxpr" value="ffffff" placeholder="HEX" maxlength="7">
+                <button class="btn-apply" onclick="applyHEX()">Apply HEX</button>
+                <div class="action-btns">
+                    <button class="btn-speak" onclick="speakHEX()">Speak</button>
+                    <button class="btn-copy" id="copyHexBtn" onclick="copyHEX()">Copy</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>RGB</label>
+                <input type="number" id="rval" class="sxib" min="0" max="255" value="255" placeholder="R">
+                <input type="number" id="gval" class="sxgy" min="0" max="255" value="255" placeholder="G">
+                <input type="number" id="bval" class="sxcg" min="0" max="255" value="255" placeholder="B">
+                <button class="btn-apply" onclick="applyRGB()">Apply RGB</button>
+                <div class="action-btns">
+                    <button class="btn-speak" onclick="speakRGB()">Speak</button>
+                    <button class="btn-copy" id="copyRgbBtn" onclick="copyRGB()">Copy</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="preview-section">
+            <h3>Result Color</h3>
+            <div id="finalc" class="colorappl" style="background-color: #ffffff;"></div>
+        </div>
+    </div>
+
+    <script>
+        function applyRGB() {
+            const r = document.getElementById('rval').value || '255';
+            const g = document.getElementById('gval').value || '255';
+            const b = document.getElementById('bval').value || '255';
+
+            const rgbColor = `rgb(${r}, ${g}, ${b})`;
+
+            document.getElementById('finalc').style.backgroundColor = rgbColor;
+
+            const hexR = parseInt(r, 10).toString(16).padStart(2, '0');
+            const hexG = parseInt(g, 10).toString(16).padStart(2, '0');
+            const hexB = parseInt(b, 10).toString(16).padStart(2, '0');
+
+            document.getElementById('hexarg').value = `${hexR}${hexG}${hexB}`;
+        }
+
+        function applyHEX() {
+            let hex = document.getElementById('hexarg').value.replace('#', '') || 'ffffff';
+
+            if (hex.length === 3) {
+                hex = hex.split('').map(c => c + c).join('');
+            }
+
+            const hexColor = '#' + hex;
+
+            document.getElementById('finalc').style.backgroundColor = hexColor;
+
+            if (hex.length === 6) {
+                document.getElementById('rval').value = parseInt(hex.substring(0, 2), 16);
+                document.getElementById('gval').value = parseInt(hex.substring(2, 4), 16);
+                document.getElementById('bval').value = parseInt(hex.substring(4, 6), 16);
+            }
+        }
+
+        function speakRGB() {
+            if (!('speechSynthesis' in window)) {
+                alert('Text-to-speech is not supported in this browser.');
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+
+            const r = document.getElementById('rval').value || '255';
+            const g = document.getElementById('gval').value || '255';
+            const b = document.getElementById('bval').value || '255';
+
+            const utterance = new SpeechSynthesisUtterance(`RGB ${r}, ${g}, ${b}`);
+            utterance.lang = 'en-US';
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function speakHEX() {
+            if (!('speechSynthesis' in window)) {
+                alert('Text-to-speech is not supported in this browser.');
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+
+            const hex = document.getElementById('hexarg').value.replace('#', '') || 'ffffff';
+            const utterance = new SpeechSynthesisUtterance(`Hex ${hex.split('').join(' ')}`);
+            utterance.lang = 'en-US';
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        async function copyRGB() {
+            const btn = document.getElementById('copyRgbBtn');
+
+            try {
+                const r = document.getElementById('rval').value || '255';
+                const g = document.getElementById('gval').value || '255';
+                const b = document.getElementById('bval').value || '255';
+
+                const text = `rgb(${r}, ${g}, ${b})`;
+
+                await navigator.clipboard.writeText(text);
+
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Copied!';
+
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                alert('Failed to copy result.');
+            }
+        }
+
+        async function copyHEX() {
+            const btn = document.getElementById('copyHexBtn');
+
+            try {
+                const hex = document.getElementById('hexarg').value.replace('#', '') || 'ffffff';
+                const text = `#${hex}`;
+
+                await navigator.clipboard.writeText(text);
+
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Copied!';
+
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                alert('Failed to copy result.');
+            }
+        }
+    </script>
+</body>
+</html>
