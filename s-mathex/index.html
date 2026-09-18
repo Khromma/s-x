@@ -633,7 +633,11 @@ window.addEventListener('DOMContentLoaded', matchInput);
 
 function updateTitleFromDisplay() {
   const baseTitle = "S-Mathex";
-  const displayVal = historyDisplay && historyDisplay.value ? historyDisplay.value.trim().split('=')[0].trim() : "";
+  const hDisp = document.getElementById('historyDisplay');
+  const textContent = hDisp?.value || hDisp?.textContent || "";
+  
+  const displayVal = textContent.trim().split('=')[0].trim();
+
   if (displayVal !== "" && displayVal !== "0") {
     document.title = `${displayVal} - ${baseTitle}`;
   } else {
