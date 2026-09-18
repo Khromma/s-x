@@ -558,6 +558,7 @@
           clearVis();
           inputText.focus();
           updateUrlParameters();
+          updateTitleFromInput();
         }
 
        clearBtn.addEventListener('click', clearInput);
@@ -727,19 +728,20 @@
           updateUrlParameters();
           translateText();
           clearVis();
+          updateTitleFromInput()
         }
 
         window.addEventListener('DOMContentLoaded', matchInput);
 
-function updateTitleFromInput() {
-    const baseTitle = "S-Translatex";
+        function updateTitleFromInput() {
+          const baseTitle = "S-Translatex";
 
-    if (inputText && inputText.value.trim() !== "") {
-        document.title = `${inputText.value.trim()} - ${baseTitle}`;
-    } else {
-        document.title = baseTitle;
-    }
-}
+           if (inputText && inputText.value.trim() !== "") {
+             document.title = `${inputText.value.trim()} - ${baseTitle}`;
+           } else {
+             document.title = baseTitle;
+           }
+        }
 
         inputText.addEventListener('input', updateTitleFromInput);
     </script>
