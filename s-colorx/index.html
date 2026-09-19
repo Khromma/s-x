@@ -88,33 +88,6 @@
             width: 100%;
         }
 
-        .wheel-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .color-wheel {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            cursor: crosshair;
-            background: conic-gradient(
-                hsl(0, 100%, 50%),
-                hsl(60, 100%, 50%),
-                hsl(120, 100%, 50%),
-                hsl(180, 100%, 50%),
-                hsl(240, 100%, 50%),
-                hsl(300, 100%, 50%),
-                hsl(360, 100%, 50%)
-            );
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.1);
-            border: 5px solid #ffffff;
-            touch-action: none;
-        }
-        
         .input-group {
             display: flex;
             align-items: center;
@@ -289,11 +262,6 @@
     <div class="translator-container">
         <div class="controls-grid">
 
-            <div class="wheel-section">
-                <h3>Color Wheel Picker</h3>
-                <div class="color-wheel" id="colorWheel"></div>
-            </div>
-
             <div class="input-group">
                 <label>HEX</label>
                 <input type="text" id="hexarg" class="sxpr" value="ffffff" placeholder="HEX" maxlength="7">
@@ -464,62 +432,6 @@
                 alert('Failed to copy result.');
             }
         }
-const wheel = document.getElementById('colorWheel');
-
-function handleWheelColor(e) {
-    const rect = wheel.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    
-    const clientX = e.touches ? e.touches.clientX : e.clientX;
-    const clientY = e.touches ? e.touches.clientY : e.clientY;
-
-    const deltaX = clientX - centerX;
-    const deltaY = clientY - centerY;
-    let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-    
-    angle = (angle + 360) % 360;
-    const h = Math.round(angle);
-
-    const s = 1;
-    const l = 0.5;
-    const c = (1 - Math.abs(2 * l - 1)) * s;
-    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
-    const m = l - c / 2;
-    
-    let r = 0, g = 0, b = 0;
-    if (0 <= h && h < 60) { r = c; g = x; b = 0; }
-    else if (60 <= h && h < 120) { r = x; g = c; b = 0; }
-    else if (120 <= h && h < 180) { r = 0; g = c; b = x; }
-    else if (180 <= h && h < 240) { r = 0; g = x; b = c; }
-    else if (240 <= h && h < 300) { r = x; g = 0; b = c; }
-    else if (300 <= h && h < 360) { r = c; g = 0; b = x; }
-
-    const finalR = Math.round((r + m) * 255);
-    const finalG = Math.round((g + m) * 255);
-    const finalB = Math.round((b + m) * 255);
-
-    document.getElementById('rval').value = finalR;
-    document.getElementById('gval').value = finalG;
-    document.getElementById('bval').value = finalB;
-
-    const hexR = finalR.toString(16).padStart(2, '0');
-    const hexG = finalG.toString(16).padStart(2, '0');
-    const hexB = finalB.toString(16).padStart(2, '0');
-    
-    document.getElementById('hexarg').value = `${hexR}${hexG}${hexB}`;
-    document.getElementById('finalc').style.backgroundColor = `rgb(${finalR}, ${finalG}, ${finalB})`;
-}
-
-let isDrawing = false;
-wheel.addEventListener('mousedown', (e) => { isDrawing = true; handleWheelColor(e); });
-window.addEventListener('mousemove', (e) => { if (isDrawing) handleWheelColor(e); });
-window.addEventListener('mouseup', () => { isDrawing = false; });
-
-wheel.addEventListener('touchstart', (e) => { isDrawing = true; handleWheelColor(e); }, { passive: true });
-window.addEventListener('touchmove', (e) => { if (isDrawing) handleWheelColor(e); }, { passive: true });
-window.addEventListener('touchend', () => { isDrawing = false; });
-
     </script>
 </body>
 </html>
