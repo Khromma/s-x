@@ -501,6 +501,8 @@ function matchInput() {
         applyHEX();
     } else if (rParam !== null || gParam !== null || bParam !== null) {
         applyRGB();
+    } else if (hexParam === null && rParam === null && gParam === null && bParam === null && applyParam === null) {
+        updateUrlParameters();
     }
     
     updateTitleFromColors();
