@@ -647,6 +647,7 @@
                 utterance.lang = langCode;
             }
             window.speechSynthesis.speak(utterance);
+            inputText.focus();
         }
 
         speakInputBtn.addEventListener('click', () => {
@@ -670,6 +671,7 @@
             } catch (err) {
                 alert('Failed to copy text.');
             }
+            inputText.focus();
         }
 
         copyInputBtn.addEventListener('click', () => {
