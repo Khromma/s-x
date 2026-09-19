@@ -492,6 +492,7 @@ function matchInput() {
     } else if (applyParam === 'rgb') {
         applyRGB();
     }
+    updateTitleFromColors();
 }
 
 window.addEventListener('DOMContentLoaded', matchInput);
@@ -504,6 +505,8 @@ function updateTitleFromColors() {
         document.title = baseTitle;
     }
 }
+
+updateTitleFromColors();
     </script>
 </body>
 </html>
