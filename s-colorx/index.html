@@ -337,6 +337,7 @@
             const hexB = parseInt(b, 10).toString(16).padStart(2, '0');
 
             document.getElementById('hexarg').value = `${hexR}${hexG}${hexB}`;
+            updateUrlParameters('rgb');
         }
 
         function applyHEX() {
@@ -354,6 +355,7 @@
                 document.getElementById('rval').value = parseInt(hex.substring(0, 2), 16);
                 document.getElementById('gval').value = parseInt(hex.substring(2, 4), 16);
                 document.getElementById('bval').value = parseInt(hex.substring(4, 6), 16);
+                updateUrlParameters('hex')
             }
         }
 
@@ -432,6 +434,61 @@
                 alert('Failed to copy result.');
             }
         }
+
+function updateUrlParameters(applyBtn) {
+    var rValue = document.getElementById('rval').value || '255';
+    var gValue = document.getElementById('gval').value || '255';
+    var bValue = document.getElementById('bval').value || '255';
+    var hexValue = document.getElementById('hexarg').value.replace('#', '') || 'ffffff';
+
+    var baseUrl = window.location.origin + window.location.pathname;
+    var params = new URLSearchParams();
+
+    params.set('hex', hexValue);
+    params.set('r', rValue);
+    params.set('g', gValue);
+    params.set('b', bValue);
+
+    if (applyBtn) {
+        params.set('apply', applyBtn);
+    } else {
+        params.delete('apply');
+    }
+
+    var newUrl = baseUrl + '?' + params.toString();
+    history.replaceState(null, '', newUrl);
+}
+
+function matchInput() {
+    var params = new URLSearchParams(window.location.search);
+    var hexParam = params.get('hex');
+    var rParam = params.get('r');
+    var gParam = params.get('g');
+    var bParam = params.get('b');
+    var applyParam = params.get('apply');
+
+    if (hexParam !== null) {
+        document.getElementById('hexarg').value = hexParam;
+    }
+
+    if (rParam !== null) {
+        document.getElementById('rval').value = rParam;
+    }
+
+    if (gParam !== null) {
+        document.getElementById('gval').value = gParam;
+    }
+
+    if (bParam !== null) {
+        document.getElementById('bval').value = bParam;
+    }
+
+    if (applyParam === 'hex') {
+        applyHEX();
+    } else if (applyParam === 'rgb') {
+        applyRGB();
+    }
+}
     </script>
 </body>
 </html>
