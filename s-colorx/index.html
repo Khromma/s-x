@@ -338,6 +338,7 @@
 
             document.getElementById('hexarg').value = `${hexR}${hexG}${hexB}`;
             updateUrlParameters('rgb');
+            updateTitleFromColors()
         }
 
         function applyHEX() {
@@ -356,6 +357,7 @@
                 document.getElementById('gval').value = parseInt(hex.substring(2, 4), 16);
                 document.getElementById('bval').value = parseInt(hex.substring(4, 6), 16);
                 updateUrlParameters('hex')
+                updateTitleFromColors()
             }
         }
 
@@ -491,6 +493,15 @@ function matchInput() {
 }
 
 window.addEventListener('DOMContentLoaded', matchInput);
+
+function updateTitleFromColors() {
+    var baseTitle = "S-Colorx";
+    if (hexarg && hexarg.value.trim() !== "" && rval && rval.value.trim() !== "" && gval && gval.value.trim() !== "" && bval && bval.value.trim !== "") {
+        document.title = `${hexarg.value.trim().toUpperCase()}/${rval.value.trim()}, ${gval.value.trim()}, ${bval.value.trim()} - ${baseTitle}`;
+    } else {
+        document.title = baseTitle;
+    }
+}
     </script>
 </body>
 </html>
