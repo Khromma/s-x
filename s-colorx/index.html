@@ -322,11 +322,13 @@
     </div>
 
     <script>
+        document.getElementById('hexarg').focus();
+        
         function applyRGB() {
             const r = document.getElementById('rval').value || '255';
             const g = document.getElementById('gval').value || '255';
             const b = document.getElementById('bval').value || '255';
-
+            
             const rgbColor = `rgb(${r}, ${g}, ${b})`;
 
             document.getElementById('finalc').style.backgroundColor = rgbColor;
@@ -336,6 +338,7 @@
             const hexB = parseInt(b, 10).toString(16).padStart(2, '0');
 
             document.getElementById('hexarg').value = `${hexR}${hexG}${hexB}`;
+            document.getElementById('rval').focus();
             updateUrlParameters('rgb');
             updateTitleFromColors()
         }
@@ -355,6 +358,7 @@
                 document.getElementById('rval').value = parseInt(hex.substring(0, 2), 16);
                 document.getElementById('gval').value = parseInt(hex.substring(2, 4), 16);
                 document.getElementById('bval').value = parseInt(hex.substring(4, 6), 16);
+                document.getElementById('hexarg').focus();
                 updateUrlParameters('hex')
                 updateTitleFromColors()
             }
@@ -376,6 +380,7 @@
             utterance.lang = 'en-US';
 
             window.speechSynthesis.speak(utterance);
+            document.getElementById('rval').focus();
         }
 
         function speakHEX() {
@@ -391,6 +396,7 @@
             utterance.lang = 'en-US';
 
             window.speechSynthesis.speak(utterance);
+            document.getElementById('hexarg').focus();
         }
 
         async function copyRGB() {
@@ -414,6 +420,7 @@
             } catch (err) {
                 alert('Failed to copy result.');
             }
+        document.getElementById('rval').focus();
         }
 
         async function copyHEX() {
@@ -434,6 +441,7 @@
             } catch (err) {
                 alert('Failed to copy result.');
             }
+        document.getElementById('hexarg').focus();
         }
 
 function updateUrlParameters(applyBtn) {
