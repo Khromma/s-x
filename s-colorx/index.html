@@ -196,17 +196,25 @@
             color: #ffffff !important;
             font-weight: 700;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            width: 30px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
         }
 
         button.btn-apply {
             padding: 0;
             font-size: 14px;
             border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
         }
 
         .action-btns {
             display: flex;
-            gap: 6px;
+            gap: 2px;
             align-items: center;
         }
 
@@ -256,12 +264,12 @@
             <div class="input-group">
                 <label>HEX</label>
                 <input type="text" id="hexarg" class="sxpr" value="ffffff" placeholder="HEX" maxlength="7">
-                <button class="btn-apply" onclick="applyHEX()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
-                        <path fill="#ffffff" d="M 6.6 2 L 6.6 19.5 L 11.1 15 L 14.6 22 L 17.4 20.8 L 13.8 13.8 L 19.6 13.8 Z" />
-                    </svg>   
-                </button>
                 <div class="action-btns">
+                    <button class="btn-apply" onclick="applyHEX()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
+                            <path fill="#ffffff" d="M 6.6 2 L 6.6 19.5 L 11.1 15 L 14.6 22 L 17.4 20.8 L 13.8 13.8 L 19.6 13.8 Z" />
+                        </svg>   
+                    </button>
                     <button class="btn-speak" onclick="speakHEX()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" class="btn-icon">
                           <path fill="#ffffff" d="M120 244H175L244 175V394L175 325H120Z"/>
@@ -284,11 +292,12 @@
                 <input type="number" id="rval" class="sxib" min="0" max="255" value="255" placeholder="R">
                 <input type="number" id="gval" class="sxgy" min="0" max="255" value="255" placeholder="G">
                 <input type="number" id="bval" class="sxcg" min="0" max="255" value="255" placeholder="B">
-                <button class="btn-apply" onclick="applyRGB()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
-                        <path fill="#ffffff" d="M 6.6 2 L 6.6 19.5 L 11.1 15 L 14.6 22 L 17.4 20.8 L 13.8 13.8 L 19.6 13.8 Z" />
-                    </svg>
-                </button>
+                <div class="action-btns">
+                    <button class="btn-apply" onclick="applyRGB()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
+                          <path fill="#ffffff" d="M 6.6 2 L 6.6 19.5 L 11.1 15 L 14.6 22 L 17.4 20.8 L 13.8 13.8 L 19.6 13.8 Z" />
+                        </svg>
+                    </button>
                     <button class="btn-speak" onclick="speakRGB()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" class="btn-icon">
                           <path fill="#ffffff" d="M120 244H175L244 175V394L175 325H120Z"/>
@@ -303,9 +312,8 @@
                           <rect x="3" y="7" width="14" height="14" rx="2" fill="none" stroke="#ffffff" stroke-width="2"/>
                         </svg>
                     </button>
+                </div>
             </div>
-
-        </div>
 
         <div class="preview-section">
             <h3>Result Color</h3>
