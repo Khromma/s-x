@@ -461,6 +461,8 @@ function updateUrlParameters(applyBtn) {
     history.replaceState(null, '', newUrl);
 }
 
+updateUrlParameters();
+        
 function matchInput() {
     var params = new URLSearchParams(window.location.search);
     var hexParam = params.get('hex');
