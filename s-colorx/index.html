@@ -500,7 +500,7 @@ window.addEventListener('DOMContentLoaded', matchInput);
 function updateTitleFromColors() {
     var baseTitle = "S-Colorx";
     if (hexarg && hexarg.value.trim() !== "" && rval && rval.value.trim() !== "" && gval && gval.value.trim() !== "" && bval && bval.value.trim !== "") {
-        document.title = `${hexarg.value.trim().toUpperCase()}/${rval.value.trim()}, ${gval.value.trim()}, ${bval.value.trim()} - ${baseTitle}`;
+        document.title = `#${hexarg.value.trim().toUpperCase()}/${rval.value.trim()}, ${gval.value.trim()}, ${bval.value.trim()} - ${baseTitle}`;
     } else {
         document.title = baseTitle;
     }
