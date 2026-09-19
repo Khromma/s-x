@@ -468,8 +468,6 @@ function updateUrlParameters(applyBtn) {
     history.replaceState(null, '', newUrl);
     updateTitleFromColors();
 }
-
-updateUrlParameters();
         
 function matchInput() {
     var params = new URLSearchParams(window.location.search);
@@ -499,7 +497,12 @@ function matchInput() {
         applyHEX();
     } else if (applyParam === 'rgb') {
         applyRGB();
+    } else if (hexParam !== null) {
+        applyHEX();
+    } else if (rParam !== null || gParam !== null || bParam !== null) {
+        applyRGB();
     }
+    
     updateTitleFromColors();
 }
 
@@ -507,7 +510,7 @@ window.addEventListener('DOMContentLoaded', matchInput);
 
 function updateTitleFromColors() {
     var baseTitle = "S-Colorx";
-    if (hexarg && hexarg.value.trim() !== "" && rval && rval.value.trim() !== "" && gval && gval.value.trim() !== "" && bval && bval.value.trim !== "") {
+    if (hexarg && hexarg.value.trim() !== "" && rval && rval.value.trim() !== "" && gval && gval.value.trim() !== "" && bval && bval.value.trim() !== "") {
         document.title = `#${hexarg.value.trim().toUpperCase()}/${rval.value.trim()}, ${gval.value.trim()}, ${bval.value.trim()} - ${baseTitle}`;
     } else {
         document.title = baseTitle;
