@@ -88,6 +88,33 @@
             width: 100%;
         }
 
+        .wheel-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .color-wheel {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            cursor: crosshair;
+            background: conic-gradient(
+                hsl(0, 100%, 50%),
+                hsl(60, 100%, 50%),
+                hsl(120, 100%, 50%),
+                hsl(180, 100%, 50%),
+                hsl(240, 100%, 50%),
+                hsl(300, 100%, 50%),
+                hsl(360, 100%, 50%)
+            );
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.1);
+            border: 5px solid #ffffff;
+            touch-action: none;
+        }
+        
         .input-group {
             display: flex;
             align-items: center;
@@ -261,6 +288,11 @@
 
     <div class="translator-container">
         <div class="controls-grid">
+
+            <div class="wheel-section">
+                <h3>Color Wheel Picker</h3>
+                <div class="color-wheel" id="colorWheel"></div>
+            </div>
 
             <div class="input-group">
                 <label>HEX</label>
