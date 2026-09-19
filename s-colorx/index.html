@@ -459,6 +459,7 @@ function updateUrlParameters(applyBtn) {
 
     var newUrl = baseUrl + '?' + params.toString();
     history.replaceState(null, '', newUrl);
+    updateTitleFromColors();
 }
 
 updateUrlParameters();
