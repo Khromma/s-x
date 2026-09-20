@@ -32,6 +32,30 @@
             overflow-x: hidden; 
         }
 
+        .connect {
+            width: 100% !important;
+            height: 100% !important;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff !important;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+        }
+
+        .connect-icon {
+            width: 40px !important;
+            height: 40px !important;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .connect-p {
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #000000 !important;  
+        }
+        
         .sticky-header {
             position: sticky;
             top: 0;
@@ -266,6 +290,17 @@
 </head>
 <body>
 
+    <div class="connect">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="330 20 1030 860" fill="none" class="connect-icon">
+            <line x1="845" y1="90" x2="1280" y2="810" stroke="#4444ff" stroke-width="100" stroke-linecap="round"/>
+            <line x1="410" y1="810" x2="1280" y2="810" stroke="#00ff66" stroke-width="100" stroke-linecap="round"/>
+            <line x1="410" y1="810" x2="845" y2="90" stroke="#ff005f" stroke-width="100" stroke-linecap="round"/>
+            <path d="M787 340 L806 553 A38 38 0 0 0 882 553 L903 340 A58 58 0 0 0 787 340 Z" fill="#ffbb00"/>
+            <circle cx="845" cy="670" r="56" fill="#ffbb00"/>
+            <p class="connect-p">Check your internet connection.</p>
+        </svg>
+    </div>
+    
     <header class="sticky-header">
         <img class="logo" src="s-translatex-logo-translator.png" alt="S-Translatex Logo">
         <h1>S-Translatex</h1>
