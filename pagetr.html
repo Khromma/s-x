@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page Translator</title>
+</head>
+<body>
+
+<select id="hostLang"></select>
+
+<h1>Hello world</h1>
+<h2>This must NOT translate</h2>
+<h3>Welcome to my website</h3>
+<h4>This must NOT translate</h4>
+
+<script>
+const languages={
+en:"English",
+es:"Spanish",
+fr:"French",
+de:"German",
+it:"Italian",
+pt:"Portuguese",
+ja:"Japanese",
+ko:"Korean",
+zh-CN:"Chinese (Simplified)",
+zh-TW:"Chinese (Traditional)",
+ar:"Arabic",
+hi:"Hindi",
+ru:"Russian"
+};
+
+const translationConfig=[
+{tag:"h1",translate:true},
+{tag:"h2",translate:false},
+{tag:"h3",translate:true},
+{tag:"h4",translate:false}
+];
+
+const hostLang=document.getElementById("hostLang");
+const originalText=new Map();
+
+function populateDropdownsHL(){
+Object.entries(languages).forEach(([code,name])=>{
+const opt=new Option(name,code);
+hostLang.add(opt);
+});
+hostLang.value="en";
+}
+
+populateDropdownsHL();
+
+async function translatePage(lang){
+if(lang==="en"){
+originalText.forEach((text,el)=>el.textContent=text);
+return;
+}
+
+const elements=[];
+
+translationConfig.forEach(rule=>{
+if(rule.translate){
+document.querySelectorAll(rule.tag).forEach(el=>{
+if(!originalText.has(el))originalText.set(el,el.textContent);
+elements.push(el);
+});
+}
+});
+
+await Promise.all(elements.map(async el=>{
+const text=originalText.get(el);
+const url=`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${encodeURIComponent(text)}`;
+const response=await fetch(url);
+const data=await response.json();
+el.textContent=data[0].map(x=>x[0]).join("");
+}));
+}
+
+hostLang.addEventListener("change",()=>translatePage(hostLang.value));
+</script>
+
+</body>
+</html>
