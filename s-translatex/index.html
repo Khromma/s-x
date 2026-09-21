@@ -31,35 +31,6 @@
             padding: 0 12px;
             overflow-x: hidden; 
         }
-
-        .connect {
-            width: 100% !important;
-            height: 100% !important;
-            min-width: 100dvw !important;
-            min-height: 100dvh !important;
-            align-items: center;
-            justify-content: center;
-            place-items: center;
-            background-color: #ffffff !important;
-            box-sizing: border-box;
-            flex-direction: row;
-            margin: 0;
-            padding: 0;
-        }
-
-        .connect-icon {
-            width: 40px !important;
-            height: 40px !important;
-            display: block;
-            flex-shrink: 0;
-        }
-
-        .connect-p {
-            font-size: clamp(18px, 4vw, 24px);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #000000 !important;  
-        }
         
         .sticky-header {
             position: sticky;
@@ -294,18 +265,6 @@
     </style>
 </head>
 <body>
-
-    <div class="connect" id="connect">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="330 20 1030 860" fill="none" class="connect-icon">
-            <line x1="845" y1="90" x2="1280" y2="810" stroke="#4444ff" stroke-width="100" stroke-linecap="round"/>
-            <line x1="410" y1="810" x2="1280" y2="810" stroke="#00ff66" stroke-width="100" stroke-linecap="round"/>
-            <line x1="410" y1="810" x2="845" y2="90" stroke="#ff005f" stroke-width="100" stroke-linecap="round"/>
-            <path d="M787 340 L806 553 A38 38 0 0 0 882 553 L903 340 A58 58 0 0 0 787 340 Z" fill="#ffbb00"/>
-            <circle cx="845" cy="670" r="56" fill="#ffbb00"/>
-            <p class="connect-p">Check your internet connection.</p>
-        </svg>
-    </div>
-    
     <header class="sticky-header" id="stickyHeader">
         <img class="logo" src="s-translatex-logo-translator.png" alt="S-Translatex Logo">
         <h1>S-Translatex</h1>
@@ -575,43 +534,6 @@
         const speakOutputBtn = document.getElementById('speakOutputBtn');
         const copyOutputBtn = document.getElementById('copyOutputBtn');
         const clearBtn = document.getElementById('clearBtn');
-        
-        const translatorContainer = document.getElementById('translatorContainer');
-        const header = document.getElementById('stickyHeader');
-        const connect = document.getElementById('connect');
-
-async function checkConnection() {
-  if (!navigator.onLine) {
-    connect.style.display = "flex";
-    translatorContainer.style.display = "none";
-    header.style.display = "none";
-    return;
-  }
-
-  try {
-    const response = await fetch("https://httpbin.org" + Date.now(), {
-      method: "HEAD",
-      cache: "no-store"
-    });
-
-    if (response.ok) {
-      connect.style.display = "none";
-      translatorContainer.style.display = "block";
-      header.style.display = "flex";
-    } else {
-      connect.style.display = "flex";
-      translatorContainer.style.display = "none";
-      header.style.display = "none";
-    }
-  } catch (error) {
-    connect.style.display = "flex";
-    translatorContainer.style.display = "none";
-    header.style.display = "none";
-  }
-}
-
-setInterval(checkConnection, 1);
-
 
         inputText.focus();
         
