@@ -599,7 +599,7 @@ async function checkConnection() {
 
     if (response.ok) {
       connect.style.display = "none";
-      translatorContainer.style.display = "";
+      translatorContainer.style.display = "block";
       header.style.display = "flex";
     } else {
       connect.style.display = "flex";
@@ -614,7 +614,6 @@ async function checkConnection() {
 }
 
 setInterval(checkConnection, 1);
-
 
 
         inputText.focus();
