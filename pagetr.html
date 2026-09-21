@@ -21,32 +21,32 @@
 <h1 class="untranslatable">Untranslatable H1</h1>
 
 <script>
-const languages={
-"en":"English",
-"es":"Spanish",
-"fr":"French",
-"de":"German",
-"it":"Italian",
-"pt":"Portuguese",
-"ja":"Japanese",
-"ko":"Korean",
-"zh-CN":"Chinese (Simplified)",
-"zh-TW":"Chinese (Traditional)",
-"ar":"Arabic",
-"hi":"Hindi",
-"ru":"Russian"
+const languages = {
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "de": "Deutsch",
+    "it": "Italiano",
+    "pt": "Português",
+    "ja": "日本語",
+    "ko": "한국어",
+    "zh-CN": "中文 (简体)",
+    "zh-TW": "中文 (繁體)",
+    "ar": "العربية",
+    "hi": "हिन्दी",
+    "ru": "Русский"
 };
 
-const translationConfig=[
-{tag:"h1",translate:true},
-{tag:"h2",translate:false},
-{tag:"h3",translate:true},
-{tag:"h4",translate:false},
-{tag:".untranslatable",translate:false}
+const translationConfig = [
+    { tag: "h1", translate: true },
+    { tag: "h2", translate: false },
+    { tag: "h3", translate: true },
+    { tag: "h4", translate: false },
+    { tag: ".untranslatable", translate: false }
 ];
 
-const hostLang=document.getElementById("hostLang");
-const originalText=new Map();
+const hostLang = document.getElementById("hostLang");
+const originalText = new Map();
 
 function populateDropdowns() {
     Object.entries(languages).forEach(([code, name]) => {
@@ -56,10 +56,8 @@ function populateDropdowns() {
     hostLang.value = 'en';
 }
 
-populateDropdowns();
-
-async function translatePage(lang){
-    if(lang==="en"){
+async function translatePage(lang) {
+    if (lang === "en") {
         originalText.forEach((text, el) => {
             el.nodeValue = text;
         });
@@ -93,16 +91,25 @@ async function translatePage(lang){
     await Promise.all(textNodesToTranslate.map(async node => {
         const text = originalText.get(node);
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
+        
         try {
             const response = await fetch(url);
             const data = await response.json();
-            node.nodeValue = data[0].map(x => x[0]).join("");
+            
+            let translatedText = data[0].map(x => x[0]).join("");
+            if (translatedText.length > 0) {
+                translatedText = translatedText.charAt(0).toUpperCase() + translatedText.slice(1);
+            }
+            
+            node.nodeValue = translatedText;
         } catch (error) {
             console.error("Translation error:", error);
         }
     }));
-          }
-</script>
+}
 
+populateDropdowns();
+hostLang.addEventListener("change", () => translatePage(hostLang.value));
+</script>
 </body>
 </html>
