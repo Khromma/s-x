@@ -263,12 +263,34 @@
         }
 
         .end-line {
-          background-color: #000000;
+          background-color: #888888;
           width: 100%;
           height: 2px;
           box-sizing: border-box;
+          margin-top: 5px;
         }
-  
+
+        .lang-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            height: 35px;
+            gap: 8px;
+        }
+        
+        .lang-text {            
+          font-size: 20px;
+          line-height: 1.5;
+          color: #000000 !important;
+        }
+
+        #hostLang {
+          background-color: #ffffff !important;
+          border: 2px solid #000000 !important;
+          color: #000000 !important;
+        }
     </style>
 </head>
 <body>
@@ -345,8 +367,12 @@
         </svg>
       </div>
     </div>
-
-    <div class="end-line"></div>
+    <div class="end-line">
+    </div>
+    <div class="lang-container">
+      <p class="lang-text">Language</p>
+      <select id="hostLang"></select>
+    </div>
 
     <script>
         const languages = {
@@ -578,6 +604,7 @@
                 if (code !== 'auto') {
                     const opt2 = new Option(name, code);
                     targetLang.add(opt2);
+                    hostLang.add(opt2);
                 }
             });
 
