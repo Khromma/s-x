@@ -49,43 +49,62 @@ const hostLang=document.getElementById("hostLang");
 const originalText=new Map();
 
 function populateDropdowns() {
-            Object.entries(languages).forEach(([code, name]) => {
-                const opt1 = new Option(name, code);
-                hostLang.add(opt1);
-            });
+    Object.entries(languages).forEach(([code, name]) => {
+        const opt1 = new Option(name, code);
+        hostLang.add(opt1);
+    });
+    hostLang.value = 'en';
+}
 
-            hostLang.value = 'en';
-        }
-
-        populateDropdowns();
+populateDropdowns();
 
 async function translatePage(lang){
-if(lang==="en"){
-originalText.forEach((text,el)=>el.textContent=text);
-return;
+    if(lang==="en"){
+        originalText.forEach((text, el) => {
+            el.nodeValue = text;
+        });
+        return;
+    }
+
+    const textNodesToTranslate = [];
+    const activeTags = translationConfig.filter(r => r.translate).map(r => r.tag).join(",");
+    const excludedTags = translationConfig.filter(r => !r.translate).map(r => r.tag).join(",");
+
+    if (!activeTags) return;
+
+    document.querySelectorAll(activeTags).forEach(parentEl => {
+        if (excludedTags && parentEl.matches(excludedTags)) return;
+
+        function walk(node) {
+            if (node.nodeType === Node.ELEMENT_NODE && excludedTags && node.matches(excludedTags)) {
+                return;
+            }
+            if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
+                if (!originalText.has(node)) originalText.set(node, node.nodeValue);
+                textNodesToTranslate.push(node);
+            }
+            for (let child = node.firstChild; child; child = child.nextSibling) {
+                walk(child);
+            }
+        }
+        walk(parentEl);
+    });
+
+    await Promise.all(textNodesToTranslate.map(async node => {
+        const text = originalText.get(node);
+        const url = `https://googleapis.com{lang}&dt=t&q=${encodeURIComponent(text)}`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            node.nodeValue = data[0].map(x => x[0]).join("");
+        } catch (error) {
+            console.error(error);
+        }
+    }));
 }
 
-const elements=[];
-
-translationConfig.forEach(rule=>{
-if(rule.translate){
-document.querySelectorAll(rule.tag).forEach(el=>{
-if(!originalText.has(el))originalText.set(el,el.textContent);
-elements.push(el);
-});
-}
-});
-
-await Promise.all(elements.map(async el=>{
-const text=originalText.get(el);
-const url=`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${encodeURIComponent(text)}`;
-const response=await fetch(url);
-const data=await response.json();
-el.textContent=data[0].map(x=>x[0]).join("");
-}));
-}
-
-hostLang.addEventListener("change",()=>translatePage(hostLang.value));
+hostLang.addEventListener("change", () => translatePage(hostLang.value));
+  
 </script>
 
 </body>
