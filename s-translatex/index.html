@@ -278,6 +278,7 @@
             width: 100%;
             height: 35px;
             gap: 8px;
+            margin-top: 8px;
         }
         
         .lang-text {            
@@ -604,12 +605,17 @@
                 if (code !== 'auto') {
                     const opt2 = new Option(name, code);
                     targetLang.add(opt2);
+                }
+            });
+                if (code !== 'auto') {
+                    const opt2 = new Option(name, code);
                     hostLang.add(opt2);
                 }
             });
 
             sourceLang.value = 'auto';
             targetLang.value = 'en';
+            hostLang.value = 'en';
         }
 
         populateDropdowns();
