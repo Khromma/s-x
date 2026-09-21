@@ -46,15 +46,16 @@ const translationConfig=[
 const hostLang=document.getElementById("hostLang");
 const originalText=new Map();
 
-function populateDropdownsHL(){
-Object.entries(languages).forEach(([code,name])=>{
-const opt=new Option(name,code);
-hostLang.add(opt);
-});
-hostLang.value="en";
-}
+function populateDropdowns() {
+            Object.entries(languages).forEach(([code, name]) => {
+                const opt1 = new Option(name, code);
+                hostLang.add(opt1);
+            });
 
-populateDropdownsHL();
+            hostLang.value = 'en';
+        }
+
+        populateDropdowns();
 
 async function translatePage(lang){
 if(lang==="en"){
