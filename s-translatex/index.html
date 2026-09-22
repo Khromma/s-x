@@ -751,56 +751,6 @@ const translationConfig = [
         const clearBtn = document.getElementById('clearBtn');
 
         inputText.focus();
-
-        async function translatePage(lang) {
-if (lang === "en") {
-    originalText.forEach((text, el) => {
-el.nodeValue = text;        
-    });
-    return;
-}           
-const textNodesToTranslate = [];          
-const activeTags = translationConfig.filter(r => r.translate).map(r => r.tag).join(",");
-const excludedTags = translationConfig.filter(r => !r.translate).map(r => r.tag).join(",");
-  if (!activeTags) return;   
-
-            document.querySelectorAll(activeTags).forEach(parentEl => {
-if (excludedTags && parentEl.matches(excludedTags)) return;
-
-                function walk(node) {                
-if (node.nodeType === Node.ELEMENT_NODE && excludedTags && node.matches(excludedTags)) {
-return;
-}                  
-if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
-             if (!originalText.has(node)) originalText.set(node, node.nodeValue);
-    textNodesToTranslate.push(node);
-}
-for (let child = node.firstChild; child; child = child.nextSibling) {
-    walk(child);
-}
-                }
-                walk(parentEl);
-            });
-
-            
-await Promise.all(textNodesToTranslate.map(async node => { 
-    const text = originalText.get(node);  
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`; 
-    try { 
-        const response = await fetch(url);
-        const data = await response.json(); 
-        let translatedText = data[0].map(x => x[0]).join(""); 
-        if (translatedText.length > 0) {
-            translatedText = translatedText.charAt(0).toUpperCase() + translatedText.slice(1);
-        }
-        node.nodeValue = translatedText;
-        } catch (error) {
-        console.error("Translation error:", error);
-        }
-    }));
-}
-        
-        hostLang.addEventListener('change', () => translatePage(hostLang.value));
         
         function clearVis() {
           const val = inputText.value.trim();
@@ -958,7 +908,58 @@ hostLang.value = 'en';
             copyToClipboard(outputText.value, copyOutputBtn);
         });
 
+async function translatePage(lang) {
+    if (lang === "en") {
+        originalText.forEach((text, el) => {
+            el.nodeValue = text;
+        });
+        return;
+    }
 
+    const textNodesToTranslate = [];
+    const activeTags = translationConfig.filter(r => r.translate).map(r => r.tag).join(",");
+    const excludedTags = translationConfig.filter(r => !r.translate).map(r => r.tag).join(",");
+
+    if (!activeTags) return;
+
+    document.querySelectorAll(activeTags).forEach(parentEl => {
+        if (excludedTags && parentEl.matches(excludedTags)) return;
+
+        function walk(node) {
+            if (node.nodeType === Node.ELEMENT_NODE && excludedTags && node.matches(excludedTags)) {
+                return;
+            }
+            if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
+                if (!originalText.has(node)) originalText.set(node, node.nodeValue);
+                textNodesToTranslate.push(node);
+            }
+            for (let child = node.firstChild; child; child = child.nextSibling) {
+                walk(child);
+            }
+        }
+        walk(parentEl);
+    });
+
+    await Promise.all(textNodesToTranslate.map(async node => {
+        const text = originalText.get(node);
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
+        
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            let translatedText = data[0].map(x => x[0]).join("");
+            if (translatedText.length > 0) {
+                translatedText = translatedText.charAt(0).toUpperCase() + translatedText.slice(1);
+            }
+            
+            node.nodeValue = translatedText;
+        } catch (error) {
+            console.error("Translation error:", error);
+        }
+    }));
+}
+        
         function updateUrlParameters() {
           var slValue = sourceLang.value;
           var tlValue = targetLang.value;
