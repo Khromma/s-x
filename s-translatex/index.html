@@ -912,6 +912,15 @@ hostLang.value = 'en';
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function translatePage(lang) {
+    if (typeof originalText === 'undefined') {
+        console.error("ERROR: 'originalText' Map is not defined globally!");
+        return;
+    }
+    if (typeof translationConfig === 'undefined') {
+        console.error("ERROR: 'translationConfig' is not defined globally!");
+        return;
+    }
+
     if (lang === "en") {
         originalText.forEach((storedText, node) => {
             node.nodeValue = storedText;
@@ -951,29 +960,28 @@ async function translatePage(lang) {
         
         try {
             const response = await fetch(url);
-            if (!response.ok) {
-                console.warn(`Translation skipped for text: "${text}". Status: ${response.status}`);
-                continue;
-            }
+            if (!response.ok) continue;
             
             const data = await response.json();
-            const translatedText = data[0].map(x => x[0]).join("");
             
-            if (translatedText) {
-                node.nodeValue = translatedText;
+            if (data && data[0]) {
+                const translatedText = data[0].map(item => item && item[0] ? item[0] : "").join("");
+                if (translatedText) {
+                    node.nodeValue = translatedText;
+                }
             }
         } catch (error) {
             console.error("Translation error:", error);
         }
+
         await sleep(50);
     }
-    updateUrlParameters(hostLang.value);
 }
 
 if (typeof hostLang !== 'undefined' && hostLang) {
     hostLang.addEventListener('change', () => translatePage(hostLang.value));
 }
-        
+                
         function updateUrlParameters() {
           var hlValue = hostLang.value;
           var slValue = sourceLang.value;
