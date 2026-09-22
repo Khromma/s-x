@@ -912,21 +912,16 @@ hostLang.value = 'en';
             copyToClipboard(outputText.value, copyOutputBtn);
         });
 
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 async function translatePage(lang) {
-    if (typeof originalText === 'undefined') {
-        console.error("ERROR: 'originalText' Map is not defined globally!");
-        return;
-    }
-    if (typeof translationConfig === 'undefined') {
-        console.error("ERROR: 'translationConfig' is not defined globally!");
-        return;
-    }
+    if (typeof translationConfig === 'undefined') return;
 
     if (lang === "en") {
-        originalText.forEach((storedText, node) => {
-            node.nodeValue = storedText;
+        window.originalText.forEach((storedText, node) => {
+            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                node.text = storedText;
+            } else {
+                node.nodeValue = storedText;
+            }
         });
         return;
     }
@@ -944,9 +939,20 @@ async function translatePage(lang) {
             if (node.nodeType === Node.ELEMENT_NODE && excludedTags && node.matches(excludedTags)) {
                 return;
             }
+
+            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                if (node.text.trim() !== "") {
+                    if (!window.originalText.has(node)) {
+                        window.originalText.set(node, node.text);
+                    }
+                    textNodesToTranslate.push(node);
+                }
+                return;
+            }
+
             if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
-                if (!originalText.has(node)) {
-                    originalText.set(node, node.nodeValue);
+                if (!window.originalText.has(node)) {
+                    window.originalText.set(node, node.nodeValue);
                 }
                 textNodesToTranslate.push(node);
             }
@@ -958,7 +964,7 @@ async function translatePage(lang) {
     });
 
     for (const node of textNodesToTranslate) {
-        const text = originalText.get(node);
+        const text = window.originalText.get(node);
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
         
         try {
@@ -970,20 +976,19 @@ async function translatePage(lang) {
             if (data && data[0]) {
                 const translatedText = data[0].map(item => item && item[0] ? item[0] : "").join("");
                 if (translatedText) {
-                    node.nodeValue = translatedText;
+                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                        node.text = translatedText; // Update option text safely
+                    } else {
+                        node.nodeValue = translatedText; // Update normal text node
+                    }
                 }
             }
         } catch (error) {
-            console.error("Translation error:", error);
         }
 
         await sleep(50);
     }
-}
-
-if (typeof hostLang !== 'undefined' && hostLang) {
-    hostLang.addEventListener('change', () => translatePage(hostLang.value));
-}
+        }
                 
         function updateUrlParameters() {
           var hlValue = hostLang.value;
