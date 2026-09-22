@@ -731,10 +731,8 @@
 };
         
 const translationConfig = [
-    { tag: "h1", translate: true },
-    { tag: "h2", translate: false },
-    { tag: "h3", translate: true },
-    { tag: "h4", translate: false },
+    { tag: "h1", translate: false },
+    { tag: "#sourceLang", translate: true },
     { tag: ".untranslatable", translate: false }
 ];
 
@@ -847,9 +845,11 @@ await Promise.all(textNodesToTranslate.map(async node => {
 function populateHLDropdowns() {
     Object.entries(languages).forEach(([code, name]) => {
         const opt3 = new Option(name, code);
+        opt3.classList.add('untranslatable');
         hostLang.add(opt3);
     });
-hostLang.value = 'en';}
+hostLang.value = 'en';
+}
 
         populateDropdowns();
         populateHLDropdowns(); 
