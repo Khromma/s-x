@@ -909,10 +909,12 @@ hostLang.value = 'en';
             copyToClipboard(outputText.value, copyOutputBtn);
         });
 
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 async function translatePage(lang) {
     if (lang === "en") {
-        originalText.forEach((text, el) => {
-            el.nodeValue = text;
+        originalText.forEach((storedText, node) => {
+            node.nodeValue = storedText;
         });
         return;
     }
@@ -931,7 +933,9 @@ async function translatePage(lang) {
                 return;
             }
             if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
-                if (!originalText.has(node)) originalText.set(node, node.nodeValue);
+                if (!originalText.has(node)) {
+                    originalText.set(node, node.nodeValue);
+                }
                 textNodesToTranslate.push(node);
             }
             for (let child = node.firstChild; child; child = child.nextSibling) {
@@ -941,36 +945,45 @@ async function translatePage(lang) {
         walk(parentEl);
     });
 
-    await Promise.all(textNodesToTranslate.map(async node => {
+    for (const node of textNodesToTranslate) {
         const text = originalText.get(node);
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
         
         try {
             const response = await fetch(url);
-            const data = await response.json();
-            
-            let translatedText = data[0].map(x => x[0]).join("");
-            if (translatedText.length > 0) {
-                translatedText = translatedText.charAt(0).toUpperCase() + translatedText.slice(1);
+            if (!response.ok) {
+                console.warn(`Translation skipped for text: "${text}". Status: ${response.status}`);
+                continue;
             }
             
-            node.nodeValue = translatedText;
+            const data = await response.json();
+            const translatedText = data[0].map(x => x[0]).join("");
+            
+            if (translatedText) {
+                node.nodeValue = translatedText;
+            }
         } catch (error) {
             console.error("Translation error:", error);
         }
-    }));
+        await sleep(50);
+    }
+    updateUrlParameters(hostLang.value);
 }
 
-hostLang.addEventListener('change', () => translatePage(hostLang.value));
+if (typeof hostLang !== 'undefined' && hostLang) {
+    hostLang.addEventListener('change', () => translatePage(hostLang.value));
+}
         
         function updateUrlParameters() {
+          var hlValue = hostLang.value;
           var slValue = sourceLang.value;
           var tlValue = targetLang.value;
           var qValue = inputText.value.trim();
   
           var baseUrl = window.location.origin + window.location.pathname;
           var params = new URLSearchParams();
-  
+
+          params.set('hl', hlValue);
           params.set('sl', slValue);
           params.set('tl', tlValue);
   
@@ -986,15 +999,20 @@ hostLang.addEventListener('change', () => translatePage(hostLang.value));
          }
 
          inputText.addEventListener('input', updateUrlParameters);
+         hostLang.addEventListener('change', updateUrlParameters);
          sourceLang.addEventListener('change', updateUrlParameters);
          targetLang.addEventListener('change', updateUrlParameters);
 
          function matchInput() {
            var params = new URLSearchParams(window.location.search);
+           var hlParam = params.get('hl');
            var slParam = params.get('sl');
            var tlParam = params.get('tl');
            var qParam = params.get('q');
-  
+
+           if (hlParam) {
+             hostLang.value = hlParam;
+           }
            if (slParam) {
              sourceLang.value = slParam;
            }
@@ -1012,7 +1030,8 @@ hostLang.addEventListener('change', () => translatePage(hostLang.value));
           updateUrlParameters();
           translateText();
           clearVis();
-          updateTitleFromInput()
+          updateTitleFromInput();
+          translatePage(hostLang.value);
         }
 
         window.addEventListener('DOMContentLoaded', matchInput);
