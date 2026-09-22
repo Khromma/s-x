@@ -959,6 +959,8 @@ async function translatePage(lang) {
         }
     }));
 }
+
+hostLang.addEventListener('change', () => translatePage(hostLang.value));
         
         function updateUrlParameters() {
           var slValue = sourceLang.value;
