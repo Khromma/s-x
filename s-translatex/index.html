@@ -991,6 +991,7 @@ async function translatePage(lang) {
                 if (translatedText) {
                     if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
                         node.text = translatedText;
+                    }
                     else {
                         node.nodeValue = translatedText;
                     }
