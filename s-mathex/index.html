@@ -926,6 +926,7 @@ function updateUrlParameters() {
     history.replaceState(null, '', newUrl);
 }
 
+        window.addEventListener('DOMContentLoaded', updateUrlParameters);
 hostLang.addEventListener('change', updateUrlParameters);
 
 function matchInput() {
