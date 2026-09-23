@@ -702,6 +702,7 @@ function calculate() {
     const baseUrl = window.location.origin + window.location.pathname;
     const params = new URLSearchParams();
 
+    params.set('hl', hostLang.value);
     params.set('a', previousInput);
     params.set('op', getUrlOperator(currentOperator));
     params.set('b', secondValue);
