@@ -272,6 +272,10 @@
           min-width: 160px !important;
           font-size: 12px !important;
         }
+
+        select:focus {
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -713,17 +717,29 @@ function calculate() {
     updateTitleFromDisplay();
 }      
 
-function clearAll() {
+    function clearAll() {
     currentInput = '0';
     previousInput = '';
     operator = null;
     shouldResetDisplay = false;
     historyDisplay.innerText = '';
-    const baseUrl = window.location.origin + window.location.pathname;
+    
+    const params = new URLSearchParams(window.location.search);
+    const hl = params.get('hl');
+    
+    const newParams = new URLSearchParams();
+    if (hl) {
+        newParams.set('hl', hl);
+    }
+    
+    const queryString = newParams.toString() ? '?' + newParams.toString() : '';
+    const baseUrl = window.location.origin + window.location.pathname + queryString;
+    
     history.replaceState(null, '', baseUrl);
+    
     updateDisplay();
     updateTitleFromDisplay();
-}
+    }
 
 function deleteLast() {
     if (shouldResetDisplay) return;
