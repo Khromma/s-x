@@ -377,9 +377,8 @@
       <p class="lang-text">Language</p>
       <select id="hostLang"></select>
     </div>
-    <div id="debug-status" style="padding: 10px; background: #eee; color: #333; font-size: 14px; margin: 10px 0;">Status: Waiting...</div>
-
-    <script>
+    
+        <script>
         const languages = {
             "auto": "Detect language",
             "ab": "Abkhaz",
@@ -738,6 +737,7 @@ const translationConfig = [
     { tag: "h1", translate: false },
     { tag: "option", translate: true },
     { tag: ".untranslatable", translate: false },
+    { tag: "span", translate: true},
     { tag: ".lang-text", translate: true }
 ];
 
@@ -995,7 +995,7 @@ async function translatePage(lang) {
         } catch (error) {
         }
 
-        await sleep(50);
+        await sleep(0);
     }
 }
 
