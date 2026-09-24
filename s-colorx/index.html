@@ -815,6 +815,10 @@ function updateUrlParameters(applyBtn) {
 }
 
 hostLang.addEventListener('change', updateUrlParameters);
+
+        setTimeout(() => {
+            updateUrlParameters();
+        }, 10);
         
 function matchInput() {
     var params = new URLSearchParams(window.location.search);
