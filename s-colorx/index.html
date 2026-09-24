@@ -790,6 +790,7 @@ if (typeof hostLang !== 'undefined' && hostLang) {
         }
 
 function updateUrlParameters(applyBtn) {
+    var hlValue = hostLang.value;
     var rValue = document.getElementById('rval').value || '255';
     var gValue = document.getElementById('gval').value || '255';
     var bValue = document.getElementById('bval').value || '255';
@@ -798,6 +799,7 @@ function updateUrlParameters(applyBtn) {
     var baseUrl = window.location.origin + window.location.pathname;
     var params = new URLSearchParams();
 
+    params.set('hl', hlValue);
     params.set('hex', hexValue);
     params.set('r', rValue);
     params.set('g', gValue);
