@@ -814,10 +814,12 @@ function updateUrlParameters(applyBtn) {
     updateTitleFromColors();
 }
 
-hostLang.addEventListener('change', updateUrlParameters);
+hostLang.addEventListener('change', () => {
+    updateUrlParameters(hex);
+});
 
         setTimeout(() => {
-            updateUrlParameters();
+            updateUrlParameters('hex');
         }, 10);
         
 function matchInput() {
