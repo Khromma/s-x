@@ -829,6 +829,11 @@ function getCalculatorOperator(op) {
 window.originalText = window.originalText || new Map();
 
 async function translatePage(lang) {
+    const newParamets = new URLSearchParams(window.location.search);
+    const hlParamet = newParamets.get('hl');
+    
+    newParamets.set('hl', hostLang.value);
+    
     if (typeof translationConfig === 'undefined') return;
 
     if (lang === "en") {
@@ -1012,7 +1017,6 @@ function updateTitleFromDisplay() {
     document.title = baseTitle;
   }
 }
-hostLang.addEventListener('change', updateUrlParameters);
 </script>
 </body>
 </html>
