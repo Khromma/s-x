@@ -551,6 +551,121 @@ const hostLanguages = {
     "zh-CN": "简体中文",
     "zh-TW": "繁體中文"
 };
+        const translationConfig = [
+    { tag: "h1", translate: false },
+    { tag: "option", translate: true },
+    { tag: ".untranslatable", translate: false },
+    { tag: "label", translate: true },
+    { tag: "h3", translate: true },
+    { tag: ".lang-text", translate: true }
+];
+        
+        const hostLang = document.getElementById('hostLang');
+
+        function populateHLDropdowns() {
+    Object.entries(hostLanguages).forEach(([code, name]) => {
+        const opt3 = new Option(name, code);
+        opt3.classList.add('untranslatable');
+        hostLang.add(opt3);
+    });
+hostLang.value = 'en';
+        }
+        
+        populateHLDropdowns();
+        
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+window.originalText = window.originalText || new Map();
+
+async function translatePage(lang) {
+    if (typeof translationConfig === 'undefined') return;
+
+    if (lang === "en") {
+        window.originalText.forEach((storedText, node) => {
+            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                node.text = storedText;
+            } 
+            
+            else {
+                node.nodeValue = storedText;
+            }
+        });
+        return;
+    }
+
+    const textNodesToTranslate = [];
+    const activeTags = translationConfig.filter(r => r.translate).map(r => r.tag).join(",");
+    const excludedTags = translationConfig.filter(r => !r.translate).map(r => r.tag).join(",");
+
+    if (!activeTags) return;
+
+    document.querySelectorAll(activeTags).forEach(parentEl => {
+        if (excludedTags && parentEl.matches(excludedTags)) return;
+
+        function walk(node) {
+            if (node.nodeType === Node.ELEMENT_NODE && excludedTags && node.matches(excludedTags)) {
+                return;
+            }
+
+            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                if (node.text.trim() !== "") {
+                    if (!window.originalText.has(node)) {
+                        window.originalText.set(node, node.text);
+                    }
+                    textNodesToTranslate.push(node);
+                }
+                return;
+            }
+
+            if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
+                if (!window.originalText.has(node)) {
+                    window.originalText.set(node, node.nodeValue);
+                }
+                textNodesToTranslate.push(node);
+            }
+            for (let child = node.firstChild; child; child = child.nextSibling) {
+                walk(child);
+            }
+        }
+        walk(parentEl);
+    });
+
+    for (const node of textNodesToTranslate) {
+        const text = window.originalText.get(node);
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
+        
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+            const response = await fetch(url, { signal: controller.signal });
+            clearTimeout(timeoutId);
+
+            if (!response.ok) continue;
+            
+            const data = await response.json();
+            
+            if (data && data[0]) {
+                const translatedText = data[0].map(item => item && item[0] ? item[0] : "").join("");
+                if (translatedText) {
+                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                        node.text = translatedText;
+                    }
+                    else {
+                        node.nodeValue = translatedText;
+                    }
+                }
+            }
+        } catch (error) {
+        }
+
+        await sleep(0);
+    }
+}
+
+if (typeof hostLang !== 'undefined' && hostLang) {
+    hostLang.addEventListener('change', () => translatePage(hostLang.value));
+}
         
         document.getElementById('hexarg').focus();
         
@@ -698,15 +813,22 @@ function updateUrlParameters(applyBtn) {
     history.replaceState(null, '', newUrl);
     updateTitleFromColors();
 }
+
+hostLang.addEventListener('change', updateUrlParameters);
         
 function matchInput() {
     var params = new URLSearchParams(window.location.search);
+    var hlParam = params.get('hl');
     var hexParam = params.get('hex');
     var rParam = params.get('r');
     var gParam = params.get('g');
     var bParam = params.get('b');
     var applyParam = params.get('apply');
 
+    if (hlParam) {
+        hostLang.value = hlParam;
+    }
+    
     if (hexParam !== null) {
         document.getElementById('hexarg').value = hexParam;
     }
@@ -736,6 +858,7 @@ function matchInput() {
     }
     
     updateTitleFromColors();
+    translatePage(hostLang.value);
 }
 
 window.addEventListener('DOMContentLoaded', matchInput);
