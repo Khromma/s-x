@@ -820,10 +820,6 @@ hostLang.addEventListener('change', () => {
     updateUrlParameters();
 });
 
-        setTimeout(() => {
-            updateUrlParameters('hex');
-        }, 10);
-        
 function matchInput() {
     var params = new URLSearchParams(window.location.search);
     var hlParam = params.get('hl');
