@@ -722,7 +722,7 @@ if (typeof hostLang !== 'undefined' && hostLang) {
             const b = document.getElementById('bval').value || '255';
 
             const utterance = new SpeechSynthesisUtterance(`RGB ${r}, ${g}, ${b}`);
-            utterance.lang = 'en-US';
+            utterance.lang = hostLang.value;
 
             window.speechSynthesis.speak(utterance);
             document.getElementById('rval').focus();
@@ -738,7 +738,7 @@ if (typeof hostLang !== 'undefined' && hostLang) {
 
             const hex = document.getElementById('hexarg').value.replace('#', '') || 'ffffff';
             const utterance = new SpeechSynthesisUtterance(`Hex ${hex.split('').join(' ')}`);
-            utterance.lang = 'en-US';
+            utterance.lang = hostLang.value;
 
             window.speechSynthesis.speak(utterance);
             document.getElementById('hexarg').focus();
