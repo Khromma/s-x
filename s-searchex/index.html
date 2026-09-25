@@ -67,7 +67,8 @@
         .search-bar {
            width: 100%;
            max-width: 1400px;
-           padding: 12px 20px;
+           min-height: 25px;
+           padding: 0;
            margin: 20px auto;
            display: flex;
            flex-direction: row
@@ -83,7 +84,8 @@
         }
 
         textarea {
-          
+          min-height: 20px;
+          width: auto;
         }
     </style>
   </head>
@@ -94,6 +96,8 @@
     </header>
 
     <div class="search-bar"></div>
+
+    <textarea></textarea>
     
     <script async src="https://cse.google.com/cse.js?cx=11311254f375c4285"></script>
     <div class="gcse-search"></div>
