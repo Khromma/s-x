@@ -65,30 +65,42 @@
         }
 
         .search-bar {
-           width: 100%;
-           max-width: 700px;
-           min-height: 25px;
-           padding: 0;
-           margin: 20px auto;
-           display: flex;
-           flex-direction: row
-           gap: 12px;
-           font-size: 16px;
-           border: 2px solid #ccc;
-           border-radius: 25px;
-           outline: none;
-           box-sizing: border-box;
-           cursor: pointer;
-           white-space: pre-wrap;
-           word-break: break-word;
+            width: 100%;
+            max-width: 700px;
+            min-height: 48px;
+            padding: 0 20px;
+            margin: 20px auto;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            box-sizing: border-box;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;            
+            gap: 12px;
+            align-items: center;
         }
 
-        textarea {
-          min-height: 20px;
-          min-width: 40px;
-          field-sizing: content;
-          resize: none;
+        .search-text {
+            flex: 1;
+            font-size: 16px;
+            font-family: inherit;
+            background: transparent;
+            border: none;
+            outline: none;
+            resize: none;
+            padding: 12px 0;
+            box-sizing: border-box;
+            field-sizing: content;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow: hidden;
         }
+
+        .search-bar:focus-within {
+            border-color: #007bff;
+            cursor: text;
+        }
+
     </style>
   </head>
   <body>
@@ -98,7 +110,7 @@
     </header>
 
     <div class="search-bar">
-      <textarea></textarea>
+      <textarea class="search-text" rows="1" placeholder="Search..."></textarea>
     </div>
 
     
