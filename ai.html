@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello & Goodbye AI</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #0f172a;
+        font-family: Arial, sans-serif;
+    }
+
+    .ai {
+        width: 300px;
+        padding: 25px;
+        border-radius: 20px;
+        background: #1e293b;
+        color: white;
+        text-align: center;
+    }
+
+    #response {
+        min-height: 30px;
+        margin-bottom: 15px;
+        font-size: 22px;
+    }
+
+    input {
+        width: 90%;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+        font-size: 16px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="ai">
+    <div id="response">Say hello!</div>
+    <input id="input" type="text" placeholder="Talk to the AI...">
+</div>
+
+<script>
+const input = document.getElementById("input");
+const response = document.getElementById("response");
+
+input.addEventListener("keydown", event => {
+    if (event.key !== "Enter") return;
+
+    const message = input.value.toLowerCase().trim();
+
+    if (/^(hi|hello|hey|greetings)\b/.test(message)) {
+        response.textContent = "Hello!";
+    } else if (/\b(goodbye|bye|see you)\b/.test(message)) {
+        response.textContent = "Goodbye!";
+    } else {
+        response.textContent = "I only know hello and goodbye.";
+    }
+
+    input.value = "";
+});
+</script>
+
+</body>
+
+</html>
