@@ -154,7 +154,7 @@ function sendMessage() {
     } else if (/\b(goodbye|bye|see you)\b/.test(lower)) {
         reply = "Goodbye! 👋";
     } else if (/\b(open|opn)\b/.test(lower)) {
-        reply = `<iframe style="width: 100px; height: 100px;" src="https://www.google.com">No content</iframe>`;
+        reply = `<iframe style="width: 100px; height: 100px; border: 0;" src="https://www.google.com" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">No content</iframe>`;
     } else {
         reply = "I only understand greetings and goodbyes.";
     }
