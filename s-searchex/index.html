@@ -102,7 +102,11 @@
            justify-content: center;
            width: 40px;
            height: 40px;
-           background: transparent;
+           background: 
+               radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
+               radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
+               radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
+               radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
            border: none;
            border-radius: 50%;
            color: #000000;
@@ -137,9 +141,14 @@
 
     <div class="search-bar">
       <button class="search-btn" id="searchBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <button class="search-btn" id="clearBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+           <path d="M8 8L16 16M16 8L8 16" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
       <textarea class="search-text" id="searchText" rows="1" placeholder="Search..."></textarea>
