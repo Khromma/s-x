@@ -85,6 +85,56 @@
             color: #000000 !important;
         }
 
+        .end-line {
+          background-color: #888888;
+          width: 100%;
+          height: 2px;
+          box-sizing: border-box;
+          margin-top: 7px;
+        }
+
+        .lang-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            height: 35px;
+            gap: 8px;
+            margin-top: 12px;
+            margin-left: 8px;
+        }
+        
+        .lang-text {            
+          font-size: 15px;
+          line-height: 1.5;
+          color: #000000 !important;
+        }
+
+        #hostLang {
+          padding: 10px 6px;
+          border-radius: 25px;
+          outline: none;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          flex: 0 0 80px !important;
+          background-color: #ffffff !important;
+          border: 2px solid #888888 !important;
+          color: #000000 !important;
+          height: 40px !important;
+          width: 160px !important;
+          min-width: 160px !important;
+          font-size: 12px !important;
+        }
+
+        select:focus {
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
     </style>    
     </head>
     <body>
@@ -95,6 +145,14 @@
         <div class="info">
             <p class="info-text">The requested URL was not found, it might be temporally disabled or it might have moved, check any typo in the URL.</p>
         </div>
+
+        <div class="end-line">
+        </div>
+        <div class="lang-container">
+          <p class="lang-text">Language</p>
+          <select id="hostLang"></select>
+        </div>
+
         <script>
             function toggleFontColor() {
                 colorText.innerHTML = colorText.textContent.split('').map(l => l === ' ' ? ' ' : `<span class="color-text">${l}</span>`).join('');
