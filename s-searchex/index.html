@@ -201,9 +201,13 @@
 
         function search() {
           const searchQuery = searchText.value.trim();
-          const baseDir = "search/";
-          const newDir = `${baseDir}?q=${searchQuery}`;
-          window.location.href = newDir;
+          if (searchQuery !== '') {
+            const baseDir = "search/";
+            const newDir = `${baseDir}?q=${searchQuery}`;
+            window.location.href = newDir;
+          } else if (searchQuery === '') {
+            return;
+          }
         }
 
         searchBtn.addEventListener('click', () => {
