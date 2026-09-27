@@ -211,11 +211,11 @@
         }
 
         searchBtn.addEventListener('click', () => {
-          setTimeout(search, 1000);
+          setTimeout(search, 500);
         });
         searchText.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
-            setTimeout(search, 1000);
+            setTimeout(search, 500);
           }
         });
 
@@ -239,8 +239,6 @@
           searchText.value = "";
           clearVis();
           searchText.focus();
-          //updateUrlParameters(); Get rid of the slashes and this text
-          //updateTitleFromInput(); 
         }
 
         clearBtn.addEventListener('click', clearInput);
