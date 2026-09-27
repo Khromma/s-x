@@ -38,14 +38,19 @@
             background: transparent;
             box-sizing: border-box;
             display: flex;
+            gap: 2px;
             flex-direction: row;            
             align-items: center;
             justify-content: center;
          }
       
-         .color-text {
+         .color-text, .exc-sign {
              font-size: 40px;
              font-weight: bold;
+         }
+
+         .exc-sign {
+             color: #000000 !important;
          }
       
          .color-text:nth-child(4n+1 of .color-text) {
@@ -67,11 +72,12 @@
     </head>
     <body>
         <div class="color-text-container">
-            <p class="color-text" id="colorText">OOPS!</p>
+            <p class="color-text" id="colorText">OOPS</p>
+            <p class="exc-sign">!</p>
         </div>
         <script>
             function toggleFontColor() {
-                colorText.innerHTML = colorText.textContent.split('').map(l => l === '!' ? '!' : `<span class="color-text">${l}</span>`).join('');
+                colorText.innerHTML = colorText.textContent.split('').map(l => l === ' ' ? ' ' : `<span class="color-text">${l}</span>`).join('');
             }
 
             toggleFontColor();
