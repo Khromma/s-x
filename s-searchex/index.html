@@ -199,11 +199,11 @@
         const searchBtn = document.getElementById('searchBtn');
         const clearBtn = document.getElementById('clearBtn');
 
-        function search() {
-          const searchQuery = searchText.value.trim();
+        function search(query) {
+          const searchQuery = query;
           if (searchQuery !== '') {
             const baseDir = "search/";
-            const newDir = `${baseDir}?q=${searchQuery}`;
+            const newDir = `${baseDir}?q=${encodeURIComponent(searchQuery)}`;
             window.location.href = newDir;
           } else if (searchQuery === '') {
             return;
@@ -211,11 +211,15 @@
         }
 
         searchBtn.addEventListener('click', () => {
-          setTimeout(search, 500);
+          setTimeout(() => {
+            search(searchText.value.trim())
+          }, 500);
         });
         searchText.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
-            setTimeout(search, 500);
+            setTimeout(() => {
+              search(searchText.value.trim())
+            }, 500);
           }
         });
 
