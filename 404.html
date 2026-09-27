@@ -3,20 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página no encontrada - Error 404</title>
+    <title>Page not found - S-X A new universe</title>
     <style>
-        .oops-image {
-            width: 200px;
-            height: 200px;
+        .color-text-container {
+            width: 100%;
+            margin-top: 84px;
+            margin-bottom: 12px;
+            background: transparent;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;            
+            align-items: center;
+            justify-content: center;
+         }
+      
+         .color-text {
+             font-size: 40px;
+             font-weight: bold;
+         }
+      
+         .color-text:nth-child(4n+1 of .color-text) {
+             color: var(--sxpr);
+         }
+
+        .color-text:nth-child(4n+2 of .color-text) {
+            color: var(--sxib);
+        }
+
+        .color-text:nth-child(4n+3 of .color-text) {
+            color: var(--sxgy);
+        }
+
+        .color-text:nth-child(4n+4 of .color-text) {
+            color: var(--sxcg);
         }
     </style>    
     </head>
-<body>
-    <div style="text-align: center; padding: 100px 20px; font-family: sans-serif;">
-        <h1>¡Vaya! Esta página no existe.</h1>
-        <p>Parece que el enlace está roto o la página se ha movido.</p>
-        
-        <a href="/s-x/" style="color: #0366d6; text-decoration: none; font-weight: bold;">Volver al inicio</a>
-    </div>
-</body>
+    <body>
+        <div class="color-text-container">
+            <p class="color-text" id="colorText">OOPS!</p>
+        </div>
+        <script>
+            function toggleFontColor() {
+                colorText.innerHTML = colorText.textContent.split('').map(l => l === '!' ? '!' : `<span class="color-text">${l}</span>`).join('');
+            }
+
+            toggleFontColor();
+        </script>
+    </body>
 </html>
