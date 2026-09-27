@@ -192,13 +192,19 @@
     </div>
 
     <script>
-        const colorText = document.getElementById('colorText');
-        colorText.innerHTML = colorText.textContent.split('').map(l => l === ' ' ? ' ' : `<span class="color-text">${l}</span>`).join('');
-
         const searchText = document.getElementById('searchText');
         const searchBtn = document.getElementById('searchBtn');
         const clearBtn = document.getElementById('clearBtn');
+        const colorText = document.getElementById('colorText');
 
+        searchText.focus();
+      
+        function toggleFontColor() {
+          colorText.innerHTML = colorText.textContent.split('').map(l => l === ' ' ? ' ' : `<span class="color-text">${l}</span>`).join('');
+        }
+
+        toggleFontColor();
+      
         function search(query) {
           const searchQuery = query;
           if (searchQuery !== '') {
@@ -222,8 +228,6 @@
             }, 500);
           }
         });
-
-        searchText.focus();
       
         function clearVis() {
           const val = searchText.value.trim();
