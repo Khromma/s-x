@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador Global con JavaScript</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f8f9fa;
+            color: #202124;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #de5833;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            display: flex;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 5px 15px;
+            background: #fff;
+        }
+        .search-box:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        input[type="text"] {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            padding: 10px;
+        }
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #de5833;
+            font-weight: bold;
+        }
+        .results-container {
+            width: 100%;
+            max-width: 650px;
+        }
+        .result-item {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+        .result-title {
+            font-size: 18px;
+            color: #1a0dab;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+        }
+        .result-title:hover {
+            text-decoration: underline;
+        }
+        .result-url {
+            font-size: 13px;
+            color: #006621;
+            word-break: break-all;
+            display: block;
+            margin-top: 2px;
+        }
+        .result-snippet {
+            font-size: 14px;
+            color: #4d5156;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+        .status-msg {
+            color: #70757a;
+            font-style: italic;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-container">
+        <h1>🔍 JS Search Engine</h1>
+        <div class="search-box">
+            <input type="text" id="query" placeholder="Escribe algo y presiona Enter..." autocomplete="off">
+            <button id="searchBtn">Buscar</button>
+        </div>
+    </div>
+
+    <!-- Aquí es donde JavaScript inyectará las respuestas en tiempo real -->
+    <div id="results" class="results-container"></div>
+
+    <script>
+        const queryInput = document.getElementById('query');
+        const searchBtn = document.getElementById('searchBtn');
+        const resultsContainer = document.getElementById('results');
+
+        // Función principal que conecta con la API externa y gratuita
+        async function performSearch() {
+            const query = queryInput.value.trim();
+            if (!query) return;
+
+            resultsContainer.innerHTML = '<p class="status-msg">Buscando resultados...</p>';
+
+            try {
+                // Usamos la API de respuestas instantáneas de DuckDuckGo (formato JSON)
+                const response = await fetch(`https://duckduckgo.com{encodeURIComponent(query)}&format=json&no_html=1`);
+                const data = await response.json();
+
+                resultsContainer.innerHTML = ''; // Limpiar mensaje de carga
+
+                let htmlContent = '';
+
+                // 1. Verificar si hay un resultado abstracto principal (Wikipedia/Enciclopedias)
+                if (data.Heading && data.AbstractText) {
+                    htmlContent += `
+                        <div class="result-item">
+                            <a class="result-title" href="${data.AbstractURL}" target="_blank">${data.Heading} (Respuesta Directa)</a>
+                            <span class="result-url">${data.AbstractURL}</span>
+                            <p class="result-snippet">${data.AbstractText}</p>
+                        </div>
+                    `;
+                }
+
+                // 2. Recorrer la lista de temas relacionados sugeridos
+                if (data.RelatedTopics && data.RelatedTopics.length > 0) {
+                    data.RelatedTopics.forEach(item => {
+                        // Saltamos elementos que sean subcategorías agrupadas para mantenerlo simple
+                        if (item.Text && item.FirstURL) {
+                            htmlContent += `
+                                <div class="result-item">
+                                    <a class="result-title" href="${item.FirstURL}" target="_blank">${item.Text.split(' - ')[0] || 'Resultado'}</a>
+                                    <span class="result-url">${item.FirstURL}</span>
+                                    <p class="result-snippet">${item.Text}</p>
+                                </div>
+                            `;
+                        }
+                    });
+                }
+
+                // Si no se encontró absolutamente nada
+                if (htmlContent === '') {
+                    resultsContainer.innerHTML = '<p class="status-msg">❌ No se encontraron respuestas directas para esta búsqueda. Intenta con algo más general (ej: "JavaScript", "HTML", "Planeta Marte").</p>';
+                } else {
+                    resultsContainer.innerHTML = htmlContent;
+                }
+
+            } catch (error) {
+                console.error("Error al buscar:", error);
+                resultsContainer.innerHTML = '<p class="status-msg" style="color: red;">❌ Ocurrió un error al conectar con la API de búsqueda.</p>';
+            }
+        }
+
+        // Escuchar el clic del botón
+        searchBtn.addEventListener('click', performSearch);
+
+        // Escuchar si el usuario presiona la tecla 'Enter' en el teclado
+        queryInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+
+</body>
+</html>
