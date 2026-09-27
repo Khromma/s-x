@@ -64,6 +64,36 @@
             color: #000000 !important;
         }
 
+         .color-text-container {
+            width: 100%;
+            margin: 20px auto;
+            background: transparent;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;            
+            align-items: center;
+         }
+         .color-text {
+             font-size: 26px;
+             font-weight: bold;
+         }
+      
+         .color-text:nth-child(4n+1) {
+             color: var(--sxpr);
+         }
+
+        .color-text:nth-child(4n+2) {
+            color: var(--sxib);
+        }
+
+        .color-text:nth-child(4n+3) {
+            color: var(--sxgy);
+        }
+
+        .color-text:nth-child(4n+4) {
+            color: var(--sxcg);
+        }
+
         .search-bar {
             width: 100%;
             max-width: 700px;
@@ -78,7 +108,6 @@
             flex-direction: row;            
             gap: 12px;
             align-items: center;
-            transition: all 0.2s ease;
         }
 
         .search-text {
@@ -140,6 +169,9 @@
         <h1>S-Searchex</h1>
     </header>
 
+    <div class="color-text-container">
+      <p class="color-text">Search the web</p>
+    </div>
     <div class="search-bar">
       <button class="search-btn" id="searchBtn">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
