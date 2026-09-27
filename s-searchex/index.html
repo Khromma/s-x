@@ -158,6 +158,34 @@
     <script>
       const searchText = document.getElementById('searchText');
       const searchBtn = document.getElementById('searchBtn');
+      const clearBtn = document.getElementById('clearBtn');
+
+      searchText.focus();
+      
+      function clearVis() {
+          const val = searchText.value.trim();
+          if (val === '') {
+            clearBtn.style.display = "none";
+          }
+          else {
+            clearBtn.style.display = "";
+          }
+        }
+
+        clearVis();
+        
+        searchText.addEventListener('input', clearVis);
+
+        function clearInput() {
+          searchText.value = "";
+          clearVis();
+          searchText.focus();
+          //updateUrlParameters(); Get rid of the slashes and this text
+          //updateTitleFromInput(); 
+        }
+
+        clearBtn.addEventListener('click', clearInput);
+
     </script>
   </body>
 </html>
