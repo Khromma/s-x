@@ -192,16 +192,32 @@
     </div>
 
     <script>
-      const colorText = document.getElementById('colorText');
-      colorText.innerHTML = colorText.textContent.split('').map(l => l === ' ' ? ' ' : `<span class="color-text">${l}</span>`).join('');
+        const colorText = document.getElementById('colorText');
+        colorText.innerHTML = colorText.textContent.split('').map(l => l === ' ' ? ' ' : `<span class="color-text">${l}</span>`).join('');
 
-      const searchText = document.getElementById('searchText');
-      const searchBtn = document.getElementById('searchBtn');
-      const clearBtn = document.getElementById('clearBtn');
+        const searchText = document.getElementById('searchText');
+        const searchBtn = document.getElementById('searchBtn');
+        const clearBtn = document.getElementById('clearBtn');
 
-      searchText.focus();
+        function search() {
+          const searchQuery = searchText.value.trim();
+          const baseDir = "search/";
+          const newDir = `${baseDir}?q=${searchQuery}`;
+          window.location.href = newDir;
+        }
+
+        searchBtn.addEventListener('click', () => {
+          setTimeout(search, 1000);
+        });
+        searchText.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            setTimeout(search, 1000);
+          }
+        });
+
+        searchText.focus();
       
-      function clearVis() {
+        function clearVis() {
           const val = searchText.value.trim();
           if (val === '') {
             clearBtn.style.display = "none";
