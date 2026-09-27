@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador Global con JavaScript</title>
+    <title>Buscador Global Estricto con JavaScript</title>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -99,12 +99,11 @@
     <div class="search-container">
         <h1>🔍 JS Search Engine</h1>
         <div class="search-box">
-            <input type="text" id="query" placeholder="Escribe algo y presiona Enter..." autocomplete="off">
+            <input type="text" id="query" placeholder="Prueba buscando: JavaScript, Marte, Wikipedia..." autocomplete="off">
             <button id="searchBtn">Buscar</button>
         </div>
     </div>
 
-    <!-- Aquí es donde JavaScript inyectará las respuestas en tiempo real -->
     <div id="results" class="results-container"></div>
 
     <script>
@@ -112,41 +111,43 @@
         const searchBtn = document.getElementById('searchBtn');
         const resultsContainer = document.getElementById('results');
 
-        // Función principal que conecta con la API externa y gratuita
         async function performSearch() {
             const query = queryInput.value.trim();
             if (!query) return;
 
-            resultsContainer.innerHTML = '<p class="status-msg">Buscando resultados...</p>';
+            resultsContainer.innerHTML = '<p class="status-msg">Buscando resultados globales...</p>';
 
             try {
-                // Usamos la API de respuestas instantáneas de DuckDuckGo (formato JSON)
-                const response = await fetch(`https://duckduckgo.com/?q={encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`);
+                // Usamos el proxy para saltar el bloqueo CORS del navegador
+                const proxyUrl = "https://herokuapp.com";
+                
+                // TU URL SOLICITADA: Estructura exacta con formato JSON y omisión de desambiguaciones
+                const targetUrl = `https://duckduckgo.com{encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`;
+                
+                const response = await fetch(proxyUrl + targetUrl);
                 const data = await response.json();
 
-                resultsContainer.innerHTML = ''; // Limpiar mensaje de carga
-
+                resultsContainer.innerHTML = ''; 
                 let htmlContent = '';
 
-                // 1. Verificar si hay un resultado abstracto principal (Wikipedia/Enciclopedias)
+                // 1. Mostrar respuesta abstracta directa (ahora más precisa gracias a skip_disambig)
                 if (data.Heading && data.AbstractText) {
                     htmlContent += `
                         <div class="result-item">
-                            <a class="result-title" href="${data.AbstractURL}" target="_blank">${data.Heading} (Respuesta Directa)</a>
+                            <a class="result-title" href="${data.AbstractURL}" target="_blank">${data.Heading}</a>
                             <span class="result-url">${data.AbstractURL}</span>
                             <p class="result-snippet">${data.AbstractText}</p>
                         </div>
                     `;
                 }
 
-                // 2. Recorrer la lista de temas relacionados sugeridos
+                // 2. Recorrer y renderizar la lista de tópicos e hipervínculos relacionados
                 if (data.RelatedTopics && data.RelatedTopics.length > 0) {
                     data.RelatedTopics.forEach(item => {
-                        // Saltamos elementos que sean subcategorías agrupadas para mantenerlo simple
                         if (item.Text && item.FirstURL) {
                             htmlContent += `
                                 <div class="result-item">
-                                    <a class="result-title" href="${item.FirstURL}" target="_blank">${item.Text.split(' - ')[0] || 'Resultado'}</a>
+                                    <a class="result-title" href="${item.FirstURL}" target="_blank">${item.Text.split(' - ')[0] || 'Resultado Web'}</a>
                                     <span class="result-url">${item.FirstURL}</span>
                                     <p class="result-snippet">${item.Text}</p>
                                 </div>
@@ -155,28 +156,20 @@
                     });
                 }
 
-                // Si no se encontró absolutamente nada
                 if (htmlContent === '') {
-                    resultsContainer.innerHTML = '<p class="status-msg">❌ No se encontraron respuestas directas para esta búsqueda. Intenta con algo más general (ej: "JavaScript", "HTML", "Planeta Marte").</p>';
+                    resultsContainer.innerHTML = '<p class="status-msg">❌ No se encontraron resultados directos. Intenta con un término más global.</p>';
                 } else {
                     resultsContainer.innerHTML = htmlContent;
                 }
 
             } catch (error) {
-                console.error("Error al buscar:", error);
-                resultsContainer.innerHTML = '<p class="status-msg" style="color: red;">❌ Ocurrió un error al conectar con la API de búsqueda.</p>';
+                console.error("Error en la petición:", error);
+                resultsContainer.innerHTML = '<p class="status-msg" style="color: red;">❌ Error al conectar. Asegúrate de activar el proxy haciendo clic en <a href="https://herokuapp.comcorsdemo" target="_blank">este enlace</a> y presionando el botón "Request temporary access".</p>';
             }
         }
 
-        // Escuchar el clic del botón
         searchBtn.addEventListener('click', performSearch);
-
-        // Escuchar si el usuario presiona la tecla 'Enter' en el teclado
-        queryInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
+        queryInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
     </script>
 
 </body>
