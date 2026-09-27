@@ -68,12 +68,19 @@
         .color-text:nth-child(4n+4 of .color-text) {
             color: var(--sxcg);
         }
+
+        .info-text {
+            font-size: 16px;
+            color: #000000 !important;
+        }
+
     </style>    
     </head>
     <body>
         <div class="color-text-container">
             <p class="color-text" id="colorText">OOPS</p>
             <p class="exc-sign">!</p>
+            <p class="info-text">The requested URL was not found, it might be temporally or it might have moved.</p>
         </div>
         <script>
             function toggleFontColor() {
