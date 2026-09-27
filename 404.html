@@ -34,7 +34,7 @@
 
         .color-text-container {
             width: 100%;
-            margin-top: 84px;
+            margin-top: 36px;
             margin-bottom: 12px;
             background: transparent;
             box-sizing: border-box;
@@ -70,6 +70,18 @@
             color: var(--sxcg);
         }
 
+        .info {
+            width: 100%;
+            margin-top: 12px;
+            margin-right: 24px;
+            background: transparent;
+            box-sizing: border-box;
+            display: flex;
+            gap: 2px;
+            flex-direction: row;            
+            align-items: flex-start;
+            justify-content: center;
+        }
         .info-text {
             font-size: 16px;
             color: #000000 !important;
@@ -82,7 +94,9 @@
             <p class="color-text" id="colorText">OOPS</p>
             <p class="exc-sign">!</p>
         </div>
-        <p class="info-text">The requested URL was not found, it might be temporally or it might have moved.</p>
+        <div class="info">
+            <p class="info-text">The requested URL was not found, it might be temporally disabled or it might have moved.</p>
+        </div>
         <script>
             function toggleFontColor() {
                 colorText.innerHTML = colorText.textContent.split('').map(l => l === ' ' ? ' ' : `<span class="color-text">${l}</span>`).join('');
