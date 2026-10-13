@@ -454,28 +454,20 @@ populateHLDropdowns();
 
         toggleFontColor();
       
-        function search(query) {
+        function search(query, lang) {
           const searchQuery = query;
-          if (searchQuery !== '') {
+          const pageLang = lang;
+          if (searchQuery !== '' && pageLang !== null) {
             const baseDir = "search/";
-            const newDir = `${baseDir}?q=${encodeURIComponent(searchQuery)}`;
+            const newDir = `${baseDir}?hl=${pageLang}&q=${encodeURIComponent(searchQuery)}`;
             window.location.href = newDir;
-          } else if (searchQuery === '') {
+          } else if (searchQuery === '' || pageLang === null) {
             return;
           }
         }
 
         searchBtn.addEventListener('click', () => {
-          setTimeout(() => {
-            search(searchText.value.trim())
-          }, 500);
-        });
-        searchText.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            setTimeout(() => {
-              search(searchText.value.trim())
-            }, 500);
-          }
+            search(searchText.value.trim(), hostLang.value);
         });
       
         function clearVis() {
@@ -489,7 +481,8 @@ populateHLDropdowns();
         }
 
         clearVis();
-        
+
+        window.addEventListener('load', clearVis);
         searchText.addEventListener('input', clearVis);
 
         function clearInput() {
