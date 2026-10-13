@@ -619,6 +619,27 @@ async function translatePage(lang) {
 if (typeof hostLang !== 'undefined' && hostLang) {
     hostLang.addEventListener('change', () => translatePage(hostLang.value));
 }
+
+      function updateUrlParameters() {
+          var hlValue = hostLang.value;
+          var qValue = searchText.value.trim();
+        
+          var baseUrl = window.location.origin + window.location.pathname;
+          var params = new URLSearchParams();
+
+          params.set('hl', hlValue);
+
+          if (qValue) {
+            params.set('q', qValue);
+          } else {
+            params.delete('q');
+          }
+          var newUrl = baseUrl + '?' + params.toString();
+          history.replaceState(null, '', newUrl);
+      }
+
+      hostLang.addEventListener('change', updateUrlParameters);
+      searchText.addEventListener('input', updateUrlParameters);
     </script>
   </body>
 </html>
