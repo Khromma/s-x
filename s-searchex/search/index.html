@@ -184,7 +184,7 @@
         }
 
         function redirectToTracking(targetLink) {
-            const trackingUrl = `/ai/url/?link=${encodeURIComponent(targetLink)}&source=search/ai`;
+            const trackingUrl = `ai/url/?link=${encodeURIComponent(targetLink)}&source=search/ai`;
             // Execute window.location.href redirect as required
             window.location.href = trackingUrl;
         }
