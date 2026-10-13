@@ -426,7 +426,8 @@ const translationConfig = [
     { tag: "option", translate: true },
     { tag: ".untranslatable", translate: false },
     { tag: ".lang-text", translate: true },
-    { tag: ".color-text", translate: true }
+    { tag: "#colorText", translate: true },
+    { tag: ".color-text", translate: false }
 ];
       
         const searchText = document.getElementById('searchText');
@@ -503,6 +504,36 @@ populateHLDropdowns();
 
 window.originalText = window.originalText || new Map();
 
+async function translateText(text, lang) {
+    if (!text || !text.trim()) return "";
+
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
+
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+        const response = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeoutId);
+
+        if (!response.ok) return "";
+
+        const data = await response.json();
+
+        if (data && data[0]) {
+            const translatedText = data[0]
+                .map(item => item && item[0] ? item[0] : "")
+                .join("");
+
+            return translatedText || "";
+        }
+    } catch (error) {
+        return "";
+    }
+
+    return "";
+}
+
 async function translatePage(lang) {
     if (typeof translationConfig === 'undefined') return;
 
@@ -510,13 +541,32 @@ async function translatePage(lang) {
         window.originalText.forEach((storedText, node) => {
             if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
                 node.text = storedText;
-            } 
-            
-            else {
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                node.textContent = storedText;
+            } else {
                 node.nodeValue = storedText;
             }
         });
+
+        if (colorText) {
+            toggleFontColor();
+        }
         return;
+    }
+
+    const colorTextEl = document.getElementById('colorText');
+    if (colorTextEl) {
+        if (!window.originalText.has(colorTextEl)) {
+            window.originalText.set(colorTextEl, colorTextEl.textContent);
+        }
+
+        const originalColorText = window.originalText.get(colorTextEl);
+        const translatedColorText = await translateText(originalColorText, lang);
+
+        if (translatedColorText) {
+            colorTextEl.textContent = translatedColorText;
+            toggleFontColor();
+        }
     }
 
     const textNodesToTranslate = [];
@@ -558,31 +608,14 @@ async function translatePage(lang) {
 
     for (const node of textNodesToTranslate) {
         const text = window.originalText.get(node);
-        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
-        
-        try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 4000);
+        const translatedText = await translateText(text, lang);
 
-            const response = await fetch(url, { signal: controller.signal });
-            clearTimeout(timeoutId);
+        if (!translatedText) continue;
 
-            if (!response.ok) continue;
-            
-            const data = await response.json();
-            
-            if (data && data[0]) {
-                const translatedText = data[0].map(item => item && item[0] ? item[0] : "").join("");
-                if (translatedText) {
-                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                        node.text = translatedText;
-                    }
-                    else {
-                        node.nodeValue = translatedText;
-                    }
-                }
-            }
-        } catch (error) {
+        if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+            node.text = translatedText;
+        } else {
+            node.nodeValue = translatedText;
         }
 
         await sleep(0);
