@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom AI Search Engine</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            color: #222;
+            background-color: #fdfdfd;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #0066cc;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0055b3;
+        }
+        .result-item {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #eee;
+        }
+        .result-title {
+            font-size: 18px;
+            color: #1a0dab;
+            text-decoration: none;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .result-title:hover {
+            text-decoration: underline;
+        }
+        .result-url {
+            font-size: 14px;
+            color: #006621;
+            margin-bottom: 4px;
+            word-break: break-all;
+        }
+        .result-snippet {
+            font-size: 14px;
+            color: #545454;
+            line-height: 1.4;
+        }
+        .ai-panel {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mini Search Engine</h1>
+
+    <!-- Search Form -->
+    <form id="searchForm" class="search-box" method="GET" action="">
+        <input type="text" id="searchInput" name="q" placeholder="Search the web..." required>
+        <!-- Preserve language param if needed -->
+        <input type="hidden" id="hlInput" name="hl" value="en">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Ask AI Button Container -->
+    <div id="aiContainer" style="margin-bottom: 20px; display: none;">
+        <button type="button" id="askAiBtn" style="background-color: #2e7d32;">Ask AI about this query</button>
+    </div>
+
+    <div id="aiResponsePanel" class="ai-panel">
+        <strong>AI Assistant:</strong> <span id="aiText">Analyzing query...</span>
+    </div>
+
+    <!-- Results Container -->
+    <div id="results"></div>
+
+    <script>
+        // 1. Get hl & q params from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q');
+        const hl = urlParams.get('hl');
+
+        if (hl) {
+            document.getElementById('hlInput').value = hl;
+        }
+
+        if (query) {
+            document.getElementById('searchInput').value = query;
+            document.getElementById('aiContainer').style.display = 'block';
+            fetchSearchResults(query);
+        }
+
+        // 2. Connect results from a free API
+        async function fetchSearchResults(searchQuery) {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = "<p>Loading results...</p>";
+
+            try {
+                // Using DuckDuckGo Instant Answer API (via CORS proxy or JSON endpoint if permitted)
+                // Note: For production, you'd typically query your own backend proxy to bypass CORS restrictions.
+                const endpoint = `https://api.duckduckgo.com/?q=${encodeURIComponent(searchQuery)}&format=json&no_html=1`;
+                
+                const response = await fetch(endpoint);
+                const data = await response.json();
+
+                resultsContainer.innerHTML = "";
+
+                let hasResults = false;
+
+                // Process RelatedTopics or Abstract from the free API response
+                if (data.RelatedTopics && data.RelatedTopics.length > 0) {
+                    data.RelatedTopics.forEach(item => {
+                        if (item.Text && item.FirstURL) {
+                            hasResults = true;
+                            appendResultCard(resultsContainer, item.Text.split(' - ')[0] || "Result", item.FirstURL, item.Text);
+                        }
+                    });
+                }
+
+                if (!hasResults) {
+                    resultsContainer.innerHTML = `<p>No direct instant results found for "<strong>${escapeHtml(searchQuery)}</strong>". Try another query.</p>`;
+                }
+
+            } catch (error) {
+                console.error("Error fetching search results:", error);
+                resultsContainer.innerHTML = "<p>Failed to load search results. Please check your network connection.</p>";
+            }
+        }
+
+        // Helper to render a result card with custom tracking redirection
+        function appendResultCard(container, title, destinationUrl, snippet) {
+            const div = document.createElement('div');
+            div.className = 'result-item';
+
+            const a = document.createElement('a');
+            a.className = 'result-title';
+            a.textContent = title;
+            
+            // 2. Redirect via window.location.href to your specified pattern
+            a.onclick = (e) => {
+                e.preventDefault();
+                redirectToTracking(destinationUrl);
+            };
+
+            const urlDiv = document.createElement('div');
+            urlDiv.className = 'result-url';
+            urlDiv.textContent = destinationUrl;
+
+            const snippetDiv = document.createElement('div');
+            snippetDiv.className = 'result-snippet';
+            snippetDiv.textContent = snippet;
+
+            div.appendChild(a);
+            div.appendChild(urlDiv);
+            div.appendChild(snippetDiv);
+            container.appendChild(div);
+        }
+
+        function redirectToTracking(targetLink) {
+            const trackingUrl = `/ai/url/?link=${encodeURIComponent(targetLink)}&source=search/ai`;
+            // Execute window.location.href redirect as required
+            window.location.href = trackingUrl;
+        }
+
+        // 3. Ask AI questions button functionality
+        document.getElementById('askAiBtn').addEventListener('click', () => {
+            const panel = document.getElementById('aiResponsePanel');
+            const aiText = document.getElementById('aiText');
+            panel.style.display = 'block';
+            aiText.textContent = `Generating AI insights for: "${query}"...`;
+            
+            // Simulate AI fetch action (plug in your LLM API endpoint here)
+            setTimeout(() => {
+                aiText.textContent = `Here is a quick AI summary regarding "${query}". You can integrate any free or commercial LLM API here to dynamically summarize results or answer questions directly.`;
+            }, 1000);
+        });
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
