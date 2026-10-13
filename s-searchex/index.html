@@ -491,6 +491,7 @@ populateHLDropdowns();
           clearVis();
           searchText.focus();
           updateUrlParameters();
+          updateTitleFromSearchQuery();
         }
 
         clearBtn.addEventListener('click', clearInput);
@@ -659,10 +660,23 @@ if (typeof hostLang !== 'undefined' && hostLang) {
              
           updateUrlParameters();
           clearVis();
+          updateTitleFromSearchQuery();
           translatePage(hostLang.value);
         }
 
         window.addEventListener('DOMContentLoaded', matchInput);
+
+        function updateTitleFromSearchQuery() {
+          const baseTitle = "S-Searchex";
+
+           if (searchText && searchText.value.trim() !== "") {
+             document.title = `${searchText.value.trim()} - ${baseTitle}`;
+           } else {
+             document.title = baseTitle;
+           }
+        }
+
+        searchText.addEventListener('input', updateTitleFromInput);
     </script>
   </body>
 </html>
