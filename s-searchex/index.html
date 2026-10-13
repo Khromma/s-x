@@ -443,7 +443,7 @@ const translationConfig = [
         const opt3 = new Option(name, code);
         opt3.classList.add('untranslatable');
         hostLang.add(opt3);
-      hostLang.value = "en";
+      hostLang.value = 'en';
     });
 }
 
@@ -641,6 +641,28 @@ if (typeof hostLang !== 'undefined' && hostLang) {
 
       hostLang.addEventListener('change', updateUrlParameters);
       searchText.addEventListener('input', updateUrlParameters);
+
+      function matchInput() {
+           var params = new URLSearchParams(window.location.search);
+           var hlParam = params.get('hl');
+           var qParam = params.get('q');
+
+           if (hlParam) {
+             hostLang.value = hlParam;
+           }
+
+          if (qParam) {
+            searchText.value = qParam;
+          } else {
+            searchText.value = '';
+          }
+             
+          updateUrlParameters();
+          clearVis();
+          translatePage(hostLang.value);
+        }
+
+        window.addEventListener('DOMContentLoaded', matchInput);
     </script>
   </body>
 </html>
