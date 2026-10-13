@@ -363,6 +363,14 @@ const hostLanguages = {
     "zh-CN": "简体中文",
     "zh-TW": "繁體中文"
 };
+
+const translationConfig = [
+    { tag: "h1", translate: false },
+    { tag: "option", translate: true },
+    { tag: ".untranslatable", translate: false },
+    { tag: ".lang-text", translate: true },
+    { tag: ".color-text", translate: true }
+];
       
         const searchText = document.getElementById('searchText');
         const searchBtn = document.getElementById('searchBtn');
@@ -370,6 +378,16 @@ const hostLanguages = {
         const colorText = document.getElementById('colorText');
 
         searchText.focus();
+
+      function populateHLDropdowns() {
+    Object.entries(hostLanguages).forEach(([code, name]) => {
+        const opt3 = new Option(name, code);
+        opt3.classList.add('untranslatable');
+        hostLang.add(opt3);
+    });
+}
+
+populateHLDropdowns();
       
         function toggleFontColor() {
           colorText.innerHTML = colorText.textContent.split('').map(l => l === ' ' ? ' ' : `<span class="color-text">${l}</span>`).join('');
@@ -423,6 +441,99 @@ const hostLanguages = {
 
         clearBtn.addEventListener('click', clearInput);
 
+      const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+window.originalText = window.originalText || new Map();
+
+async function translatePage(lang) {
+    if (typeof translationConfig === 'undefined') return;
+
+    if (lang === "en") {
+        window.originalText.forEach((storedText, node) => {
+            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                node.text = storedText;
+            } 
+            
+            else {
+                node.nodeValue = storedText;
+            }
+        });
+        return;
+    }
+
+    const textNodesToTranslate = [];
+    const activeTags = translationConfig.filter(r => r.translate).map(r => r.tag).join(",");
+    const excludedTags = translationConfig.filter(r => !r.translate).map(r => r.tag).join(",");
+
+    if (!activeTags) return;
+
+    document.querySelectorAll(activeTags).forEach(parentEl => {
+        if (excludedTags && parentEl.matches(excludedTags)) return;
+
+        function walk(node) {
+            if (node.nodeType === Node.ELEMENT_NODE && excludedTags && node.matches(excludedTags)) {
+                return;
+            }
+
+            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                if (node.text.trim() !== "") {
+                    if (!window.originalText.has(node)) {
+                        window.originalText.set(node, node.text);
+                    }
+                    textNodesToTranslate.push(node);
+                }
+                return;
+            }
+
+            if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
+                if (!window.originalText.has(node)) {
+                    window.originalText.set(node, node.nodeValue);
+                }
+                textNodesToTranslate.push(node);
+            }
+            for (let child = node.firstChild; child; child = child.nextSibling) {
+                walk(child);
+            }
+        }
+        walk(parentEl);
+    });
+
+    for (const node of textNodesToTranslate) {
+        const text = window.originalText.get(node);
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
+        
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+            const response = await fetch(url, { signal: controller.signal });
+            clearTimeout(timeoutId);
+
+            if (!response.ok) continue;
+            
+            const data = await response.json();
+            
+            if (data && data[0]) {
+                const translatedText = data[0].map(item => item && item[0] ? item[0] : "").join("");
+                if (translatedText) {
+                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                        node.text = translatedText;
+                    }
+                    else {
+                        node.nodeValue = translatedText;
+                    }
+                }
+            }
+        } catch (error) {
+        }
+
+        await sleep(0);
+    }
+}
+
+if (typeof hostLang !== 'undefined' && hostLang) {
+    hostLang.addEventListener('change', () => translatePage(hostLang.value));
+}
     </script>
   </body>
 </html>
