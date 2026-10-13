@@ -640,7 +640,7 @@
 
         async function loadResultsFromApi(query, lang) {
             resultsWrapper.style.display = 'flex';
-            askAiBtn.href = `ai/?hl=${encodeURIComponent(lang)}&q=${encodeURIComponent(query)}`;
+            askAiBtn.href = `/ai/?hl=${encodeURIComponent(lang)}&q=${encodeURIComponent(query)}`;
 
             webResultsContainer.innerHTML = "<p>Fetching search results...</p>";
             imageGridContainer.innerHTML = "";
