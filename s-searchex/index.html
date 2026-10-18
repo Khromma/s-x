@@ -455,7 +455,7 @@ populateHLDropdowns();
 
         toggleFontColor();
       
-        function search(query, lang) {
+        function search(lang, query) {
           const searchQuery = query;
           const pageLang = lang;
           if (searchQuery !== '' && pageLang !== null) {
@@ -468,7 +468,7 @@ populateHLDropdowns();
         }
 
         searchBtn.addEventListener('click', () => {
-            search(searchText.value.trim(), hostLang.value);
+            search(hostLang.value, searchText.value.trim());
         });
       
         function clearVis() {
