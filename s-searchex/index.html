@@ -645,6 +645,7 @@ if (typeof hostLang !== 'undefined' && hostLang) {
           } else {
             params.delete('q');
           }
+        
           var newUrl = baseUrl + '?' + params.toString();
           history.replaceState(null, '', newUrl);
       }
@@ -656,7 +657,7 @@ if (typeof hostLang !== 'undefined' && hostLang) {
            var params = new URLSearchParams(window.location.search);
            var hlParam = params.get('hl');
            var qParam = params.get('q');
-
+          
            if (hlParam) {
              hostLang.value = hlParam;
            }
