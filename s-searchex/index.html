@@ -210,8 +210,14 @@
           font-size: 12px !important;
         }
 
-        select:focus {
+        #hostLang:focus {
             box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .ai-value {
+            background-color: transparent;
+            border: none;
+            color: #ffffff;
         }
 
     </style>
@@ -255,6 +261,11 @@
           <p class="lang-text">Language</p>
           <select id="hostLang"></select>
         </div>
+
+    <select class="ai-value">
+      <option value="search"></option>
+      <option value="ai"></option>
+    </select>
 
     <script>
 const hostLanguages = {
