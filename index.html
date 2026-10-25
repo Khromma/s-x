@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="s-x-logo.png">
-    <title>S-X | A new universe</title>
+    <title>S-X A new universe</title>
     <style>
         :root {
             --sxpr: #ff005f;
@@ -75,8 +75,8 @@
 
         .page-shell {
             width: 100%;
-            max-width: 1100px;
-            padding: 28px 0 40px;
+            max-width: 1180px;
+            padding: 28px 0 44px;
         }
 
         .hero {
@@ -84,8 +84,8 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 12px;
-            padding: 36px 16px 12px;
+            gap: 14px;
+            padding: 26px 16px 12px;
         }
 
         .eyebrow {
@@ -108,7 +108,7 @@
             line-height: 1.05;
             letter-spacing: -0.06em;
             color: var(--sxtext);
-            max-width: 800px;
+            max-width: 900px;
         }
 
         .hero p {
@@ -118,23 +118,127 @@
             color: var(--sxmuted);
         }
 
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 12px 16px;
+            border: 1px solid var(--sxline);
+            border-radius: 18px;
+            background: #ffffff;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+        }
+
+        .search-box {
+            flex: 1 1 400px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 220px;
+            border: 2px solid #dbe3ef;
+            border-radius: 999px;
+            padding: 10px 14px;
+            background: #f8fafc;
+        }
+
+        .search-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            opacity: 0.8;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            background: transparent;
+            flex: 1;
+            min-width: 0;
+            font-size: 15px;
+            color: var(--sxtext);
+        }
+
+        .search-box input::placeholder {
+            color: #7c8796;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .lang-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--sxmuted);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .lang-select {
+            min-width: 180px;
+            padding: 10px 12px;
+            border: 2px solid #dbe3ef;
+            border-radius: 999px;
+            background: #fff;
+            color: var(--sxtext);
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .filter-btn {
+            border: 1px solid var(--sxline);
+            background: #ffffff;
+            color: var(--sxtext);
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--sxpr), var(--sxib), var(--sxgy), var(--sxcg));
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 8px 18px rgba(68, 68, 255, 0.12);
+        }
+
         .cards {
             display: grid;
             grid-template-columns: repeat(3, minmax(240px, 1fr));
             gap: 20px;
-            padding: 26px 0 0;
+            padding: 22px 0 0;
         }
 
         .app-card {
             background: var(--sxpanel);
             border: 1px solid var(--sxline);
-            border-radius: 20px;
+            border-radius: 22px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            padding: 22px 20px 18px;
+            padding: 18px 18px 16px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 14px;
             transition: transform 0.18s ease, box-shadow 0.18s ease;
+            min-height: 270px;
         }
 
         .app-card:hover {
@@ -150,32 +254,23 @@
         }
 
         .app-icon {
-            width: 58px;
-            height: 58px;
+            width: 64px;
+            height: 64px;
             border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
-            font-weight: 800;
-            color: white;
+            overflow: hidden;
+            border: 1px solid rgba(17, 24, 39, 0.06);
+            background: #ffffff;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.28);
         }
 
-        .icon-color {
-            background: radial-gradient(circle at top left, var(--sxpr) 0%, transparent 68%),
-                        radial-gradient(circle at top right, var(--sxib) 0%, transparent 68%),
-                        radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 68%),
-                        radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 68%),
-                        linear-gradient(135deg, rgba(17,17,17,0.18), rgba(17,17,17,0.02));
-        }
-
-        .icon-math {
-            background: linear-gradient(135deg, var(--sxib), var(--sxgy));
-        }
-
-        .icon-translate {
-            background: linear-gradient(135deg, var(--sxpr), var(--sxcg));
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .app-badge {
@@ -192,6 +287,7 @@
 
         .app-card h3 {
             font-size: clamp(22px, 3vw, 28px);
+            line-height: 1.1;
             letter-spacing: -0.05em;
             color: var(--sxtext);
         }
@@ -200,6 +296,7 @@
             color: var(--sxmuted);
             line-height: 1.7;
             font-size: 15px;
+            flex: 1;
         }
 
         .app-meta {
@@ -224,7 +321,6 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            margin-top: 4px;
             padding: 12px 18px;
             border: none;
             border-radius: 999px;
@@ -243,14 +339,29 @@
             transform: translateY(-1px);
         }
 
+        .empty-state {
+            display: none;
+            padding: 24px 16px;
+            text-align: center;
+            border: 1px dashed var(--sxline);
+            border-radius: 18px;
+            color: var(--sxmuted);
+            background: #fafbff;
+            margin-top: 18px;
+        }
+
+        .empty-state.visible {
+            display: block;
+        }
+
         .footer-note {
-            margin-top: 34px;
+            margin-top: 30px;
             text-align: center;
             font-size: 14px;
             color: var(--sxmuted);
         }
 
-        @media (max-width: 880px) {
+        @media (max-width: 900px) {
             .cards {
                 grid-template-columns: 1fr;
             }
@@ -264,79 +375,266 @@
 <body>
     <header class="sticky-header">
         <img class="logo" src="s-x-logo.png" alt="S-X logo">
-        <h1>S-X</h1>
+        <h1>S-X A new universe</h1>
     </header>
 
     <main class="page-shell">
         <section class="hero">
             <span class="eyebrow">A new universe</span>
-            <h2>Three focused tools, one shared design language.</h2>
+            <h2>Explore the complete S-X toolkit.</h2>
             <p>
-                A compact collection of useful browser apps built for everyday tasks: color conversion,
-                calculations, and translation. Each tool follows the same S-X style system and works independently in the browser.
+                Search, filter, and switch language instantly across the active utility apps. Each card below represents one finished tool in the S-X universe.
             </p>
         </section>
 
-        <section class="cards">
-            <article class="app-card">
-                <div class="app-top">
-                    <div class="app-icon icon-color">C</div>
-                    <span class="app-badge">Tool</span>
-                </div>
-                <div>
-                    <h3>S-Colorx</h3>
-                </div>
-                <p>
-                    Convert between HEX and RGB values, preview color output instantly, and copy or speak the selected color.
-                </p>
-                <div class="app-meta">
-                    <span class="tag">HEX</span>
-                    <span class="tag">RGB</span>
-                    <span class="tag">Preview</span>
-                </div>
-                <a class="open-btn" href="s-colorx/">Open S-Colorx</a>
-            </article>
+        <div class="toolbar">
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6.4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input id="searchInput" type="text" placeholder="Search apps, tags, features..." />
+            </div>
 
-            <article class="app-card">
-                <div class="app-top">
-                    <div class="app-icon icon-math">M</div>
-                    <span class="app-badge">Tool</span>
-                </div>
-                <div>
-                    <h3>S-Mathex</h3>
-                </div>
-                <p>
-                    A lightweight calculator with keyboard support, operator logic, history display, and useful copy/speech controls.
-                </p>
-                <div class="app-meta">
-                    <span class="tag">Calculator</span>
-                    <span class="tag">Math</span>
-                    <span class="tag">History</span>
-                </div>
-                <a class="open-btn" href="s-mathex/">Open S-Mathex</a>
-            </article>
+            <div class="controls">
+                <label class="lang-group" for="hostLang">
+                    <span>Host language</span>
+                    <select id="hostLang" class="lang-select"></select>
+                </label>
+            </div>
+        </div>
 
-            <article class="app-card">
-                <div class="app-top">
-                    <div class="app-icon icon-translate">T</div>
-                    <span class="app-badge">Tool</span>
-                </div>
-                <div>
-                    <h3>S-Translatex</h3>
-                </div>
-                <p>
-                    Translate text between languages, swap source and target selections, and quickly copy or speak the result.
-                </p>
-                <div class="app-meta">
-                    <span class="tag">Translation</span>
-                    <span class="tag">Speech</span>
-                    <span class="tag">Text</span>
-                </div>
-                <a class="open-btn" href="s-translatex/">Open S-Translatex</a>
-            </article>
-        </section>
+        <div class="filters" id="filters"></div>
 
-        <div class="footer-note">Built as a small collection of static utility apps.</div>
+        <section class="cards" id="cards"></section>
+        <div class="empty-state" id="emptyState">No apps match your search or filter.</div>
+
+        <div class="footer-note">S-X A new universe</div>
     </main>
+
+    <script>
+        const appData = [
+            {
+                id: 'colorx',
+                name: 'S-Colorx',
+                logo: 's-colorx/s-colorx-logo-circ.png',
+                filter: 'color',
+                tags: ['hex', 'rgb', 'preview', 'copy'],
+                description: 'Convert between HEX and RGB values, preview color output, and listen to colors in your chosen language.',
+                link: 's-colorx/'
+            },
+            {
+                id: 'mathex',
+                name: 'S-Mathex',
+                logo: 's-mathex/s-mathex-logo-calc.png',
+                filter: 'math',
+                tags: ['calculator', 'math', 'history', 'keyboard'],
+                description: 'Do quick calculations, use keyboard shortcuts, and keep track of recent math operations.',
+                link: 's-mathex/'
+            },
+            {
+                id: 'translatex',
+                name: 'S-Translatex',
+                logo: 's-translatex/s-translatex-logo-translator.png',
+                filter: 'translate',
+                tags: ['translation', 'text', 'speech', 'language'],
+                description: 'Translate text between languages, swap inputs, and quickly copy or speak the result.',
+                link: 's-translatex/'
+            }
+        ];
+
+        const filterMap = {
+            all: 'All',
+            color: 'Color',
+            math: 'Math',
+            translate: 'Translation'
+        };
+
+        const hostLanguages = {
+            en: 'English',
+            es: 'Español',
+            fr: 'Français',
+            de: 'Deutsch',
+            pt: 'Português',
+            it: 'Italiano',
+            nl: 'Nederlands',
+            ja: '日本語',
+            ko: '한국어',
+            ar: 'العربية',
+            hi: 'हिन्दी',
+            ru: 'Русский',
+            zh: '中文',
+            tr: 'Türkçe',
+            pl: 'Polski',
+            sv: 'Svenska',
+            uk: 'Українська'
+        };
+
+        const searchInput = document.getElementById('searchInput');
+        const cardsRoot = document.getElementById('cards');
+        const filtersRoot = document.getElementById('filters');
+        const emptyState = document.getElementById('emptyState');
+        const hostLang = document.getElementById('hostLang');
+
+        let currentFilter = 'all';
+
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                hl: params.get('hl') || 'en',
+                q: params.get('q') || '',
+                f: params.get('f') || 'all'
+            };
+        }
+
+        function updateUrlParams() {
+            const base = window.location.origin + window.location.pathname;
+            const params = new URLSearchParams();
+
+            const hlValue = hostLang.value;
+            const qValue = searchInput.value.trim();
+
+            if (hlValue && hlValue !== 'en') {
+                params.set('hl', hlValue);
+            }
+
+            if (qValue) {
+                params.set('q', qValue);
+            }
+
+            if (currentFilter && currentFilter !== 'all') {
+                params.set('f', currentFilter);
+            }
+
+            const query = params.toString();
+            history.replaceState(null, '', query ? base + '?' + query : base);
+        }
+
+        function populateLangSelect() {
+            Object.entries(hostLanguages).forEach(([code, label]) => {
+                const option = document.createElement('option');
+                option.value = code;
+                option.textContent = label;
+                hostLang.appendChild(option);
+            });
+
+            const params = getUrlParams();
+            hostLang.value = hostLanguages[params.hl] ? params.hl : 'en';
+        }
+
+        function renderFilters() {
+            filtersRoot.innerHTML = '';
+
+            Object.entries(filterMap).forEach(([key, label]) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'filter-btn' + (key === currentFilter ? ' active' : '');
+                btn.textContent = label;
+                btn.setAttribute('data-filter', key);
+                btn.addEventListener('click', () => {
+                    currentFilter = key;
+                    renderFilters();
+                    renderCards();
+                    updateUrlParams();
+                });
+                filtersRoot.appendChild(btn);
+            });
+        }
+
+        function matchesSearch(app, value) {
+            if (!value) return true;
+            const haystack = [
+                app.name,
+                app.filter,
+                ...app.tags,
+                app.description
+            ].join(' ').toLowerCase();
+            return haystack.includes(value.toLowerCase());
+        }
+
+        function renderCards() {
+            const params = getUrlParams();
+            const queryValue = searchInput.value.trim() || params.q || '';
+            const filtered = appData.filter(app => {
+                const matchesFilter = currentFilter === 'all' || app.filter === currentFilter;
+                const matchesQuery = matchesSearch(app, queryValue);
+                return matchesFilter && matchesQuery;
+            });
+
+            cardsRoot.innerHTML = '';
+
+            filtered.forEach(app => {
+                const card = document.createElement('article');
+                card.className = 'app-card';
+
+                const top = document.createElement('div');
+                top.className = 'app-top';
+
+                const icon = document.createElement('div');
+                icon.className = 'app-icon';
+                const img = document.createElement('img');
+                img.src = app.logo;
+                img.alt = app.name + ' logo';
+                icon.appendChild(img);
+
+                const badge = document.createElement('span');
+                badge.className = 'app-badge';
+                badge.textContent = app.filter;
+
+                top.appendChild(icon);
+                top.appendChild(badge);
+
+                const title = document.createElement('h3');
+                title.textContent = app.name;
+
+                const summary = document.createElement('p');
+                summary.textContent = app.description;
+
+                const tags = document.createElement('div');
+                tags.className = 'app-meta';
+                app.tags.forEach(tagText => {
+                    const tag = document.createElement('span');
+                    tag.className = 'tag';
+                    tag.textContent = tagText;
+                    tags.appendChild(tag);
+                });
+
+                const link = document.createElement('a');
+                link.className = 'open-btn';
+                link.href = app.link;
+                link.textContent = 'Open ' + app.name;
+
+                card.appendChild(top);
+                card.appendChild(title);
+                card.appendChild(summary);
+                card.appendChild(tags);
+                card.appendChild(link);
+                cardsRoot.appendChild(card);
+            });
+
+            emptyState.classList.toggle('visible', filtered.length === 0);
+        }
+
+        function applyInitialState() {
+            const params = getUrlParams();
+            currentFilter = filterMap[params.f] ? params.f : 'all';
+            searchInput.value = params.q || '';
+            hostLang.value = hostLanguages[params.hl] ? params.hl : 'en';
+            renderFilters();
+            renderCards();
+        }
+
+        searchInput.addEventListener('input', () => {
+            renderCards();
+            updateUrlParams();
+        });
+
+        hostLang.addEventListener('change', () => {
+            updateUrlParams();
+        });
+
+        populateLangSelect();
+        applyInitialState();
+    </script>
 </body>
 </html>
