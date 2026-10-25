@@ -1,12 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="s-x-logo.png">
-    <title>S-X A new universe</title>
-  </head>
-  <body>
-    
-  </body>
+    <title>S-X | A new universe</title>
+    <style>
+        :root {
+            --sxpr: #ff005f;
+            --sxib: #4444ff;
+            --sxgy: #ffbb00;
+            --sxcg: #00ff66;
+            --sxtext: #111827;
+            --sxmuted: #6b7280;
+            --sxline: #e2e8f0;
+            --sxpanel: #ffffff;
+            --sxbg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        html, body {
+            background-color: var(--sxbg);
+            color: var(--sxtext);
+            min-height: 100vh;
+            width: 100%;
+            padding: 0 12px;
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--sxline);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            width: clamp(48px, 10vw, 64px);
+            height: clamp(48px, 10vw, 64px);
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .sticky-header h1 {
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #000000;
+        }
+
+        .page-shell {
+            width: 100%;
+            max-width: 1100px;
+            padding: 28px 0 40px;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 12px;
+            padding: 36px 16px 12px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(68, 68, 255, 0.08);
+            border: 1px solid rgba(68, 68, 255, 0.18);
+            color: var(--sxib);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero h2 {
+            font-size: clamp(32px, 6vw, 56px);
+            line-height: 1.05;
+            letter-spacing: -0.06em;
+            color: var(--sxtext);
+            max-width: 800px;
+        }
+
+        .hero p {
+            max-width: 760px;
+            font-size: clamp(15px, 2.3vw, 18px);
+            line-height: 1.7;
+            color: var(--sxmuted);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(240px, 1fr));
+            gap: 20px;
+            padding: 26px 0 0;
+        }
+
+        .app-card {
+            background: var(--sxpanel);
+            border: 1px solid var(--sxline);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            padding: 22px 20px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .app-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .app-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 800;
+            color: white;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.28);
+        }
+
+        .icon-color {
+            background: radial-gradient(circle at top left, var(--sxpr) 0%, transparent 68%),
+                        radial-gradient(circle at top right, var(--sxib) 0%, transparent 68%),
+                        radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 68%),
+                        radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 68%),
+                        linear-gradient(135deg, rgba(17,17,17,0.18), rgba(17,17,17,0.02));
+        }
+
+        .icon-math {
+            background: linear-gradient(135deg, var(--sxib), var(--sxgy));
+        }
+
+        .icon-translate {
+            background: linear-gradient(135deg, var(--sxpr), var(--sxcg));
+        }
+
+        .app-badge {
+            display: inline-block;
+            padding: 6px 8px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--sxtext);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .app-card h3 {
+            font-size: clamp(22px, 3vw, 28px);
+            letter-spacing: -0.05em;
+            color: var(--sxtext);
+        }
+
+        .app-card p {
+            color: var(--sxmuted);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .app-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .tag {
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #374151;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .open-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 4px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--sxpr), var(--sxib), var(--sxgy), var(--sxcg));
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 0, 95, 0.18);
+            transition: opacity 0.18s ease, transform 0.18s ease;
+        }
+
+        .open-btn:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .footer-note {
+            margin-top: 34px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--sxmuted);
+        }
+
+        @media (max-width: 880px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .page-shell {
+                max-width: 620px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="sticky-header">
+        <img class="logo" src="s-x-logo.png" alt="S-X logo">
+        <h1>S-X</h1>
+    </header>
+
+    <main class="page-shell">
+        <section class="hero">
+            <span class="eyebrow">A new universe</span>
+            <h2>Three focused tools, one shared design language.</h2>
+            <p>
+                A compact collection of useful browser apps built for everyday tasks: color conversion,
+                calculations, and translation. Each tool follows the same S-X style system and works independently in the browser.
+            </p>
+        </section>
+
+        <section class="cards">
+            <article class="app-card">
+                <div class="app-top">
+                    <div class="app-icon icon-color">C</div>
+                    <span class="app-badge">Tool</span>
+                </div>
+                <div>
+                    <h3>S-Colorx</h3>
+                </div>
+                <p>
+                    Convert between HEX and RGB values, preview color output instantly, and copy or speak the selected color.
+                </p>
+                <div class="app-meta">
+                    <span class="tag">HEX</span>
+                    <span class="tag">RGB</span>
+                    <span class="tag">Preview</span>
+                </div>
+                <a class="open-btn" href="s-colorx/">Open S-Colorx</a>
+            </article>
+
+            <article class="app-card">
+                <div class="app-top">
+                    <div class="app-icon icon-math">M</div>
+                    <span class="app-badge">Tool</span>
+                </div>
+                <div>
+                    <h3>S-Mathex</h3>
+                </div>
+                <p>
+                    A lightweight calculator with keyboard support, operator logic, history display, and useful copy/speech controls.
+                </p>
+                <div class="app-meta">
+                    <span class="tag">Calculator</span>
+                    <span class="tag">Math</span>
+                    <span class="tag">History</span>
+                </div>
+                <a class="open-btn" href="s-mathex/">Open S-Mathex</a>
+            </article>
+
+            <article class="app-card">
+                <div class="app-top">
+                    <div class="app-icon icon-translate">T</div>
+                    <span class="app-badge">Tool</span>
+                </div>
+                <div>
+                    <h3>S-Translatex</h3>
+                </div>
+                <p>
+                    Translate text between languages, swap source and target selections, and quickly copy or speak the result.
+                </p>
+                <div class="app-meta">
+                    <span class="tag">Translation</span>
+                    <span class="tag">Speech</span>
+                    <span class="tag">Text</span>
+                </div>
+                <a class="open-btn" href="s-translatex/">Open S-Translatex</a>
+            </article>
+        </section>
+
+        <div class="footer-note">Built as a small collection of static utility apps.</div>
+    </main>
+</body>
 </html>
