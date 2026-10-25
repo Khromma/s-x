@@ -37,6 +37,71 @@
           height: 100%;
         }
 
+        .search-bar {
+            width: 100%;
+            max-width: 700px;
+            min-height: 48px;
+            padding: 0 4px 0 4px;
+            margin: 20px auto;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            box-sizing: border-box;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;            
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-text {
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            outline: none;
+            resize: none;
+            padding: 12px 0;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow: hidden;
+        }
+
+       .search-btn {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           width: 40px;
+           height: 40px;
+           background: 
+               radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
+               radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
+               radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
+               radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+           border: none;
+           border-radius: 50%;
+           color: #000000;
+           cursor: pointer;
+           outline: none;
+           transition: all 0.2s ease;
+           flex-shrink: 0;
+       }
+
+       .search-btn svg {
+           width: 24px !important;
+           height: 24px !important;
+           display: block;
+           flex-shrink: 0;
+       }
+
+        .search-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+        }
+
+        .search-btn:active {
+            transform: scale(0.96);
+        }
+      
     .zoom-grid {
       width: 25px;
       height: 50px;
@@ -91,6 +156,21 @@
 </head>
   <body>
     <div id="map"></div>
+    <div class="search-bar">
+      <button class="search-btn" id="searchBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <textarea class="search-text" id="searchText" placeholder="Search a place..."></textarea>
+      <button class="search-btn" id="clearBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
     <div class="zoom-grid">
         <button class="zoom-btn" id="inBtn">
             <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
