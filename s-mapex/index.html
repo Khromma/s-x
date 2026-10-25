@@ -37,17 +37,72 @@
           height: 100%;
         }
 
-    .btns-grid {
+    .zoom-grid {
       width: 25px;
       height: 50px;
       border-radius: 25px;
       box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
+
+      .zoom-btn {
+            background: 
+                radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
+                radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
+                radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
+                radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+            border: none;
+            border-radius: 50%;
+            padding: 0;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: transform 0.15s ease, opacity 0.2s ease;
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            width: 23px;
+            height: 23px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+        }
+
+        .zoom-btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-icon {
+          width: 18px !important;
+          height: 18px !important;
+          display: block;
+          flex-shrink: 0;
+        }
   </style>
 </head>
   <body>
     <div id="map"></div>
-    <div class="btns-grid"></div>
+    <div class="zoom-grid">
+        <button class="zoom-btn" id="inBtn">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 5V19M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <button class="zoom-btn" id="outBtn">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+        </button>
+    </div>
   <script>
     const map = L.map('map').setView([4.6097, -74.0817], 12);
 
