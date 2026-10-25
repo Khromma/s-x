@@ -17,6 +17,9 @@
       --sxpanel: #ffffff;
       --sxbg: #f6f7fb;
       --sxcard: #f1f4f8;
+      --sxbtn: #dfe3ea;
+      --sxbtn-hover: #cfd5de;
+      --sxbtn-text: #1f2937;
     }
 
     * {
@@ -203,8 +206,8 @@
 
     .filter-btn {
       border: 1px solid var(--sxline);
-      background: #ffffff;
-      color: var(--sxtext);
+      background: var(--sxbtn);
+      color: var(--sxbtn-text);
       padding: 8px 12px;
       border-radius: 999px;
       font-size: 12px;
@@ -215,11 +218,15 @@
       letter-spacing: 0.04em;
     }
 
+    .filter-btn:hover {
+      background: var(--sxbtn-hover);
+    }
+
     .filter-btn.active {
-      background: linear-gradient(135deg, var(--sxpr), var(--sxib), var(--sxgy), var(--sxcg));
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 8px 18px rgba(68,68,255,0.12);
+      background: #c9ced6;
+      color: #1f2937;
+      border-color: #c4cad3;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
     }
 
     .cards {
@@ -326,25 +333,21 @@
       min-height: 78px;
       border: none;
       border-radius: 999px;
-      background: linear-gradient(90deg,
-        var(--sxpr) 0%,
-        var(--sxib) 26%,
-        var(--sxgy) 52%,
-        var(--sxcg) 100%);
-      box-shadow: 0 8px 20px rgba(68,68,255,0.15);
-      color: white;
+      background: linear-gradient(180deg, #dfe3ea 0%, #cfd5de 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 8px 20px rgba(17,24,39,0.08);
+      color: #111827;
       font-size: clamp(26px, 3vw, 36px);
       font-weight: 700;
       letter-spacing: -0.04em;
       text-decoration: none;
       cursor: pointer;
-      transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+      transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
     }
 
     .open-btn:hover {
-      opacity: 0.98;
+      background: linear-gradient(180deg, #d1d7df 0%, #bdc5d0 100%);
       transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(255,0,95,0.14);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 12px 24px rgba(17,24,39,0.1);
     }
 
     .empty-state {
@@ -459,23 +462,175 @@
     };
 
     const hostLanguages = {
-      en: 'English',
-      es: 'Español',
-      fr: 'Français',
-      de: 'Deutsch',
-      pt: 'Português',
-      it: 'Italiano',
-      nl: 'Nederlands',
-      ja: '日本語',
-      ko: '한국어',
-      ar: 'العربية',
-      hi: 'हिन्दी',
-      ru: 'Русский',
-      zh: '中文',
-      tr: 'Türkçe',
-      pl: 'Polski',
-      sv: 'Svenska',
-      uk: 'Українська'
+      "ab": "Аԥсшәа",
+      "ace": "Aceh",
+      "ach": "Acoli",
+      "om": "Afaan Oromoo",
+      "af": "Afrikaans",
+      "alz": "Alur",
+      "am": "አማርኛ",
+      "ar": "العربية",
+      "as": "অসমীয়া",
+      "ig": "Asụsụ Igbo",
+      "gn": "Avañe'ẽ",
+      "awa": "अवधी",
+      "ay": "Aymar aru",
+      "az": "Azərbaycanca",
+      "ban": "Balines",
+      "bm": "Bamanankan",
+      "ms": "Bahasa Melayu",
+      "id": "Bahasa Indonesia",
+      "ba": "Башҡортса",
+      "min": "Baso Minangkabau",
+      "mad": "Basa Madura",
+      "jw": "Basa Jawa",
+      "su": "Basa Sunda",
+      "bbc": "Batak Toba",
+      "bts": "Batak Simalungun",
+      "btx": "Batak Karo",
+      "be": "Беларуская",
+      "bew": "Betawi",
+      "bho": "भोजपुरी",
+      "bik": "Bikol",
+      "bo": "བོད་སྐད་",
+      "bs": "Bosanski",
+      "br": "Brezhoneg",
+      "bg": "Български",
+      "bua": "Буряад",
+      "ca": "Català",
+      "ceb": "Cebuano",
+      "ny": "Chichewa",
+      "nyan": "Chinyanja",
+      "sn": "ChiShona",
+      "co": "Corsu",
+      "cy": "Cymraeg",
+      "da": "Dansk",
+      "zap": "Diidxazá",
+      "doi": "डोगri",
+      "de": "Deutsch",
+      "dz": "རྫོང་ཁ་",
+      "et": "Eesti",
+      "el": "Ελληνικά",
+      "en": "English",
+      "eo": "Esperanto",
+      "es": "Español",
+      "ee": "Eʋegbe",
+      "eu": "Euskara",
+      "fa": "فارسی",
+      "fr": "Français",
+      "fy": "Frysk",
+      "ff": "Fulfulde",
+      "fo": "Føroyskt",
+      "ga": "Gaeilge",
+      "gv": "Gaelg",
+      "sm": "Gagana Sāmoa",
+      "gl": "Galego",
+      "gd": "Gàidhlig",
+      "gu": "ગુજરાતી",
+      "ko": "한국어",
+      "ha": "Hausa",
+      "he": "עברית",
+      "hi": "हिन्दी",
+      "hmn": "Hmoob",
+      "hr": "Hrvatski",
+      "hy": "Հայերեն",
+      "bem": "Ichibemba",
+      "rn": "Ikirundi",
+      "rw": "Ikinyarwanda",
+      "iloc": "Ilokano",
+      "os": "Ирон",
+      "nr": "IsiNdebele",
+      "xh": "isiXhosa",
+      "zu": "isiZulu",
+      "is": "Íslenska",
+      "it": "Italiano",
+      "ka": "Ქართული",
+      "sw": "Kiswahili",
+      "ht": "Kreyòl Ayisyen",
+      "kri": "Krio",
+      "ku": "Kurdî (Kurmancî)",
+      "ckb": "Kurdî (Soranî)",
+      "ky": "Кыргызча",
+      "la": "Latina",
+      "lv": "Latviešu",
+      "lb": "Lëtzebuergesch",
+      "lt": "Lietuvių",
+      "ln": "Lingála",
+      "lg": "Luganda",
+      "yua": "Maaya t'aan",
+      "hu": "Magyar",
+      "mk": "Македонски",
+      "mg": "Malagasy",
+      "ml": "മലയാളം",
+      "mt": "Malti",
+      "mak": "Mangkasara’",
+      "mi": "Māori",
+      "mr": "मराठी",
+      "mai": "मैथिली",
+      "lus": "Mizo ṭawng",
+      "mn": "Монгол хэл",
+      "mni-Mtei": "মৈতৈলোন্",
+      "my": "မြန်မာဘာသာ",
+      "fj": "Na Vosa Vakaviti",
+      "ne": "नेपाली",
+      "nl": "Nederlands",
+      "ja": "日本語",
+      "no": "Norsk",
+      "or": "ଓଡ଼ିଆ",
+      "uz": "Oʻzbekcha",
+      "pag": "Pangasinan",
+      "pap": "Papiamentu",
+      "ps": "پښتو",
+      "km": "ភាសាខ្មែរ",
+      "pl": "Polski",
+      "pt": "Português",
+      "pa": "ਪੰਜਾਬੀ",
+      "crh": "Qırımtatarca",
+      "kk": "Қазақ тілі",
+      "ro": "Română",
+      "rom": "Romani",
+      "qu": "Runasimi",
+      "ru": "Русский",
+      "sa": "संस्कृतम्",
+      "sat": "ᱥᱟᱱᱛᱟᱲᱤ",
+      "sg": "Sängö",
+      "nso": "Sesotho sa Leboa",
+      "st": "Sesotho",
+      "tn": "Setswana",
+      "sq": "Shqip",
+      "scn": "Sicilianu",
+      "ss": "SiSwati",
+      "si": "සිංහල",
+      "sk": "Slovenčina",
+      "sl": "Slovenščina",
+      "so": "Soomaaliga",
+      "sr": "Српски",
+      "fi": "Suomi",
+      "sv": "Svenska",
+      "tl": "Tagalog",
+      "tt": "Татарча",
+      "te": "తెలుగు",
+      "th": "ไทย",
+      "din": "Thuɔŋjaŋ",
+      "nus": "Thok Nath",
+      "ti": "ትግርኛ",
+      "vi": "Tiếng Việt",
+      "tg": "Тоҷикӣ",
+      "tpi": "Tok Pisin",
+      "tr": "Türkçe",
+      "tk": "Türkmençe",
+      "ak": "Twi",
+      "ug": "ئۇيغۇرچە",
+      "uk": "Українська",
+      "ur": "اردو",
+      "vec": "Vèneto",
+      "war": "Winaray",
+      "ts": "Xitsonga",
+      "yi": "ייִדיש",
+      "yo": "Yorùbá",
+      "yue": "粵語",
+      "zh-CN": "简体中文",
+      "zh-TW": "繁體中文"
     };
 
     const searchInput = document.getElementById('searchInput');
@@ -507,6 +662,7 @@
 
       const query = params.toString();
       history.replaceState(null, '', query ? base + '?' + query : base);
+      document.title = 'S-X A new universe';
     }
 
     function populateLangSelect() {
@@ -621,6 +777,7 @@
       hostLang.value = hostLanguages[params.hl] ? params.hl : 'en';
       renderFilters();
       renderCards();
+      document.title = 'S-X A new universe';
     }
 
     searchInput.addEventListener('input', () => {
