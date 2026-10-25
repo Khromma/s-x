@@ -1,640 +1,639 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="s-x-logo.png">
-    <title>S-X A new universe</title>
-    <style>
-        :root {
-            --sxpr: #ff005f;
-            --sxib: #4444ff;
-            --sxgy: #ffbb00;
-            --sxcg: #00ff66;
-            --sxtext: #111827;
-            --sxmuted: #6b7280;
-            --sxline: #e2e8f0;
-            --sxpanel: #ffffff;
-            --sxbg: #ffffff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="s-x-logo.png">
+  <title>S-X A new universe</title>
+  <style>
+    :root {
+      --sxpr: #ff005f;
+      --sxib: #4444ff;
+      --sxgy: #ffbb00;
+      --sxcg: #00ff66;
+      --sxtext: #111827;
+      --sxmuted: #6b7280;
+      --sxline: #dfe7f2;
+      --sxpanel: #ffffff;
+      --sxbg: #f6f7fb;
+      --sxcard: #f1f4f8;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
 
-        html, body {
-            background-color: var(--sxbg);
-            color: var(--sxtext);
-            min-height: 100vh;
-            width: 100%;
-            padding: 0 12px;
-            overflow-x: hidden;
-        }
+    html, body {
+      background: var(--sxbg);
+      color: var(--sxtext);
+      min-height: 100vh;
+      width: 100%;
+      padding: 0 12px;
+      overflow-x: hidden;
+    }
 
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            margin-right: calc(-50vw + 50%);
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 12px;
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--sxline);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--sxline);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
 
-        .logo {
-            width: clamp(48px, 10vw, 64px);
-            height: clamp(48px, 10vw, 64px);
-            object-fit: contain;
-            flex-shrink: 0;
-        }
+    .logo {
+      width: clamp(48px, 10vw, 64px);
+      height: clamp(48px, 10vw, 64px);
+      object-fit: contain;
+      flex-shrink: 0;
+    }
 
-        .sticky-header h1 {
-            font-size: clamp(18px, 4vw, 24px);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #000000;
-        }
+    .sticky-header h1 {
+      font-size: clamp(18px, 4vw, 24px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #000;
+    }
 
-        .page-shell {
-            width: 100%;
-            max-width: 1180px;
-            padding: 28px 0 44px;
-        }
+    .page-shell {
+      width: 100%;
+      max-width: 1180px;
+      padding: 28px 0 44px;
+    }
 
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 14px;
-            padding: 26px 16px 12px;
-        }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px 16px 8px;
+      gap: 13px;
+    }
 
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 14px;
-            border-radius: 999px;
-            background: rgba(68, 68, 255, 0.08);
-            border: 1px solid rgba(68, 68, 255, 0.18);
-            color: var(--sxib);
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(68,68,255,0.08);
+      border: 1px solid rgba(68,68,255,0.18);
+      color: var(--sxib);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-        .hero h2 {
-            font-size: clamp(32px, 6vw, 56px);
-            line-height: 1.05;
-            letter-spacing: -0.06em;
-            color: var(--sxtext);
-            max-width: 900px;
-        }
+    .hero h2 {
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+      max-width: 880px;
+      color: var(--sxtext);
+    }
 
-        .hero p {
-            max-width: 760px;
-            font-size: clamp(15px, 2.3vw, 18px);
-            line-height: 1.7;
-            color: var(--sxmuted);
-        }
+    .hero p {
+      max-width: 760px;
+      font-size: clamp(15px, 2.3vw, 18px);
+      line-height: 1.7;
+      color: var(--sxmuted);
+    }
 
-        .toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 16px;
-            padding: 12px 16px;
-            border: 1px solid var(--sxline);
-            border-radius: 18px;
-            background: #ffffff;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
-        }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 12px 16px;
+      border: 1px solid var(--sxline);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.72);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    }
 
-        .search-box {
-            flex: 1 1 400px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 220px;
-            border: 2px solid #dbe3ef;
-            border-radius: 999px;
-            padding: 10px 14px;
-            background: #f8fafc;
-        }
+    .search-box {
+      flex: 1 1 400px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 220px;
+      border: 2px solid #dfe7f2;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: #f9fbff;
+    }
 
-        .search-icon {
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-            opacity: 0.8;
-        }
+    .search-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: var(--sxmuted);
+    }
 
-        .search-box input {
-            border: none;
-            outline: none;
-            background: transparent;
-            flex: 1;
-            min-width: 0;
-            font-size: 15px;
-            color: var(--sxtext);
-        }
+    .search-box input {
+      border: none;
+      outline: none;
+      background: transparent;
+      flex: 1;
+      min-width: 0;
+      font-size: 15px;
+      color: var(--sxtext);
+    }
 
-        .search-box input::placeholder {
-            color: #7c8796;
-        }
+    .search-box input::placeholder {
+      color: #7b8697;
+    }
 
-        .controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
-        .lang-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--sxmuted);
-            font-size: 13px;
-            font-weight: 600;
-        }
+    .lang-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--sxmuted);
+      font-size: 13px;
+      font-weight: 600;
+    }
 
-        .lang-select {
-            min-width: 180px;
-            padding: 10px 12px;
-            border: 2px solid #dbe3ef;
-            border-radius: 999px;
-            background: #fff;
-            color: var(--sxtext);
-            font-size: 13px;
-            font-weight: 600;
-            outline: none;
-        }
+    .lang-select {
+      min-width: 180px;
+      padding: 10px 12px;
+      border: 2px solid var(--sxline);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--sxtext);
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+    }
 
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 14px;
-        }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
 
-        .filter-btn {
-            border: 1px solid var(--sxline);
-            background: #ffffff;
-            color: var(--sxtext);
-            padding: 8px 12px;
-            border-radius: 999px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
+    .filter-btn {
+      border: 1px solid var(--sxline);
+      background: #ffffff;
+      color: var(--sxtext);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
 
-        .filter-btn.active {
-            background: linear-gradient(135deg, var(--sxpr), var(--sxib), var(--sxgy), var(--sxcg));
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 8px 18px rgba(68, 68, 255, 0.12);
-        }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--sxpr), var(--sxib), var(--sxgy), var(--sxcg));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 8px 18px rgba(68,68,255,0.12);
+    }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(240px, 1fr));
-            gap: 20px;
-            padding: 22px 0 0;
-        }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 22px 0 0;
+    }
 
-        .app-card {
-            background: var(--sxpanel);
-            border: 1px solid var(--sxline);
-            border-radius: 22px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            padding: 18px 18px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-            min-height: 270px;
-        }
+    .app-card {
+      background: var(--sxcard);
+      border: 1px solid var(--sxline);
+      border-radius: 26px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 280px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
 
-        .app-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-        }
+    .app-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+    }
 
-        .app-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
+    .app-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-        .app-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 1px solid rgba(17, 24, 39, 0.06);
-            background: #ffffff;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.28);
-        }
+    .app-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(17,24,39,0.06);
+      background: #fff;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
 
-        .app-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-        .app-badge {
-            display: inline-block;
-            padding: 6px 8px;
-            border-radius: 999px;
-            background: rgba(0, 0, 0, 0.04);
-            color: var(--sxtext);
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
+    .app-badge {
+      display: inline-block;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.04);
+      color: var(--sxtext);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
 
-        .app-card h3 {
-            font-size: clamp(22px, 3vw, 28px);
-            line-height: 1.1;
-            letter-spacing: -0.05em;
-            color: var(--sxtext);
-        }
+    .app-card h3 {
+      font-size: clamp(22px, 3vw, 28px);
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      color: var(--sxtext);
+    }
 
-        .app-card p {
-            color: var(--sxmuted);
-            line-height: 1.7;
-            font-size: 15px;
-            flex: 1;
-        }
+    .app-card p {
+      color: var(--sxmuted);
+      line-height: 1.7;
+      font-size: 15px;
+      flex: 1;
+    }
 
-        .app-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: auto;
-        }
+    .app-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
 
-        .tag {
-            padding: 7px 10px;
-            border-radius: 999px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            color: #374151;
-            font-size: 12px;
-            font-weight: 600;
-        }
+    .tag {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid var(--sxline);
+      color: #374151;
+      font-size: 12px;
+      font-weight: 600;
+    }
 
-        .open-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 12px 18px;
-            border: none;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--sxpr), var(--sxib), var(--sxgy), var(--sxcg));
-            color: white;
-            font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(255, 0, 95, 0.18);
-            transition: opacity 0.18s ease, transform 0.18s ease;
-        }
+    .open-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 78px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(90deg,
+        var(--sxpr) 0%,
+        var(--sxib) 26%,
+        var(--sxgy) 52%,
+        var(--sxcg) 100%);
+      box-shadow: 0 8px 20px rgba(68,68,255,0.15);
+      color: white;
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
 
-        .open-btn:hover {
-            opacity: 0.95;
-            transform: translateY(-1px);
-        }
+    .open-btn:hover {
+      opacity: 0.98;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(255,0,95,0.14);
+    }
 
-        .empty-state {
-            display: none;
-            padding: 24px 16px;
-            text-align: center;
-            border: 1px dashed var(--sxline);
-            border-radius: 18px;
-            color: var(--sxmuted);
-            background: #fafbff;
-            margin-top: 18px;
-        }
+    .empty-state {
+      display: none;
+      padding: 24px 16px;
+      text-align: center;
+      border: 1px dashed var(--sxline);
+      border-radius: 18px;
+      color: var(--sxmuted);
+      background: #fafbff;
+      margin-top: 18px;
+    }
 
-        .empty-state.visible {
-            display: block;
-        }
+    .empty-state.visible {
+      display: block;
+    }
 
-        .footer-note {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 14px;
-            color: var(--sxmuted);
-        }
+    .footer-note {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--sxmuted);
+    }
 
-        @media (max-width: 900px) {
-            .cards {
-                grid-template-columns: 1fr;
-            }
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
 
-            .page-shell {
-                max-width: 620px;
-            }
-        }
-    </style>
+      .page-shell {
+        max-width: 620px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header class="sticky-header">
-        <img class="logo" src="s-x-logo.png" alt="S-X logo">
-        <h1>S-X A new universe</h1>
-    </header>
+  <header class="sticky-header">
+    <img class="logo" src="s-x-logo.png" alt="S-X logo">
+    <h1>S-X A new universe</h1>
+  </header>
 
-    <main class="page-shell">
-        <section class="hero">
-            <span class="eyebrow">A new universe</span>
-            <h2>Explore the complete S-X toolkit.</h2>
-            <p>
-                Search, filter, and switch language instantly across the active utility apps. Each card below represents one finished tool in the S-X universe.
-            </p>
-        </section>
+  <main class="page-shell">
+    <section class="hero">
+      <span class="eyebrow">A new universe</span>
+      <h2>Explore the complete S-X toolkit.</h2>
+      <p>
+        Search, filter, and switch language instantly across the active utility apps. Each card below represents one finished tool in the S-X universe.
+      </p>
+    </section>
 
-        <div class="toolbar">
-            <div class="search-box">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <circle cx="11" cy="11" r="6.4" stroke="currentColor" stroke-width="2"/>
-                    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                <input id="searchInput" type="text" placeholder="Search apps, tags, features..." />
-            </div>
+    <div class="toolbar">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.4" stroke="currentColor" stroke-width="2"/>
+          <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="searchInput" type="text" placeholder="Search apps, tags, features..." />
+      </div>
 
-            <div class="controls">
-                <label class="lang-group" for="hostLang">
-                    <span>Host language</span>
-                    <select id="hostLang" class="lang-select"></select>
-                </label>
-            </div>
-        </div>
+      <div class="controls">
+        <label class="lang-group" for="hostLang">
+          <span>Host language</span>
+          <select id="hostLang" class="lang-select"></select>
+        </label>
+      </div>
+    </div>
 
-        <div class="filters" id="filters"></div>
+    <div class="filters" id="filters"></div>
 
-        <section class="cards" id="cards"></section>
-        <div class="empty-state" id="emptyState">No apps match your search or filter.</div>
+    <section class="cards" id="cards"></section>
+    <div class="empty-state" id="emptyState">No apps match your search or filter.</div>
 
-        <div class="footer-note">S-X A new universe</div>
-    </main>
+    <div class="footer-note">S-X A new universe</div>
+  </main>
 
-    <script>
-        const appData = [
-            {
-                id: 'colorx',
-                name: 'S-Colorx',
-                logo: 's-colorx/s-colorx-logo-circ.png',
-                filter: 'color',
-                tags: ['hex', 'rgb', 'preview', 'copy'],
-                description: 'Convert between HEX and RGB values, preview color output, and listen to colors in your chosen language.',
-                link: 's-colorx/'
-            },
-            {
-                id: 'mathex',
-                name: 'S-Mathex',
-                logo: 's-mathex/s-mathex-logo-calc.png',
-                filter: 'math',
-                tags: ['calculator', 'math', 'history', 'keyboard'],
-                description: 'Do quick calculations, use keyboard shortcuts, and keep track of recent math operations.',
-                link: 's-mathex/'
-            },
-            {
-                id: 'translatex',
-                name: 'S-Translatex',
-                logo: 's-translatex/s-translatex-logo-translator.png',
-                filter: 'translate',
-                tags: ['translation', 'text', 'speech', 'language'],
-                description: 'Translate text between languages, swap inputs, and quickly copy or speak the result.',
-                link: 's-translatex/'
-            }
-        ];
+  <script>
+    const appData = [
+      {
+        id: 'colorx',
+        name: 'S-Colorx',
+        logo: 's-colorx/s-colorx-logo-circ.png',
+        filter: 'color',
+        tags: ['hex', 'rgb', 'preview', 'copy'],
+        description: 'Convert between HEX and RGB values, preview color output, and listen to colors in your chosen language.',
+        link: 's-colorx/'
+      },
+      {
+        id: 'mathex',
+        name: 'S-Mathex',
+        logo: 's-mathex/s-mathex-logo-calc.png',
+        filter: 'math',
+        tags: ['calculator', 'math', 'history', 'keyboard'],
+        description: 'Do quick calculations, use keyboard shortcuts, and keep track of recent math operations.',
+        link: 's-mathex/'
+      },
+      {
+        id: 'translatex',
+        name: 'S-Translatex',
+        logo: 's-translatex/s-translatex-logo-translator.png',
+        filter: 'translate',
+        tags: ['translation', 'text', 'speech', 'language'],
+        description: 'Translate text between languages, swap inputs, and quickly copy or speak the result.',
+        link: 's-translatex/'
+      }
+    ];
 
-        const filterMap = {
-            all: 'All',
-            color: 'Color',
-            math: 'Math',
-            translate: 'Translation'
-        };
+    const filterMap = {
+      all: 'All',
+      color: 'Color',
+      math: 'Math',
+      translate: 'Translation'
+    };
 
-        const hostLanguages = {
-            en: 'English',
-            es: 'Español',
-            fr: 'Français',
-            de: 'Deutsch',
-            pt: 'Português',
-            it: 'Italiano',
-            nl: 'Nederlands',
-            ja: '日本語',
-            ko: '한국어',
-            ar: 'العربية',
-            hi: 'हिन्दी',
-            ru: 'Русский',
-            zh: '中文',
-            tr: 'Türkçe',
-            pl: 'Polski',
-            sv: 'Svenska',
-            uk: 'Українська'
-        };
+    const hostLanguages = {
+      en: 'English',
+      es: 'Español',
+      fr: 'Français',
+      de: 'Deutsch',
+      pt: 'Português',
+      it: 'Italiano',
+      nl: 'Nederlands',
+      ja: '日本語',
+      ko: '한국어',
+      ar: 'العربية',
+      hi: 'हिन्दी',
+      ru: 'Русский',
+      zh: '中文',
+      tr: 'Türkçe',
+      pl: 'Polski',
+      sv: 'Svenska',
+      uk: 'Українська'
+    };
 
-        const searchInput = document.getElementById('searchInput');
-        const cardsRoot = document.getElementById('cards');
-        const filtersRoot = document.getElementById('filters');
-        const emptyState = document.getElementById('emptyState');
-        const hostLang = document.getElementById('hostLang');
+    const searchInput = document.getElementById('searchInput');
+    const cardsRoot = document.getElementById('cards');
+    const filtersRoot = document.getElementById('filters');
+    const emptyState = document.getElementById('emptyState');
+    const hostLang = document.getElementById('hostLang');
 
-        let currentFilter = 'all';
+    let currentFilter = 'all';
 
-        function getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                hl: params.get('hl') || 'en',
-                q: params.get('q') || '',
-                f: params.get('f') || 'all'
-            };
-        }
+    function getUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        hl: params.get('hl') || 'en',
+        q: params.get('q') || '',
+        f: params.get('f') || 'all'
+      };
+    }
 
-        function updateUrlParams() {
-            const base = window.location.origin + window.location.pathname;
-            const params = new URLSearchParams();
+    function updateUrlParams() {
+      const base = window.location.origin + window.location.pathname;
+      const params = new URLSearchParams();
+      const hlValue = hostLang.value;
+      const qValue = searchInput.value.trim();
 
-            const hlValue = hostLang.value;
-            const qValue = searchInput.value.trim();
+      if (hlValue && hlValue !== 'en') params.set('hl', hlValue);
+      if (qValue) params.set('q', qValue);
+      if (currentFilter && currentFilter !== 'all') params.set('f', currentFilter);
 
-            if (hlValue && hlValue !== 'en') {
-                params.set('hl', hlValue);
-            }
+      const query = params.toString();
+      history.replaceState(null, '', query ? base + '?' + query : base);
+    }
 
-            if (qValue) {
-                params.set('q', qValue);
-            }
+    function populateLangSelect() {
+      Object.entries(hostLanguages).forEach(([code, label]) => {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent = label;
+        hostLang.appendChild(option);
+      });
 
-            if (currentFilter && currentFilter !== 'all') {
-                params.set('f', currentFilter);
-            }
+      const params = getUrlParams();
+      hostLang.value = hostLanguages[params.hl] ? params.hl : 'en';
+    }
 
-            const query = params.toString();
-            history.replaceState(null, '', query ? base + '?' + query : base);
-        }
+    function renderFilters() {
+      filtersRoot.innerHTML = '';
 
-        function populateLangSelect() {
-            Object.entries(hostLanguages).forEach(([code, label]) => {
-                const option = document.createElement('option');
-                option.value = code;
-                option.textContent = label;
-                hostLang.appendChild(option);
-            });
+      Object.entries(filterMap).forEach(([key, label]) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'filter-btn' + (key === currentFilter ? ' active' : '');
+        btn.textContent = label;
+        btn.setAttribute('data-filter', key);
+        btn.addEventListener('click', () => {
+          currentFilter = key;
+          renderFilters();
+          renderCards();
+          updateUrlParams();
+        });
+        filtersRoot.appendChild(btn);
+      });
+    }
 
-            const params = getUrlParams();
-            hostLang.value = hostLanguages[params.hl] ? params.hl : 'en';
-        }
+    function matchesSearch(app, value) {
+      if (!value) return true;
+      const haystack = [
+        app.name,
+        app.filter,
+        ...app.tags,
+        app.description
+      ].join(' ').toLowerCase();
+      return haystack.includes(value.toLowerCase());
+    }
 
-        function renderFilters() {
-            filtersRoot.innerHTML = '';
+    function renderCards() {
+      const params = getUrlParams();
+      const queryValue = searchInput.value.trim() || params.q || '';
 
-            Object.entries(filterMap).forEach(([key, label]) => {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'filter-btn' + (key === currentFilter ? ' active' : '');
-                btn.textContent = label;
-                btn.setAttribute('data-filter', key);
-                btn.addEventListener('click', () => {
-                    currentFilter = key;
-                    renderFilters();
-                    renderCards();
-                    updateUrlParams();
-                });
-                filtersRoot.appendChild(btn);
-            });
-        }
+      const filtered = appData.filter(app => {
+        const matchesFilter = currentFilter === 'all' || app.filter === currentFilter;
+        const matchesQuery = matchesSearch(app, queryValue);
+        return matchesFilter && matchesQuery;
+      });
 
-        function matchesSearch(app, value) {
-            if (!value) return true;
-            const haystack = [
-                app.name,
-                app.filter,
-                ...app.tags,
-                app.description
-            ].join(' ').toLowerCase();
-            return haystack.includes(value.toLowerCase());
-        }
+      cardsRoot.innerHTML = '';
 
-        function renderCards() {
-            const params = getUrlParams();
-            const queryValue = searchInput.value.trim() || params.q || '';
-            const filtered = appData.filter(app => {
-                const matchesFilter = currentFilter === 'all' || app.filter === currentFilter;
-                const matchesQuery = matchesSearch(app, queryValue);
-                return matchesFilter && matchesQuery;
-            });
+      filtered.forEach(app => {
+        const card = document.createElement('article');
+        card.className = 'app-card';
 
-            cardsRoot.innerHTML = '';
+        const top = document.createElement('div');
+        top.className = 'app-top';
 
-            filtered.forEach(app => {
-                const card = document.createElement('article');
-                card.className = 'app-card';
+        const icon = document.createElement('div');
+        icon.className = 'app-icon';
+        const img = document.createElement('img');
+        img.src = app.logo;
+        img.alt = app.name + ' logo';
+        icon.appendChild(img);
 
-                const top = document.createElement('div');
-                top.className = 'app-top';
+        const badge = document.createElement('span');
+        badge.className = 'app-badge';
+        badge.textContent = app.filter;
+        top.appendChild(icon);
+        top.appendChild(badge);
 
-                const icon = document.createElement('div');
-                icon.className = 'app-icon';
-                const img = document.createElement('img');
-                img.src = app.logo;
-                img.alt = app.name + ' logo';
-                icon.appendChild(img);
+        const title = document.createElement('h3');
+        title.textContent = app.name;
 
-                const badge = document.createElement('span');
-                badge.className = 'app-badge';
-                badge.textContent = app.filter;
+        const summary = document.createElement('p');
+        summary.textContent = app.description;
 
-                top.appendChild(icon);
-                top.appendChild(badge);
-
-                const title = document.createElement('h3');
-                title.textContent = app.name;
-
-                const summary = document.createElement('p');
-                summary.textContent = app.description;
-
-                const tags = document.createElement('div');
-                tags.className = 'app-meta';
-                app.tags.forEach(tagText => {
-                    const tag = document.createElement('span');
-                    tag.className = 'tag';
-                    tag.textContent = tagText;
-                    tags.appendChild(tag);
-                });
-
-                const link = document.createElement('a');
-                link.className = 'open-btn';
-                link.href = app.link;
-                link.textContent = 'Open ' + app.name;
-
-                card.appendChild(top);
-                card.appendChild(title);
-                card.appendChild(summary);
-                card.appendChild(tags);
-                card.appendChild(link);
-                cardsRoot.appendChild(card);
-            });
-
-            emptyState.classList.toggle('visible', filtered.length === 0);
-        }
-
-        function applyInitialState() {
-            const params = getUrlParams();
-            currentFilter = filterMap[params.f] ? params.f : 'all';
-            searchInput.value = params.q || '';
-            hostLang.value = hostLanguages[params.hl] ? params.hl : 'en';
-            renderFilters();
-            renderCards();
-        }
-
-        searchInput.addEventListener('input', () => {
-            renderCards();
-            updateUrlParams();
+        const tags = document.createElement('div');
+        tags.className = 'app-meta';
+        app.tags.forEach(tagText => {
+          const tag = document.createElement('span');
+          tag.className = 'tag';
+          tag.textContent = tagText;
+          tags.appendChild(tag);
         });
 
-        hostLang.addEventListener('change', () => {
-            updateUrlParams();
-        });
+        const link = document.createElement('a');
+        link.className = 'open-btn';
+        link.href = app.link;
+        link.textContent = 'Open ' + app.name;
 
-        populateLangSelect();
-        applyInitialState();
-    </script>
+        card.appendChild(top);
+        card.appendChild(title);
+        card.appendChild(summary);
+        card.appendChild(tags);
+        card.appendChild(link);
+        cardsRoot.appendChild(card);
+      });
+
+      emptyState.classList.toggle('visible', filtered.length === 0);
+    }
+
+    function applyInitialState() {
+      const params = getUrlParams();
+      currentFilter = filterMap[params.f] ? params.f : 'all';
+      searchInput.value = params.q || '';
+      hostLang.value = hostLanguages[params.hl] ? params.hl : 'en';
+      renderFilters();
+      renderCards();
+    }
+
+    searchInput.addEventListener('input', () => {
+      renderCards();
+      updateUrlParams();
+    });
+
+    hostLang.addEventListener('change', () => {
+      updateUrlParams();
+    });
+
+    populateLangSelect();
+    applyInitialState();
+  </script>
 </body>
 </html>
