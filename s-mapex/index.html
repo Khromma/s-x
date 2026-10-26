@@ -12,9 +12,6 @@
             --sxib: #4444ff;
             --sxgy: #ffbb00;
             --sxcg: #00ff66;
-            --text: #1f2937;
-            --muted: #6b7280;
-            --shadow: 0 8px 24px rgba(30, 41, 59, 0.08);
         }
 
         *, *::before, *::after {
@@ -22,69 +19,55 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            color: var(--text);
+            color: #1f2937;
         }
 
         html, body {
-            background-color: #ffffff;
+            background-color: #eaf3e9;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            width: 100%;
-            padding: 0 12px;
-            overflow-x: hidden;
         }
 
         .sticky-header {
-            position: sticky;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            margin-right: calc(-50vw + 50%);
-            background-color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.92) !important;
+            backdrop-filter: blur(8px);
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             gap: 12px;
-            padding: 16px 24px;
+            padding: 12px 24px;
             border-bottom: 1px solid #e2e8f0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .logo {
-            width: clamp(48px, 10vw, 64px);
-            height: clamp(48px, 10vw, 64px);
+            width: clamp(36px, 8vw, 48px);
+            height: clamp(36px, 8vw, 48px);
             object-fit: contain;
             flex-shrink: 0;
         }
 
         .sticky-header h1 {
-            font-size: clamp(18px, 4vw, 24px);
+            font-size: clamp(16px, 3vw, 22px);
             font-weight: 700;
             letter-spacing: -0.5px;
             color: #000000 !important;
         }
 
         .app-shell {
-            width: min(100%, 1100px);
-            margin: 16px auto 0;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-
-        .map-card {
-            position: relative;
-            width: 100%;
-            min-height: 610px;
-            background: #edf3ef;
-            border: 1px solid #e2e8f0;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
         }
 
         #map {
@@ -97,93 +80,94 @@
         }
 
         .search-bar {
-            position: relative;
-            z-index: 500;
-            margin: 16px auto 0;
-            width: min(100%, 820px);
-            min-height: 52px;
-            padding: 6px 8px 6px 8px;
-            border-radius: 999px;
-            border: 2px solid #d1d5db;
-            background: rgba(255, 255, 255, 0.86);
-            backdrop-filter: blur(4px);
-            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+            position: absolute;
+            top: 76px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 700px;
+            min-height: 48px;
+            padding: 0 4px 0 4px;
+            margin: 12px auto;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            box-sizing: border-box;
+            cursor: pointer;
             display: flex;
+            flex-direction: row;            
+            gap: 12px;
             align-items: center;
-            gap: 10px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            z-index: 900;
+        }
+
+        .search-text {
+            flex: 1;
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            outline: none;
+            resize: none;
+            padding: 12px 0;
+            box-sizing: border-box;
+            field-sizing: content;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow: hidden;
         }
 
         .search-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 42px;
-            height: 42px;
-            background: radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
-                        radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
-                        radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
-                        radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+            width: 40px;
+            height: 40px;
+            background: 
+                radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
+                radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
+                radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
+                radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
             border: none;
             border-radius: 50%;
-            color: #ffffff;
+            color: #000000;
             cursor: pointer;
             outline: none;
             transition: all 0.2s ease;
             flex-shrink: 0;
-            box-shadow: 0 3px 12px rgba(68, 68, 255, 0.18);
+        }
+
+        .search-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            display: block;
+            flex-shrink: 0;
         }
 
         .search-btn:hover {
             transform: translateY(-1px);
-            opacity: 0.94;
+            opacity: 0.9;
         }
 
         .search-btn:active {
             transform: scale(0.96);
         }
 
-        .search-btn svg {
-            width: 22px !important;
-            height: 22px !important;
-            display: block;
-            flex-shrink: 0;
-        }
-
-        .search-text {
-            flex: 1;
-            min-width: 0;
-            font-size: clamp(16px, 2vw, 20px);
-            background: transparent;
-            border: none;
-            outline: none;
-            resize: none;
-            padding: 10px 0;
-            box-sizing: border-box;
-            white-space: pre-wrap;
-            word-break: break-word;
-            overflow: hidden;
-            color: var(--text);
-        }
-
-        .search-text::placeholder {
-            color: var(--muted);
-            opacity: 1;
-        }
-
         .zoom-grid {
             position: absolute;
-            right: 18px;
-            bottom: 20px;
-            z-index: 600;
+            right: 20px;
+            bottom: 30px;
+            z-index: 800;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
             padding: 8px 6px;
             border-radius: 18px;
-            background: rgba(255,255,255,0.78);
+            background: rgba(255,255,255,0.88);
             border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: var(--shadow);
+            box-shadow: 0 8px 24px rgba(30, 41, 59, 0.15);
         }
 
         .zoom-btn {
@@ -193,46 +177,65 @@
                         radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
             border: none;
             border-radius: 50%;
-            padding: 0;
-            width: 30px;
-            height: 30px;
+            width: 34px;
+            height: 34px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 5px 14px rgba(0,0,0,0.12);
-            transition: transform 0.15s ease, opacity 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transition: transform 0.15s ease;
         }
 
         .zoom-btn:hover {
             transform: translateY(-1px);
-            opacity: 0.94;
-        }
-
-        .zoom-btn:active {
-            transform: scale(0.96);
         }
 
         .btn-icon {
-            width: 18px !important;
-            height: 18px !important;
+            width: 20px !important;
+            height: 20px !important;
             display: block;
         }
 
-        .coords-panel {
+        .info-card {
             position: absolute;
-            left: 18px;
-            bottom: 18px;
-            z-index: 600;
-            background: rgba(255,255,255,0.8);
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 14px;
-            padding: 10px 14px;
-            box-shadow: var(--shadow);
-            font-size: 14px;
+            bottom: 24px;
+            left: 24px;
+            z-index: 800;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            padding: 14px 18px;
+            box-shadow: 0 8px 24px rgba(30, 41, 59, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 260px;
+            transition: transform 0.3s ease;
+        }
+
+        .panel-handle {
+            display: none;
+            width: 36px;
+            height: 4px;
+            background-color: #888888;
+            border-radius: 2px;
+            margin: 0 auto 4px auto;
+            cursor: pointer;
+        }
+
+        .coords-text {
+            font-size: 15px;
             font-weight: 700;
-            letter-spacing: 0.05em;
-            white-space: nowrap;
+            color: #000000;
+        }
+
+        .location-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #555555;
+            word-break: break-word;
         }
 
         .end-line {
@@ -240,29 +243,26 @@
             width: 100%;
             height: 2px;
             box-sizing: border-box;
-            margin-top: 7px;
+            margin: 4px 0;
         }
 
         .lang-container {
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
             width: 100%;
-            height: 35px;
             gap: 8px;
-            margin-top: 12px;
-            margin-left: 8px;
         }
 
         .lang-text {
-            font-size: 15px;
-            line-height: 1.5;
+            font-size: 14px;
+            font-weight: 600;
             color: #000000 !important;
         }
 
         #hostLang {
-            padding: 10px 6px;
+            padding: 6px 8px;
             border-radius: 25px;
             outline: none;
             font-weight: 600;
@@ -271,51 +271,48 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            flex: 0 0 80px !important;
             background-color: #ffffff !important;
             border: 2px solid #888888 !important;
             color: #000000 !important;
-            height: 40px !important;
-            width: 160px !important;
-            min-width: 160px !important;
+            height: 34px !important;
+            width: 130px !important;
+            min-width: 130px !important;
             font-size: 12px !important;
         }
 
-        select:focus {
-            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
-        }
-
-        @media (max-width: 700px) {
-            .map-card {
-                min-height: 560px;
+        @media (max-width: 768px) {
+            .info-card {
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                border-radius: 20px 20px 0 0;
+                border-bottom: none;
+                padding: 10px 16px 20px 16px;
             }
 
-            .search-bar {
-                width: calc(100% - 20px);
-                margin-top: 12px;
+            .info-card.collapsed {
+                transform: translateY(calc(100% - 32px));
             }
 
-            .coords-panel {
-                left: 12px;
-                right: 12px;
-                bottom: 12px;
-                text-align: center;
+            .panel-handle {
+                display: block;
             }
 
             .zoom-grid {
+                bottom: 150px;
                 right: 12px;
-                bottom: 72px;
             }
         }
     </style>
 </head>
 <body>
-    <header class="sticky-header">
-        <img class="logo" src="s-mapex-logo-map.png" alt="S-Mapex Logo">
-        <h1>S-Mapex</h1>
-    </header>
 
     <div class="app-shell">
+        <header class="sticky-header">
+            <img class="logo" src="s-mapex-logo-map.png" alt="S-Mapex Logo">
+            <h1>S-Mapex</h1>
+        </header>
+
         <div class="search-bar">
             <button class="search-btn" id="searchBtn" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -323,7 +320,14 @@
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
             </button>
-            <textarea class="search-text" id="searchText" rows="1" placeholder="Search a place..."></textarea>
+            <textarea class="search-text" id="searchText" rows="1" placeholder="Search..."></textarea>
+            <button class="search-btn" id="aiBtn" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-linecap="round" stroke-linejoin="round"></line>
+                    <path d="M 21.5 0.5 Q 21.5 4.5 25.5 4.5 Q 21.5 4.5 21.5 8.5 Q 21.5 4.5 17.5 4.5 Q 21.5 4.5 21.5 0.5 Z" fill="#ffffff" stroke="none"></path>
+                </svg>
+            </button>
             <button class="search-btn" id="clearBtn" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -332,303 +336,191 @@
             </button>
         </div>
 
-        <div class="map-card">
-            <div id="map"></div>
+        <div id="map"></div>
 
-            <div class="zoom-grid">
-                <button class="zoom-btn" id="locBtn" type="button">
-                    <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <path d="M12 2V5M12 19V22M2 12H5M19 12H22"></path>
-                    </svg>
-                </button>
-                <button class="zoom-btn" id="inBtn" type="button">
-                    <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12 5V19M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-                    </svg>
-                </button>
-                <button class="zoom-btn" id="outBtn" type="button">
-                    <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-                    </svg>
-                </button>
+        <div class="zoom-grid">
+            <button class="zoom-btn" id="locBtn" type="button" title="My Location">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <path d="M12 2V5M12 19V22M2 12H5M19 12H22"></path>
+                </svg>
+            </button>
+            <button class="zoom-btn" id="inBtn" type="button" title="Zoom In">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 5V19M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="zoom-btn" id="outBtn" type="button" title="Zoom Out">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="info-card" id="infoCard">
+            <div class="panel-handle" id="panelHandle" title="Toggle Panel"></div>
+            <div class="coords-text" id="coordsPanel">x, y</div>
+            <div class="location-text" id="locationText">City name, Country name</div>
+            <div class="end-line"></div>
+            <div class="lang-container">
+                <p class="lang-text">Language</p>
+                <select id="hostLang"></select>
             </div>
-
-            <div class="coords-panel" id="coordsPanel">x, y, z</div>
         </div>
     </div>
 
-    <div class="end-line"></div>
-    <div class="lang-container">
-      <p class="lang-text">Language</p>
-      <select id="hostLang"></select>
-    </div>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchBvlXb4tX9X0q0R9eBkgFJQ8BvZ0L1wL5LzQ=" crossorigin=""></script>
-<script>
-    const hostLanguages = {
-        "ab": "Аԥсшәа",
-        "ace": "Aceh",
-        "ach": "Acoli",
-        "om": "Afaan Oromoo",
-        "af": "Afrikaans",
-        "alz": "Alur",
-        "am": "አማርኛ",
-        "ar": "العربية",
-        "as": "অসমীয়া",
-        "ig": "Asụsụ Igbo",
-        "gn": "Avañe'ẽ",
-        "awa": "अवधी",
-        "ay": "Aymar aru",
-        "az": "Azərbaycanca",
-        "ban": "Balines",
-        "bm": "Bamanankan",
-        "ms": "Bahasa Melayu",
-        "id": "Bahasa Indonesia",
-        "ba": "Башҡортса",
-        "min": "Baso Minangkabau",
-        "mad": "Basa Madura",
-        "jw": "Basa Jawa",
-        "su": "Basa Sunda",
-        "bbc": "Batak Toba",
-        "bts": "Batak Simalungun",
-        "btx": "Batak Karo",
-        "be": "Беларуская",
-        "bew": "Betawi",
-        "bho": "भोजपुरी",
-        "bik": "Bikol",
-        "bo": "བོད་སྐད་",
-        "bs": "Bosanski",
-        "br": "Brezhoneg",
-        "bg": "Български",
-        "bua": "Буряад",
-        "ca": "Català",
-        "ceb": "Cebuano",
-        "ny": "Chichewa",
-        "nyan": "Chinyanja",
-        "sn": "ChiShona",
-        "co": "Corsu",
-        "cy": "Cymraeg",
-        "da": "Dansk",
-        "zap": "Diidxazá",
-        "doi": "डोगri",
-        "de": "Deutsch",
-        "dz": "རྫོང་ཁ་",
-        "et": "Eesti",
-        "el": "Ελληνικά",
-        "en": "English",
-        "eo": "Esperanto",
-        "es": "Español",
-        "ee": "Eʋegbe",
-        "eu": "Euskara",
-        "fa": "فارسی",
-        "fr": "Français",
-        "fy": "Frysk",
-        "ff": "Fulfulde",
-        "fo": "Føroyskt",
-        "ga": "Gaeilge",
-        "gv": "Gaelg",
-        "sm": "Gagana Sāmoa",
-        "gl": "Galego",
-        "gd": "Gàidhlig",
-        "gu": "ગુજરાતી",
-        "ko": "한국어",
-        "ha": "Hausa",
-        "he": "עברית",
-        "hi": "हिन्दी",
-        "hmn": "Hmoob",
-        "hr": "Hrvatski",
-        "hy": "Հայերեն",
-        "bem": "Ichibemba",
-        "rn": "Ikirundi",
-        "rw": "Ikinyarwanda",
-        "iloc": "Ilokano",
-        "os": "Ирон",
-        "nr": "IsiNdebele",
-        "xh": "isiXhosa",
-        "zu": "isiZulu",
-        "is": "Íslenska",
-        "it": "Italiano",
-        "ka": "Ქართული",
-        "sw": "Kiswahili",
-        "ht": "Kreyòl Ayisyen",
-        "kri": "Krio",
-        "ku": "Kurdî (Kurmancî)",
-        "ckb": "Kurdî (Soranî)",
-        "ky": "Кыргызча",
-        "la": "Latina",
-        "lv": "Latviešu",
-        "lb": "Lëtzebuergesch",
-        "lt": "Lietuvių",
-        "ln": "Lingála",
-        "lg": "Luganda",
-        "yua": "Maaya t'aan",
-        "hu": "Magyar",
-        "mk": "Македонски",
-        "mg": "Malagasy",
-        "ml": "മലയാളം",
-        "mt": "Malti",
-        "mak": "Mangkasara’",
-        "mi": "Māori",
-        "mr": "मराठी",
-        "mai": "मैथिली",
-        "lus": "Mizo ṭawng",
-        "mn": "Монгол хэл",
-        "mni-Mtei": "মৈতৈলোন্",
-        "my": "မြန်မာဘာသာ",
-        "fj": "Na Vosa Vakaviti",
-        "ne": "नेपाली",
-        "nl": "Nederlands",
-        "ja": "日本語",
-        "no": "Norsk",
-        "or": "ଓଡ଼ିଆ",
-        "uz": "Oʻzbekcha",
-        "pag": "Pangasinan",
-        "pap": "Papiamentu",
-        "ps": "پښتو",
-        "km": "ភាសាខ្មែរ",
-        "pl": "Polski",
-        "pt": "Português",
-        "pa": "ਪੰਜਾਬੀ",
-        "crh": "Qırımtatarca",
-        "kk": "Қазақ тілі",
-        "ro": "Română",
-        "rom": "Romani",
-        "qu": "Runasimi",
-        "ru": "Русский",
-        "sa": "संस्कृतम्",
-        "sat": "ᱥᱟᱱᱛᱟᱲᱤ",
-        "sg": "Sängö",
-        "nso": "Sesotho sa Leboa",
-        "st": "Sesotho",
-        "tn": "Setswana",
-        "sq": "Shqip",
-        "scn": "Sicilianu",
-        "ss": "SiSwati",
-        "si": "සිංහල",
-        "sk": "Slovenčina",
-        "sl": "Slovenščina",
-        "so": "Soomaaliga",
-        "sr": "Српски",
-        "fi": "Suomi",
-        "sv": "Svenska",
-        "tl": "Tagalog",
-        "tt": "Татарча",
-        "te": "తెలుగు",
-        "th": "ไทย",
-        "din": "Thuɔŋjaŋ",
-        "nus": "Thok Nath",
-        "ti": "ትግርኛ",
-        "vi": "Tiếng Việt",
-        "tg": "Тоҷикӣ",
-        "tpi": "Tok Pisin",
-        "tr": "Türkçe",
-        "tk": "Türkmençe",
-        "ak": "Twi",
-        "ug": "ئۇيغۇرچە",
-        "uk": "Українська",
-        "ur": "اردو",
-        "vec": "Vèneto",
-        "war": "Winaray",
-        "ts": "Xitsonga",
-        "yi": "ייִדיש",
-        "yo": "Yorùbá",
-        "yue": "粵語",
-        "zh-CN": "简体中文",
-        "zh-TW": "繁體中文"
-    };
+    <script>
+        const hostLanguages = {
+            "ab": "Аԥсшәа", "ace": "Aceh", "ach": "Acoli", "om": "Afaan Oromoo", "af": "Afrikaans", "alz": "Alur", "am": "አማርኛ", "ar": "العربية", "as": "অসমীয়া", "ig": "Asụsụ Igbo", "gn": "Avañe'ẽ", "awa": "अवधी", "ay": "Aymar aru", "az": "Azərbaycanca", "ban": "Balines", "bm": "Bamanankan", "ms": "Bahasa Melayu", "id": "Bahasa Indonesia", "ba": "Башҡортса", "min": "Baso Minangkabau", "mad": "Basa Madura", "jw": "Basa Jawa", "su": "Basa Sunda", "bbc": "Batak Toba", "bts": "Batak Simalungun", "btx": "Batak Karo", "be": "Беларуская", "bew": "Betawi", "bho": "भोजपुरी", "bik": "Bikol", "bo": "བོད་སྐད་", "bs": "Bosanski", "br": "Brezhoneg", "bg": "Български", "bua": "Буряад", "ca": "Català", "ceb": "Cebuano", "ny": "Chichewa", "nyan": "Chinyanja", "sn": "ChiShona", "co": "Corsu", "cy": "Cymraeg", "da": "Dansk", "zap": "Diidxazá", "doi": "डोगri", "de": "Deutsch", "dz": "རྫོང་ཁ་", "et": "Eesti", "el": "Ελληνικά", "en": "English", "eo": "Esperanto", "es": "Español", "ee": "Eʋegbe", "eu": "Euskara", "fa": "فارسی", "fr": "Français", "fy": "Frysk", "ff": "Fulfulde", "fo": "Føroyskt", "ga": "Gaeilge", "gv": "Gaelg", "sm": "Gagana Sāmoa", "gl": "Galego", "gd": "Gàidhlig", "gu": "ગુજરાતી", "ko": "한국어", "ha": "Hausa", "he": "עברית", "hi": "हिन्दी", "hmn": "Hmoob", "hr": "Hrvatski", "hy": "Հայերեն", "bem": "Ichibemba", "rn": "Ikirundi", "rw": "Ikinyarwanda", "iloc": "Ilokano", "os": "Ирон", "nr": "IsiNdebele", "xh": "isiXhosa", "zu": "isiZulu", "is": "Íslenska", "it": "Italiano", "ka": "Ქართული", "sw": "Kiswahili", "ht": "Kreyòl Ayisyen", "kri": "Krio", "ku": "Kurdî (Kurmancî)", "ckb": "Kurdî (Soranî)", "ky": "Кыргызча", "la": "Latina", "lv": "Latviešu", "lb": "Lëtzebuergesch", "lt": "Lietuvių", "ln": "Lingála", "lg": "Luganda", "yua": "Maaya t'aan", "hu": "Magyar", "mk": "Македонски", "mg": "Malagasy", "ml": "മലയാളം", "mt": "Malti", "mak": "Mangkasara’", "mi": "Māori", "mr": "मराठी", "mai": "मैथिली", "lus": "Mizo ṭawng", "mn": "Монгол хэл", "mni-Mtei": "মৈতৈলোন্", "my": "မြန်မာဘာသာ", "fj": "Na Vosa Vakaviti", "ne": "नेपाली", "nl": "Nederlands", "ja": "日本語", "no": "Norsk", "or": "ଓଡ଼ିଆ", "uz": "Oʻzbekcha", "pag": "Pangasinan", "pap": "Papiamentu", "ps": "پښتو", "km": "ភាសាខ្មែរ", "pl": "Polski", "pt": "Português", "pa": "ਪੰਜਾਬੀ", "crh": "Qırımtatarca", "kk": "Қазақ тілі", "ro": "Română", "rom": "Romani", "qu": "Runasimi", "ru": "Русский", "sa": "संस्कृतम्", "sat": "ᱥᱟᱱᱛᱟᱲᱤ", "sg": "Sängö", "nso": "Sesotho sa Leboa", "st": "Sesotho", "tn": "Setswana", "sq": "Shqip", "scn": "Sicilianu", "ss": "SiSwati", "si": "සිංහල", "sk": "Slovenčina", "sl": "Slovenščina", "so": "Soomaaliga", "sr": "Српски", "fi": "Suomi", "sv": "Svenska", "tl": "Tagalog", "tt": "Татарча", "te": "తెలుగు", "th": "ไทย", "din": "Thuɔŋjaŋ", "nus": "Thok Nath", "ti": "ትግርኛ", "vi": "Tiếng Việt", "tg": "Тоҷикӣ", "tpi": "Tok Pisin", "tr": "Türkçe", "tk": "Türkmençe", "ak": "Twi", "ug": "ئۇيغۇرچە", "uk": "Українська", "ur": "اردو", "vec": "Vèneto", "war": "Winaray", "ts": "Xitsonga", "yi": "ייִדיש", "yo": "Yorùbá", "yue": "粵語", "zh-CN": "简体中文", "zh-TW": "繁體中文"
+        };
 
-    const hostLang = document.getElementById('hostLang');
-    const searchText = document.getElementById('searchText');
-    const searchBtn = document.getElementById('searchBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const locBtn = document.getElementById('locBtn');
-    const coordsPanel = document.getElementById('coordsPanel');
+        const translationConfig = [
+            { tag: "h1", translate: false },
+            { tag: "option", translate: true },
+            { tag: ".untranslatable", translate: false },
+            { tag: ".lang-text", translate: true },
+            { tag: ".location-text", translate: false }
+        ];
 
-    function populateHLDropdowns() {
-        Object.entries(hostLanguages).forEach(([code, name]) => {
-            const opt = new Option(name, code);
-            hostLang.add(opt);
-        });
-        hostLang.value = 'en';
-    }
+        const hostLang = document.getElementById('hostLang');
+        const searchText = document.getElementById('searchText');
+        const searchBtn = document.getElementById('searchBtn');
+        const aiBtn = document.getElementById('aiBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const locBtn = document.getElementById('locBtn');
+        const coordsPanel = document.getElementById('coordsPanel');
+        const locationText = document.getElementById('locationText');
+        const infoCard = document.getElementById('infoCard');
+        const panelHandle = document.getElementById('panelHandle');
 
-    populateHLDropdowns();
+        let isLocEnabled = false;
+        let currentMarker = null;
 
-    const map = L.map('map', {
-        zoomControl: false,
-        attributionControl: false,
-        worldCopyJump: true
-    }).setView([20.5937, 78.9629], 4);
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    const translationConfig = [
-        { tag: 'h1', translate: false },
-        { tag: 'option', translate: true },
-        { tag: '.lang-text', translate: true },
-        { tag: '.search-text', translate: false },
-        { tag: '.coords-panel', translate: false }
-    ];
-
-    window.originalText = window.originalText || new Map();
-
-    async function translateText(text, lang) {
-        if (!text || !text.trim()) return "";
-
-        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
-
-        try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 4000);
-
-            const response = await fetch(url, { signal: controller.signal });
-            clearTimeout(timeoutId);
-
-            if (!response.ok) return "";
-
-            const data = await response.json();
-
-            if (data && data[0]) {
-                const translatedText = data[0]
-                    .map(item => item && item[0] ? item[0] : "")
-                    .join("");
-
-                return translatedText || "";
-            }
-        } catch (error) {
-            return "";
-        }
-
-        return "";
-    }
-
-    async function translatePage(lang) {
-        if (lang === 'en') {
-            window.originalText.forEach((storedText, node) => {
-                if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                    node.text = storedText;
-                } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    node.textContent = storedText;
-                } else {
-                    node.nodeValue = storedText;
-                }
+        function populateHLDropdowns() {
+            Object.entries(hostLanguages).forEach(([code, name]) => {
+                const opt3 = new Option(name, code);
+                opt3.classList.add('untranslatable');
+                hostLang.add(opt3);
             });
-            return;
+            hostLang.value = 'en';
         }
 
-        const textNodesToTranslate = [];
+        populateHLDropdowns();
 
-        document.querySelectorAll(
-            translationConfig.filter(r => r.translate).map(r => r.tag).join(',')
-        ).forEach(parentEl => {
-            function walk(node) {
-                if (node.nodeType === Node.ELEMENT_NODE) {
-                    if (node.tagName === 'OPTION') {
-                        if (node.text.trim() !== '') {
+        const map = L.map('map', {
+            zoomControl: false,
+            attributionControl: false,
+            worldCopyJump: true
+        }).setView([20.5937, 78.9629], 4);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        function clearVis() {
+            const val = searchText.value.trim();
+            clearBtn.style.display = val ? '' : 'none';
+        }
+
+        function clearInput() {
+            searchText.value = '';
+            clearVis();
+            updateTitleFromInput();
+            updateUrlParameters();
+            searchText.focus();
+        }
+
+        clearBtn.addEventListener('click', clearInput);
+        searchText.addEventListener('input', () => {
+            clearVis();
+            updateTitleFromInput();
+            updateUrlParameters();
+        });
+
+        function speakText(text, langCode) {
+            if (!text.trim()) return;
+            if (!('speechSynthesis' in window)) return;
+
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = langCode || hostLang.value || 'en';
+            window.speechSynthesis.speak(utterance);
+        }
+
+        async function speakCoords(x, y) {
+            const rawPhrase = `Location for "${x}", "${y}"`;
+            const lang = hostLang.value;
+            let phraseToSpeak = rawPhrase;
+
+            if (lang !== 'en') {
+                phraseToSpeak = await translateText(rawPhrase, lang);
+            }
+            speakText(phraseToSpeak, lang);
+        }
+
+        async function speakSearchResults(queryVal) {
+            const rawPhrase = `Results for "${queryVal}"`;
+            const lang = hostLang.value;
+            let phraseToSpeak = rawPhrase;
+
+            if (lang !== 'en') {
+                phraseToSpeak = await translateText(rawPhrase, lang);
+            }
+            speakText(phraseToSpeak, lang);
+        }
+
+        async function translateText(text, targetLanguage) {
+            if (!text || !text.trim()) return "";
+            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(targetLanguage)}&dt=t&q=${encodeURIComponent(text)}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) return text;
+                const data = await response.json();
+                if (data && data[0]) {
+                    return data[0].map(item => item && item[0] ? item[0] : "").join("") || text;
+                }
+            } catch (err) {
+                return text;
+            }
+            return text;
+        }
+
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+        window.originalText = window.originalText || new Map();
+
+        async function translatePage(lang) {
+            if (typeof translationConfig === 'undefined') return;
+
+            if (lang === "en") {
+                window.originalText.forEach((storedText, node) => {
+                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                        node.text = storedText;
+                    } else {
+                        node.nodeValue = storedText;
+                    }
+                });
+                return;
+            }
+
+            const textNodesToTranslate = [];
+            const activeTags = translationConfig.filter(r => r.translate).map(r => r.tag).join(",");
+            const excludedTags = translationConfig.filter(r => !r.translate).map(r => r.tag).join(",");
+
+            if (!activeTags) return;
+
+            document.querySelectorAll(activeTags).forEach(parentEl => {
+                if (excludedTags && parentEl.matches(excludedTags)) return;
+
+                function walk(node) {
+                    if (node.nodeType === Node.ELEMENT_NODE && excludedTags && node.matches(excludedTags)) {
+                        return;
+                    }
+
+                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                        if (node.text.trim() !== "") {
                             if (!window.originalText.has(node)) {
                                 window.originalText.set(node, node.text);
                             }
@@ -637,111 +529,78 @@
                         return;
                     }
 
-                    if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
+                    if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
                         if (!window.originalText.has(node)) {
                             window.originalText.set(node, node.nodeValue);
                         }
                         textNodesToTranslate.push(node);
                     }
+                    for (let child = node.firstChild; child; child = child.nextSibling) {
+                        walk(child);
+                    }
                 }
+                walk(parentEl);
+            });
 
-                for (let child = node.firstChild; child; child = child.nextSibling) {
-                    walk(child);
+            for (const node of textNodesToTranslate) {
+                const text = window.originalText.get(node);
+                const translated = await translateText(text, lang);
+                if (translated) {
+                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                        node.text = translated;
+                    } else {
+                        node.nodeValue = translated;
+                    }
                 }
+                await sleep(0);
             }
+        }
 
-            walk(parentEl);
+        function updateCityName(lat, lng) {
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`, {
+                headers: { 'User-Agent': 'S-Mapex-App' }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.address) {
+                    const city = data.address.city || data.address.town || data.address.village || data.address.county || '';
+                    const country = data.address.country || '';
+                    locationText.textContent = city && country ? `${city}, ${country}` : (country || 'City name, Country name');
+                } else {
+                    locationText.textContent = 'City name, Country name';
+                }
+            })
+            .catch(() => {
+                locationText.textContent = 'City name, Country name';
+            });
+        }
+
+        function updateCoordsAndMapState(triggerVoice = false) {
+            const center = map.getCenter();
+            const z = map.getZoom();
+            const x = center.lng.toFixed(5);
+            const y = center.lat.toFixed(5);
+
+            coordsPanel.textContent = `${x}, ${y}`;
+            updateCityName(center.lat, center.lng);
+            updateUrlParameters();
+
+            if (triggerVoice) {
+                speakCoords(x, y);
+            }
+        }
+
+        map.on('moveend zoomend', () => {
+            updateCoordsAndMapState(true);
         });
 
-        for (const node of textNodesToTranslate) {
-            const originalText = window.originalText.get(node);
-            const translatedText = await translateText(originalText, lang);
+        function searchPlace() {
+            const query = searchText.value.trim();
+            if (!query) return;
 
-            if (!translatedText) continue;
-
-            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                node.text = translatedText;
-            } else {
-                node.nodeValue = translatedText;
-            }
-        }
-    }
-
-    function clearVis() {
-        const val = searchText.value.trim();
-        clearBtn.style.display = val ? '' : 'none';
-    }
-
-    function updateTitleFromSearchQuery() {
-        const baseTitle = 'S-Mapex';
-        const value = searchText.value.trim();
-        document.title = value ? `${value} - ${baseTitle}` : baseTitle;
-    }
-
-    function safeReplaceState(url) {
-        if (window.location.protocol === 'file:') return;
-        try {
-            history.replaceState(null, '', url);
-        } catch (e) {
-            // ignore
-        }
-    }
-
-    function updateUrlParameters() {
-        const params = new URLSearchParams();
-        const baseUrl = window.location.origin === 'null' || window.location.origin === 'file://' ? window.location.pathname : window.location.origin + window.location.pathname;
-
-        params.set('hl', hostLang.value);
-
-        const qValue = searchText.value.trim();
-        if (qValue) {
-            params.set('q', qValue);
-        } else {
-            params.delete('q');
-        }
-
-        const center = map.getCenter();
-        params.set('x', center.lng.toFixed(5));
-        params.set('y', center.lat.toFixed(5));
-        params.set('z', String(map.getZoom()));
-
-        params.set('l', String(Boolean(navigator.geolocation && navigator.geolocation.enabled)));
-
-        const finalUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
-        safeReplaceState(finalUrl);
-    }
-
-    function loadFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        const qValue = params.get('q');
-        const hlValue = params.get('hl');
-        const zValue = params.get('z');
-        const xValue = params.get('x');
-        const yValue = params.get('y');
-        const lValue = params.get('l');
-
-        if (hlValue) hostLang.value = hlValue;
-
-        if (qValue) {
-            searchText.value = qValue;
-        }
-
-        if (xValue && yValue) {
-            const x = parseFloat(xValue);
-            const y = parseFloat(yValue);
-            const zoom = zValue ? parseInt(zValue, 10) : 4;
-            map.setView([y, x], zoom);
-        }
-
-        clearVis();
-        updateTitleFromSearchQuery();
-    }
-
-    function searchPlace() {
-        const query = searchText.value.trim();
-        if (!query) return;
-
-        fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(query)}`)
+            fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(query)}`, {
+                headers: { 'User-Agent': 'S-Mapex-App' }
+            })
             .then(res => res.json())
             .then(data => {
                 if (!data || !data.length) return;
@@ -750,70 +609,149 @@
                 const lat = parseFloat(place.lat);
                 const lng = parseFloat(place.lon);
 
+                if (currentMarker) map.removeLayer(currentMarker);
+                currentMarker = L.marker([lat, lng]).addTo(map);
+
                 map.flyTo([lat, lng], 13, { duration: 1.5 });
-                updateTitleFromSearchQuery();
+                updateTitleFromInput();
                 updateUrlParameters();
+                speakSearchResults(query);
             })
             .catch(err => console.error('Search failed:', err));
-    }
-
-    searchBtn.addEventListener('click', searchPlace);
-    searchText.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            searchPlace();
-        }
-    });
-
-    function updateCoords() {
-        const center = map.getCenter();
-        const z = map.getZoom();
-        coordsPanel.textContent = `${center.lng.toFixed(4)}, ${center.lat.toFixed(4)}, ${z}`;
-        updateUrlParameters();
-    }
-
-    map.on('move zoom', updateCoords);
-    map.on('layeradd', updateCoords);
-
-    document.getElementById('inBtn').addEventListener('click', () => map.zoomIn());
-    document.getElementById('outBtn').addEventListener('click', () => map.zoomOut());
-
-    locBtn.addEventListener('click', () => {
-        if (!navigator.geolocation) {
-            alert('Geolocation is not supported by this browser.');
-            return;
         }
 
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                map.flyTo([lat, lng], 14, { duration: 1.5 });
-                updateTitleFromSearchQuery();
-                updateUrlParameters();
-            },
-            () => {
-                alert('Unable to get your current location.');
+        searchBtn.addEventListener('click', searchPlace);
+        aiBtn.addEventListener('click', searchPlace);
+
+        searchText.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                searchPlace();
             }
-        );
-    });
+        });
 
-    hostLang.addEventListener('change', () => {
-        updateUrlParameters();
-        translatePage(hostLang.value);
-    });
+        document.getElementById('inBtn').addEventListener('click', () => map.zoomIn());
+        document.getElementById('outBtn').addEventListener('click', () => map.zoomOut());
 
-    window.addEventListener('DOMContentLoaded', () => {
-        loadFromUrl();
-        clearVis();
-        updateTitleFromSearchQuery();
-        updateCoords();
-        translatePage(hostLang.value);
+        locBtn.addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                alert('Geolocation is not supported by this browser.');
+                return;
+            }
 
-        setTimeout(() => {
-            map.invalidateSize();
-        }, 250);
-    });
-</script>
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    isLocEnabled = true;
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    if (currentMarker) map.removeLayer(currentMarker);
+                    currentMarker = L.marker([lat, lng]).addTo(map);
+
+                    map.flyTo([lat, lng], 14, { duration: 1.5 });
+                    updateUrlParameters();
+                },
+                () => {
+                    isLocEnabled = false;
+                    alert('Unable to get your current location.');
+                    updateUrlParameters();
+                }
+            );
+        });
+
+        panelHandle.addEventListener('click', () => {
+            infoCard.classList.toggle('collapsed');
+        });
+
+        function updateUrlParameters() {
+            const hlValue = hostLang.value;
+            const qValue = searchText.value.trim();
+            const center = map.getCenter();
+
+            const xValue = center.lng.toFixed(5);
+            const yValue = center.lat.toFixed(5);
+            const zValue = String(map.getZoom());
+            const lValue = String(Boolean(isLocEnabled));
+
+            const baseUrl = window.location.origin + window.location.pathname;
+            const params = new URLSearchParams();
+
+            params.set('hl', hlValue);
+            if (qValue) {
+                params.set('q', qValue);
+            }
+            params.set('z', zValue);
+            params.set('x', xValue);
+            params.set('y', yValue);
+            params.set('l', lValue);
+
+            const newUrl = baseUrl + '?' + params.toString();
+            history.replaceState(null, '', newUrl);
+        }
+
+        hostLang.addEventListener('change', () => {
+            updateUrlParameters();
+            translatePage(hostLang.value);
+        });
+
+        function matchInput() {
+            const params = new URLSearchParams(window.location.search);
+
+            const hlParam = params.get('hl');
+            const qParam = params.get('q');
+            const zParam = params.get('z');
+            const xParam = params.get('x');
+            const yParam = params.get('y');
+            const lParam = params.get('l');
+
+            if (hlParam) {
+                hostLang.value = hlParam;
+            } else {
+                hostLang.value = 'en';
+            }
+
+            if (qParam) {
+                searchText.value = qParam;
+            } else {
+                searchText.value = '';
+            }
+
+            let zoomVal = zParam ? parseInt(zParam, 10) : 4;
+            let xVal = xParam ? parseFloat(xParam) : 78.9629;
+            let yVal = yParam ? parseFloat(yParam) : 20.5937;
+
+            map.setView([yVal, xVal], zoomVal);
+
+            if (lParam !== null) {
+                isLocEnabled = (lParam === 'true');
+            } else {
+                isLocEnabled = false;
+            }
+
+            updateUrlParameters();
+            clearVis();
+            updateTitleFromInput();
+            translatePage(hostLang.value);
+            
+            coordsPanel.textContent = `${xVal.toFixed(5)}, ${yVal.toFixed(5)}`;
+            updateCityName(yVal, xVal);
+        }
+
+        function updateTitleFromInput() {
+            const baseTitle = "S-Mapex";
+            if (searchText && searchText.value.trim() !== "") {
+                document.title = `${searchText.value.trim()} - ${baseTitle}`;
+            } else {
+                document.title = baseTitle;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            matchInput();
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 250);
+        });
+    </script>
 </body>
 </html>
