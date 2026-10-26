@@ -809,6 +809,10 @@
         updateTitleFromSearchQuery();
         updateCoords();
         translatePage(hostLang.value);
+
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 250);
     });
 </script>
 </body>
