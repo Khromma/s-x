@@ -365,456 +365,451 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchBvlXb4tX9X0q0R9eBkgFJQ8BvZ0L1wL5LzQ=" crossorigin=""></script>
-    <script>
-        const hostLanguages = {
-            "ab": "Аԥсшәа",
-            "ace": "Aceh",
-            "ach": "Acoli",
-            "om": "Afaan Oromoo",
-            "af": "Afrikaans",
-            "alz": "Alur",
-            "am": "አማርኛ",
-            "ar": "العربية",
-            "as": "অসমীয়া",
-            "ig": "Asụsụ Igbo",
-            "gn": "Avañe'ẽ",
-            "awa": "अवधी",
-            "ay": "Aymar aru",
-            "az": "Azərbaycanca",
-            "ban": "Balines",
-            "bm": "Bamanankan",
-            "ms": "Bahasa Melayu",
-            "id": "Bahasa Indonesia",
-            "ba": "Башҡортса",
-            "min": "Baso Minangkabau",
-            "mad": "Basa Madura",
-            "jw": "Basa Jawa",
-            "su": "Basa Sunda",
-            "bbc": "Batak Toba",
-            "bts": "Batak Simalungun",
-            "btx": "Batak Karo",
-            "be": "Беларуская",
-            "bew": "Betawi",
-            "bho": "भोजपुरी",
-            "bik": "Bikol",
-            "bo": "བོད་སྐད་",
-            "bs": "Bosanski",
-            "br": "Brezhoneg",
-            "bg": "Български",
-            "bua": "Буряад",
-            "ca": "Català",
-            "ceb": "Cebuano",
-            "ny": "Chichewa",
-            "nyan": "Chinyanja",
-            "sn": "ChiShona",
-            "co": "Corsu",
-            "cy": "Cymraeg",
-            "da": "Dansk",
-            "zap": "Diidxazá",
-            "doi": "डोगri",
-            "de": "Deutsch",
-            "dz": "རྫོང་ཁ་",
-            "et": "Eesti",
-            "el": "Ελληνικά",
-            "en": "English",
-            "eo": "Esperanto",
-            "es": "Español",
-            "ee": "Eʋegbe",
-            "eu": "Euskara",
-            "fa": "فارسی",
-            "fr": "Français",
-            "fy": "Frysk",
-            "ff": "Fulfulde",
-            "fo": "Føroyskt",
-            "ga": "Gaeilge",
-            "gv": "Gaelg",
-            "sm": "Gagana Sāmoa",
-            "gl": "Galego",
-            "gd": "Gàidhlig",
-            "gu": "ગુજરાતી",
-            "ko": "한국어",
-            "ha": "Hausa",
-            "he": "עברית",
-            "hi": "हिन्दी",
-            "hmn": "Hmoob",
-            "hr": "Hrvatski",
-            "hy": "Հայերեն",
-            "bem": "Ichibemba",
-            "rn": "Ikirundi",
-            "rw": "Ikinyarwanda",
-            "iloc": "Ilokano",
-            "os": "Ирон",
-            "nr": "IsiNdebele",
-            "xh": "isiXhosa",
-            "zu": "isiZulu",
-            "is": "Íslenska",
-            "it": "Italiano",
-            "ka": "Ქართული",
-            "sw": "Kiswahili",
-            "ht": "Kreyòl Ayisyen",
-            "kri": "Krio",
-            "ku": "Kurdî (Kurmancî)",
-            "ckb": "Kurdî (Soranî)",
-            "ky": "Кыргызча",
-            "la": "Latina",
-            "lv": "Latviešu",
-            "lb": "Lëtzebuergesch",
-            "lt": "Lietuvių",
-            "ln": "Lingála",
-            "lg": "Luganda",
-            "yua": "Maaya t'aan",
-            "hu": "Magyar",
-            "mk": "Македонски",
-            "mg": "Malagasy",
-            "ml": "മലയാളം",
-            "mt": "Malti",
-            "mak": "Mangkasara’",
-            "mi": "Māori",
-            "mr": "मराठी",
-            "mai": "मैथिली",
-            "lus": "Mizo ṭawng",
-            "mn": "Монгол хэл",
-            "mni-Mtei": "মৈতৈলোন্",
-            "my": "မြန်မာဘာသာ",
-            "fj": "Na Vosa Vakaviti",
-            "ne": "नेपाली",
-            "nl": "Nederlands",
-            "ja": "日本語",
-            "no": "Norsk",
-            "or": "ଓଡ଼ିଆ",
-            "uz": "Oʻzbekcha",
-            "pag": "Pangasinan",
-            "pap": "Papiamentu",
-            "ps": "پښتو",
-            "km": "ភាសាខ្មែរ",
-            "pl": "Polski",
-            "pt": "Português",
-            "pa": "ਪੰਜਾਬੀ",
-            "crh": "Qırımtatarca",
-            "kk": "Қазақ тілі",
-            "ro": "Română",
-            "rom": "Romani",
-            "qu": "Runasimi",
-            "ru": "Русский",
-            "sa": "संस्कृतम्",
-            "sat": "ᱥᱟᱱᱛᱟᱲᱤ",
-            "sg": "Sängö",
-            "nso": "Sesotho sa Leboa",
-            "st": "Sesotho",
-            "tn": "Setswana",
-            "sq": "Shqip",
-            "scn": "Sicilianu",
-            "ss": "SiSwati",
-            "si": "සිංහල",
-            "sk": "Slovenčina",
-            "sl": "Slovenščina",
-            "so": "Soomaaliga",
-            "sr": "Српски",
-            "fi": "Suomi",
-            "sv": "Svenska",
-            "tl": "Tagalog",
-            "tt": "Татарча",
-            "te": "తెలుగు",
-            "th": "ไทย",
-            "din": "Thuɔŋjaŋ",
-            "nus": "Thok Nath",
-            "ti": "ትግርኛ",
-            "vi": "Tiếng Việt",
-            "tg": "Тоҷикӣ",
-            "tpi": "Tok Pisin",
-            "tr": "Türkçe",
-            "tk": "Türkmençe",
-            "ak": "Twi",
-            "ug": "ئۇيغۇرچە",
-            "uk": "Українська",
-            "ur": "اردو",
-            "vec": "Vèneto",
-            "war": "Winaray",
-            "ts": "Xitsonga",
-            "yi": "ייִדיש",
-            "yo": "Yorùbá",
-            "yue": "粵語",
-            "zh-CN": "简体中文",
-            "zh-TW": "繁體中文"
-        };
+<script>
+    const hostLanguages = {
+        "ab": "Аԥсшәа",
+        "ace": "Aceh",
+        "ach": "Acoli",
+        "om": "Afaan Oromoo",
+        "af": "Afrikaans",
+        "alz": "Alur",
+        "am": "አማርኛ",
+        "ar": "العربية",
+        "as": "অসমীয়া",
+        "ig": "Asụsụ Igbo",
+        "gn": "Avañe'ẽ",
+        "awa": "अवधी",
+        "ay": "Aymar aru",
+        "az": "Azərbaycanca",
+        "ban": "Balines",
+        "bm": "Bamanankan",
+        "ms": "Bahasa Melayu",
+        "id": "Bahasa Indonesia",
+        "ba": "Башҡортса",
+        "min": "Baso Minangkabau",
+        "mad": "Basa Madura",
+        "jw": "Basa Jawa",
+        "su": "Basa Sunda",
+        "bbc": "Batak Toba",
+        "bts": "Batak Simalungun",
+        "btx": "Batak Karo",
+        "be": "Беларуская",
+        "bew": "Betawi",
+        "bho": "भोजपुरी",
+        "bik": "Bikol",
+        "bo": "བོད་སྐད་",
+        "bs": "Bosanski",
+        "br": "Brezhoneg",
+        "bg": "Български",
+        "bua": "Буряад",
+        "ca": "Català",
+        "ceb": "Cebuano",
+        "ny": "Chichewa",
+        "nyan": "Chinyanja",
+        "sn": "ChiShona",
+        "co": "Corsu",
+        "cy": "Cymraeg",
+        "da": "Dansk",
+        "zap": "Diidxazá",
+        "doi": "डोगri",
+        "de": "Deutsch",
+        "dz": "རྫོང་ཁ་",
+        "et": "Eesti",
+        "el": "Ελληνικά",
+        "en": "English",
+        "eo": "Esperanto",
+        "es": "Español",
+        "ee": "Eʋegbe",
+        "eu": "Euskara",
+        "fa": "فارسی",
+        "fr": "Français",
+        "fy": "Frysk",
+        "ff": "Fulfulde",
+        "fo": "Føroyskt",
+        "ga": "Gaeilge",
+        "gv": "Gaelg",
+        "sm": "Gagana Sāmoa",
+        "gl": "Galego",
+        "gd": "Gàidhlig",
+        "gu": "ગુજરાતી",
+        "ko": "한국어",
+        "ha": "Hausa",
+        "he": "עברית",
+        "hi": "हिन्दी",
+        "hmn": "Hmoob",
+        "hr": "Hrvatski",
+        "hy": "Հայերեն",
+        "bem": "Ichibemba",
+        "rn": "Ikirundi",
+        "rw": "Ikinyarwanda",
+        "iloc": "Ilokano",
+        "os": "Ирон",
+        "nr": "IsiNdebele",
+        "xh": "isiXhosa",
+        "zu": "isiZulu",
+        "is": "Íslenska",
+        "it": "Italiano",
+        "ka": "Ქართული",
+        "sw": "Kiswahili",
+        "ht": "Kreyòl Ayisyen",
+        "kri": "Krio",
+        "ku": "Kurdî (Kurmancî)",
+        "ckb": "Kurdî (Soranî)",
+        "ky": "Кыргызча",
+        "la": "Latina",
+        "lv": "Latviešu",
+        "lb": "Lëtzebuergesch",
+        "lt": "Lietuvių",
+        "ln": "Lingála",
+        "lg": "Luganda",
+        "yua": "Maaya t'aan",
+        "hu": "Magyar",
+        "mk": "Македонски",
+        "mg": "Malagasy",
+        "ml": "മലയാളം",
+        "mt": "Malti",
+        "mak": "Mangkasara’",
+        "mi": "Māori",
+        "mr": "मराठी",
+        "mai": "मैथिली",
+        "lus": "Mizo ṭawng",
+        "mn": "Монгол хэл",
+        "mni-Mtei": "মৈতৈলোন্",
+        "my": "မြန်မာဘာသာ",
+        "fj": "Na Vosa Vakaviti",
+        "ne": "नेपाली",
+        "nl": "Nederlands",
+        "ja": "日本語",
+        "no": "Norsk",
+        "or": "ଓଡ଼ିଆ",
+        "uz": "Oʻzbekcha",
+        "pag": "Pangasinan",
+        "pap": "Papiamentu",
+        "ps": "پښتو",
+        "km": "ភាសាខ្មែរ",
+        "pl": "Polski",
+        "pt": "Português",
+        "pa": "ਪੰਜਾਬੀ",
+        "crh": "Qırımtatarca",
+        "kk": "Қазақ тілі",
+        "ro": "Română",
+        "rom": "Romani",
+        "qu": "Runasimi",
+        "ru": "Русский",
+        "sa": "संस्कृतम्",
+        "sat": "ᱥᱟᱱᱛᱟᱲᱤ",
+        "sg": "Sängö",
+        "nso": "Sesotho sa Leboa",
+        "st": "Sesotho",
+        "tn": "Setswana",
+        "sq": "Shqip",
+        "scn": "Sicilianu",
+        "ss": "SiSwati",
+        "si": "සිංහල",
+        "sk": "Slovenčina",
+        "sl": "Slovenščina",
+        "so": "Soomaaliga",
+        "sr": "Српски",
+        "fi": "Suomi",
+        "sv": "Svenska",
+        "tl": "Tagalog",
+        "tt": "Татарча",
+        "te": "తెలుగు",
+        "th": "ไทย",
+        "din": "Thuɔŋjaŋ",
+        "nus": "Thok Nath",
+        "ti": "ትግርኛ",
+        "vi": "Tiếng Việt",
+        "tg": "Тоҷикӣ",
+        "tpi": "Tok Pisin",
+        "tr": "Türkçe",
+        "tk": "Türkmençe",
+        "ak": "Twi",
+        "ug": "ئۇيغۇرچە",
+        "uk": "Українська",
+        "ur": "اردو",
+        "vec": "Vèneto",
+        "war": "Winaray",
+        "ts": "Xitsonga",
+        "yi": "ייִדיש",
+        "yo": "Yorùbá",
+        "yue": "粵語",
+        "zh-CN": "简体中文",
+        "zh-TW": "繁體中文"
+    };
 
-        const hostLang = document.getElementById('hostLang');
-        const searchText = document.getElementById('searchText');
-        const searchBtn = document.getElementById('searchBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const locBtn = document.getElementById('locBtn');
-        const coordsPanel = document.getElementById('coordsPanel');
+    const hostLang = document.getElementById('hostLang');
+    const searchText = document.getElementById('searchText');
+    const searchBtn = document.getElementById('searchBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const locBtn = document.getElementById('locBtn');
+    const coordsPanel = document.getElementById('coordsPanel');
 
-        function populateHLDropdowns() {
-            Object.entries(hostLanguages).forEach(([code, name]) => {
-                const opt = new Option(name, code);
-                hostLang.add(opt);
-            });
-            hostLang.value = 'en';
-        }
+    function populateHLDropdowns() {
+        Object.entries(hostLanguages).forEach(([code, name]) => {
+            const opt = new Option(name, code);
+            hostLang.add(opt);
+        });
+        hostLang.value = 'en';
+    }
 
-        populateHLDropdowns();
+    populateHLDropdowns();
 
-        const map = L.map('map', {
-            zoomControl: false,
-            attributionControl: false,
-            worldCopyJump: true
-        }).setView([20.5937, 78.9629], 4);
+    const map = L.map('map', {
+        zoomControl: false,
+        attributionControl: false,
+        worldCopyJump: true
+    }).setView([20.5937, 78.9629], 4);
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-        const translationConfig = [
-            { tag: 'h1', translate: false },
-            { tag: 'option', translate: true },
-            { tag: '.lang-text', translate: true },
-            { tag: '.search-text', translate: false },
-            { tag: '.coords-panel', translate: false }
-        ];
+    const translationConfig = [
+        { tag: 'h1', translate: false },
+        { tag: 'option', translate: true },
+        { tag: '.lang-text', translate: true },
+        { tag: '.search-text', translate: false },
+        { tag: '.coords-panel', translate: false }
+    ];
 
-        window.originalText = window.originalText || new Map();
+    window.originalText = window.originalText || new Map();
 
-        async function translateText(text, lang) {
-            if (!text || !text.trim()) return "";
+    async function translateText(text, lang) {
+        if (!text || !text.trim()) return "";
 
-            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
 
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 4000);
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 4000);
 
-                const response = await fetch(url, { signal: controller.signal });
-                clearTimeout(timeoutId);
+            const response = await fetch(url, { signal: controller.signal });
+            clearTimeout(timeoutId);
 
-                if (!response.ok) return "";
+            if (!response.ok) return "";
 
-                const data = await response.json();
+            const data = await response.json();
 
-                if (data && data[0]) {
-                    const translatedText = data[0]
-                        .map(item => item && item[0] ? item[0] : "")
-                        .join("");
+            if (data && data[0]) {
+                const translatedText = data[0]
+                    .map(item => item && item[0] ? item[0] : "")
+                    .join("");
 
-                    return translatedText || "";
-                }
-            } catch (error) {
-                return "";
+                return translatedText || "";
             }
-
+        } catch (error) {
             return "";
         }
 
-        async function translatePage(lang) {
-            if (lang === 'en') {
-                window.originalText.forEach((storedText, node) => {
-                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                        node.text = storedText;
-                    } else if (node.nodeType === Node.ELEMENT_NODE) {
-                        node.textContent = storedText;
-                    } else {
-                        node.nodeValue = storedText;
-                    }
-                });
-                return;
-            }
+        return "";
+    }
 
-            const textNodesToTranslate = [];
+    async function translatePage(lang) {
+        if (lang === 'en') {
+            window.originalText.forEach((storedText, node) => {
+                if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                    node.text = storedText;
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    node.textContent = storedText;
+                } else {
+                    node.nodeValue = storedText;
+                }
+            });
+            return;
+        }
 
-            document.querySelectorAll(
-                translationConfig.filter(r => r.translate).map(r => r.tag).join(',')
-            ).forEach(parentEl => {
-                function walk(node) {
-                    if (node.nodeType === Node.ELEMENT_NODE) {
-                        if (node.tagName === 'OPTION') {
-                            if (node.text.trim() !== '') {
-                                if (!window.originalText.has(node)) {
-                                    window.originalText.set(node, node.text);
-                                }
-                                textNodesToTranslate.push(node);
-                            }
-                            return;
-                        }
+        const textNodesToTranslate = [];
 
-                        if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
+        document.querySelectorAll(
+            translationConfig.filter(r => r.translate).map(r => r.tag).join(',')
+        ).forEach(parentEl => {
+            function walk(node) {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (node.tagName === 'OPTION') {
+                        if (node.text.trim() !== '') {
                             if (!window.originalText.has(node)) {
-                                window.originalText.set(node, node.nodeValue);
+                                window.originalText.set(node, node.text);
                             }
                             textNodesToTranslate.push(node);
                         }
+                        return;
                     }
 
-                    for (let child = node.firstChild; child; child = child.nextSibling) {
-                        walk(child);
+                    if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
+                        if (!window.originalText.has(node)) {
+                            window.originalText.set(node, node.nodeValue);
+                        }
+                        textNodesToTranslate.push(node);
                     }
                 }
 
-                walk(parentEl);
-            });
-
-            for (const node of textNodesToTranslate) {
-                const originalText = window.originalText.get(node);
-                const translatedText = await translateText(originalText, lang);
-
-                if (!translatedText) continue;
-
-                if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                    node.text = translatedText;
-                } else {
-                    node.nodeValue = translatedText;
+                for (let child = node.firstChild; child; child = child.nextSibling) {
+                    walk(child);
                 }
             }
-        }
 
-        function clearVis() {
-            const val = searchText.value.trim();
-            clearBtn.style.display = val ? '' : 'none';
-        }
+            walk(parentEl);
+        });
 
-        function updateTitleFromSearchQuery() {
-            const baseTitle = 'S-Mapex';
-            const value = searchText.value.trim();
-            document.title = value ? `${value} - ${baseTitle}` : baseTitle;
-        }
+        for (const node of textNodesToTranslate) {
+            const originalText = window.originalText.get(node);
+            const translatedText = await translateText(originalText, lang);
 
-        function clearInput() {
-            searchText.value = '';
-            clearVis();
-            searchText.focus();
-            updateTitleFromSearchQuery();
-            updateUrlParameters();
-        }
+            if (!translatedText) continue;
 
-        clearBtn.addEventListener('click', clearInput);
-        searchText.addEventListener('input', clearVis);
-
-        function updateUrlParameters() {
-            const params = new URLSearchParams(window.location.search);
-            const baseUrl = window.location.origin + window.location.pathname;
-
-            params.set('hl', hostLang.value);
-
-            const qValue = searchText.value.trim();
-            if (qValue) {
-                params.set('q', qValue);
+            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
+                node.text = translatedText;
             } else {
-                params.delete('q');
+                node.nodeValue = translatedText;
             }
+        }
+    }
 
-            const center = map.getCenter();
-            params.set('x', center.lng.toFixed(5));
-            params.set('y', center.lat.toFixed(5));
-            params.set('z', String(map.getZoom()));
+    function clearVis() {
+        const val = searchText.value.trim();
+        clearBtn.style.display = val ? '' : 'none';
+    }
 
-            params.set('l', String(Boolean(navigator.geolocation && navigator.geolocation.enabled)));
+    function updateTitleFromSearchQuery() {
+        const baseTitle = 'S-Mapex';
+        const value = searchText.value.trim();
+        document.title = value ? `${value} - ${baseTitle}` : baseTitle;
+    }
 
-            const finalUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
-            history.replaceState(null, '', finalUrl);
+    function safeReplaceState(url) {
+        if (window.location.protocol === 'file:') return;
+        try {
+            history.replaceState(null, '', url);
+        } catch (e) {
+            // ignore
+        }
+    }
+
+    function updateUrlParameters() {
+        const params = new URLSearchParams();
+        const baseUrl = window.location.origin === 'null' || window.location.origin === 'file://' ? window.location.pathname : window.location.origin + window.location.pathname;
+
+        params.set('hl', hostLang.value);
+
+        const qValue = searchText.value.trim();
+        if (qValue) {
+            params.set('q', qValue);
+        } else {
+            params.delete('q');
         }
 
-        function loadFromUrl() {
-            const params = new URLSearchParams(window.location.search);
-            const qValue = params.get('q');
-            const hlValue = params.get('hl');
-            const zValue = params.get('z');
-            const xValue = params.get('x');
-            const yValue = params.get('y');
-            const lValue = params.get('l');
+        const center = map.getCenter();
+        params.set('x', center.lng.toFixed(5));
+        params.set('y', center.lat.toFixed(5));
+        params.set('z', String(map.getZoom()));
 
-            if (hlValue) hostLang.value = hlValue;
+        params.set('l', String(Boolean(navigator.geolocation && navigator.geolocation.enabled)));
 
-            if (qValue) {
-                searchText.value = qValue;
-            }
+        const finalUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+        safeReplaceState(finalUrl);
+    }
 
-            if (xValue && yValue) {
-                const x = parseFloat(xValue);
-                const y = parseFloat(yValue);
-                const zoom = zValue ? parseInt(zValue, 10) : 4;
-                map.setView([y, x], zoom);
-            }
+    function loadFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const qValue = params.get('q');
+        const hlValue = params.get('hl');
+        const zValue = params.get('z');
+        const xValue = params.get('x');
+        const yValue = params.get('y');
+        const lValue = params.get('l');
 
-            if (lValue === 'true') {
-                // reflect state only if needed
-            }
+        if (hlValue) hostLang.value = hlValue;
 
-            clearVis();
-            updateTitleFromSearchQuery();
+        if (qValue) {
+            searchText.value = qValue;
         }
 
-        function searchPlace() {
-            const query = searchText.value.trim();
-            if (!query) return;
-
-            const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(query)}`;
-            fetch(url)
-                .then(res => res.json())
-                .then(data => {
-                    if (!data || !data.length) return;
-                    const place = data[0];
-                    const lat = parseFloat(place.lat);
-                    const lng = parseFloat(place.lon);
-                    map.flyTo([lat, lng], 13, { duration: 1.5 });
-                    updateTitleFromSearchQuery();
-                    updateUrlParameters();
-                })
-                .catch(err => console.error('Search failed:', err));
+        if (xValue && yValue) {
+            const x = parseFloat(xValue);
+            const y = parseFloat(yValue);
+            const zoom = zValue ? parseInt(zValue, 10) : 4;
+            map.setView([y, x], zoom);
         }
 
-        searchBtn.addEventListener('click', searchPlace);
-        searchText.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                searchPlace();
-            }
-        });
+        clearVis();
+        updateTitleFromSearchQuery();
+    }
 
-        function updateCoords() {
-            const center = map.getCenter();
-            const z = map.getZoom();
-            coordsPanel.textContent = `${center.lng.toFixed(4)}, ${center.lat.toFixed(4)}, ${z}`;
-            updateUrlParameters();
+    function searchPlace() {
+        const query = searchText.value.trim();
+        if (!query) return;
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(query)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data || !data.length) return;
+
+                const place = data[0];
+                const lat = parseFloat(place.lat);
+                const lng = parseFloat(place.lon);
+
+                map.flyTo([lat, lng], 13, { duration: 1.5 });
+                updateTitleFromSearchQuery();
+                updateUrlParameters();
+            })
+            .catch(err => console.error('Search failed:', err));
+    }
+
+    searchBtn.addEventListener('click', searchPlace);
+    searchText.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            searchPlace();
+        }
+    });
+
+    function updateCoords() {
+        const center = map.getCenter();
+        const z = map.getZoom();
+        coordsPanel.textContent = `${center.lng.toFixed(4)}, ${center.lat.toFixed(4)}, ${z}`;
+        updateUrlParameters();
+    }
+
+    map.on('move zoom', updateCoords);
+    map.on('layeradd', updateCoords);
+
+    document.getElementById('inBtn').addEventListener('click', () => map.zoomIn());
+    document.getElementById('outBtn').addEventListener('click', () => map.zoomOut());
+
+    locBtn.addEventListener('click', () => {
+        if (!navigator.geolocation) {
+            alert('Geolocation is not supported by this browser.');
+            return;
         }
 
-        map.on('move zoom', updateCoords);
-        map.on('layeradd', updateCoords);
-
-        document.getElementById('inBtn').addEventListener('click', () => map.zoomIn());
-        document.getElementById('outBtn').addEventListener('click', () => map.zoomOut());
-
-        locBtn.addEventListener('click', () => {
-            if (!navigator.geolocation) {
-                alert('Geolocation is not supported by this browser.');
-                return;
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                map.flyTo([lat, lng], 14, { duration: 1.5 });
+                updateTitleFromSearchQuery();
+                updateUrlParameters();
+            },
+            () => {
+                alert('Unable to get your current location.');
             }
+        );
+    });
 
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-                    map.flyTo([lat, lng], 14, { duration: 1.5 });
-                    updateTitleFromSearchQuery();
-                    updateUrlParameters();
-                },
-                () => {
-                    alert('Unable to get your current location.');
-                }
-            );
-        });
+    hostLang.addEventListener('change', () => {
+        updateUrlParameters();
+        translatePage(hostLang.value);
+    });
 
-        hostLang.addEventListener('change', () => {
-            updateUrlParameters();
-            translatePage(hostLang.value);
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            loadFromUrl();
-            clearVis();
-            updateTitleFromSearchQuery();
-            updateCoords();
-            translatePage(hostLang.value);
-        });
-    </script>
+    window.addEventListener('DOMContentLoaded', () => {
+        loadFromUrl();
+        clearVis();
+        updateTitleFromSearchQuery();
+        updateCoords();
+        translatePage(hostLang.value);
+    });
+</script>
 </body>
 </html>
