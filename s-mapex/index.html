@@ -321,14 +321,7 @@
                 </svg>
             </button>
             <textarea class="search-text" id="searchText" rows="1" placeholder="Search..."></textarea>
-            <button class="search-btn" id="aiBtn" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-linecap="round" stroke-linejoin="round"></line>
-                    <path d="M 21.5 0.5 Q 21.5 4.5 25.5 4.5 Q 21.5 4.5 21.5 8.5 Q 21.5 4.5 17.5 4.5 Q 21.5 4.5 21.5 0.5 Z" fill="#ffffff" stroke="none"></path>
-                </svg>
-            </button>
-            <button class="search-btn" id="clearBtn" type="button">
+            <button class="search-btn" id="clearBtn" type="button" style="display: none;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -360,7 +353,7 @@
         <div class="info-card" id="infoCard">
             <div class="panel-handle" id="panelHandle" title="Toggle Panel"></div>
             <div class="coords-text" id="coordsPanel">x, y</div>
-            <div class="location-text" id="locationText">City name, Country name</div>
+            <div class="location-text location-text" id="locationText">City name, Country name</div>
             <div class="end-line"></div>
             <div class="lang-container">
                 <p class="lang-text">Language</p>
@@ -386,7 +379,6 @@
         const hostLang = document.getElementById('hostLang');
         const searchText = document.getElementById('searchText');
         const searchBtn = document.getElementById('searchBtn');
-        const aiBtn = document.getElementById('aiBtn');
         const clearBtn = document.getElementById('clearBtn');
         const locBtn = document.getElementById('locBtn');
         const coordsPanel = document.getElementById('coordsPanel');
@@ -621,7 +613,6 @@
         }
 
         searchBtn.addEventListener('click', searchPlace);
-        aiBtn.addEventListener('click', searchPlace);
 
         searchText.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
