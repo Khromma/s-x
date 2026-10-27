@@ -323,12 +323,33 @@
 
     <script>
         const hostLanguages = {
-            "ab": "Аԥсшәа", "ace": "Aceh", "ach": "Acoli", "om": "Afaan Oromoo", "af": "Afrikaans",
-            "alz": "Alur", "am": "አማርኛ", "ar": "العربية", "as": "অসমীয়া", "ig": "Asụsụ Igbo",
-            "gn": "Avañe'ẽ", "awa": "अवधी", "ay": "Aymar aru", "az": "Azərbaycanca", "ban": "Balines",
-            "bm": "Bamanankan", "ms": "Bahasa Melayu", "id": "Bahasa Indonesia", "ba": "Башҡортса",
-            "min": "Baso Minangkabau", "mad": "Basa Madura", "jw": "Basa Jawa", "su": "Basa Sunda",
-            "bbc": "Batak Toba", "bts": "Batak Simalungun", "btx": "Batak Karo", "be": "Беларуская",
+            "ab": "Аԥсшәа",
+            "ace": "Aceh",
+            "ach": "Acoli",
+            "om": "Afaan Oromoo",
+            "af": "Afrikaans",
+            "alz": "Alur",
+            "am": "አማርኛ",
+            "ar": "العربية",
+            "as": "অসমীয়া",
+            "ig": "Asụsụ Igbo",
+            "gn": "Avañe'ẽ",
+            "awa": "अवधी",
+            "ay": "Aymar aru",
+            "az": "Azərbaycanca",
+            "ban": "Balines",
+            "bm": "Bamanankan",
+            "ms": "Bahasa Melayu",
+            "id": "Bahasa Indonesia",
+            "ba": "Башҡортса",
+            "min": "Baso Minangkabau",
+            "mad": "Basa Madura",
+            "jw": "Basa Jawa",
+            "su": "Basa Sunda",
+            "bbc": "Batak Toba",
+            "bts": "Batak Simalungun",
+            "btx": "Batak Karo",
+            "be": "Беларуская",
             "bew": "Betawi", "bho": "भोजपुरी", "bik": "Bikol", "bo": "བོད་སྐད་", "bs": "Bosanski",
             "br": "Brezhoneg", "bg": "Български", "bua": "Буряад", "ca": "Català", "ceb": "Cebuano",
             "ny": "Chichewa", "nyan": "Chinyanja", "sn": "ChiShona", "co": "Corsu", "cy": "Cymraeg",
@@ -369,7 +390,6 @@
                 z: parseInt(params.get('z')) || 13,
                 x: parseFloat(params.get('x')) || 4.6097,
                 y: parseFloat(params.get('y')) || -74.0817,
-                l: params.get('l') === 'true'
             };
         }
 
@@ -386,6 +406,7 @@
                 const opt = document.createElement('option');
                 opt.value = code;
                 opt.textContent = name;
+                opt.classList.add("untranslatable");
                 if (code === selectedLang) opt.selected = true;
                 select.appendChild(opt);
             }
@@ -463,7 +484,7 @@
                     reverseGeocode(lat, lon);
 
                     const params = getQueryParams();
-                    if (params.l) {
+                    if (params.q) {
                         speakText(`Results of ${query}.`);
                     }
                 }
