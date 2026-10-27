@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="s-mapex-logo-map.png?v=1">
     <title>S-Mapex</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         :root {
             --sxpr: #ff005f;
@@ -19,111 +20,164 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            color: #1f2937;
+            color: #000000;
         }
 
         html, body {
-            background-color: #eaf3e9;
-            height: 100vh;
             width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            background-color: #ffffff;
         }
 
-        .sticky-header {
+        #map {
             position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
-            background-color: rgba(255, 255, 255, 0.92) !important;
-            backdrop-filter: blur(8px);
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .sticky-header {
+            position: absolute;
+            top: 12px;
+            left: 16px;
             z-index: 1000;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: 12px;
-            padding: 12px 24px;
-            border-bottom: 1px solid #e2e8f0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
         }
 
         .logo {
-            width: clamp(36px, 8vw, 48px);
-            height: clamp(36px, 8vw, 48px);
+            width: 32px;
+            height: 32px;
             object-fit: contain;
-            flex-shrink: 0;
         }
 
         .sticky-header h1 {
-            font-size: clamp(16px, 3vw, 22px);
+            font-size: 18px;
             font-weight: 700;
             letter-spacing: -0.5px;
             color: #000000 !important;
         }
 
-        .app-shell {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #map {
+        .search-overlay {
             position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            background: #eaf3e9;
-        }
-
-        .search-bar {
-            position: absolute;
-            top: 76px;
+            top: 12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 700px;
-            min-height: 48px;
-            padding: 0 4px 0 4px;
-            margin: 12px auto;
-            border: 2px solid #ccc;
-            border-radius: 25px;
-            box-sizing: border-box;
-            cursor: pointer;
+            z-index: 1000;
+            width: calc(100% - 32px);
+            max-width: 500px;
+        }
+
+        .search-pill {
             display: flex;
-            flex-direction: row;            
-            gap: 12px;
             align-items: center;
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(6px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            z-index: 900;
+            background: #ffffff;
+            border: 2px solid #d1d5db;
+            border-radius: 50px;
+            padding: 4px 6px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
         }
 
-        .search-text {
-            flex: 1;
-            font-size: 16px;
-            background: transparent;
+        .pill-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
             border: none;
-            outline: none;
-            resize: none;
-            padding: 12px 0;
-            box-sizing: border-box;
-            field-sizing: content;
-            white-space: pre-wrap;
-            word-break: break-word;
-            overflow: hidden;
-        }
-
-        .search-btn {
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            flex-shrink: 0;
+            background: 
+                radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
+                radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
+                radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
+                radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+            transition: transform 0.15s ease, opacity 0.2s ease;
+        }
+
+        .pill-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.95;
+        }
+
+        .pill-btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-icon {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0 12px;
+            font-size: 16px;
+            font-weight: 500;
+            background: transparent;
+            color: #000000;
+        }
+
+        .search-input::placeholder {
+            color: #4b5563;
+        }
+
+        .floating-widget {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            z-index: 1000;
+            width: 320px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            border: 1px solid #cbd5e1;
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .widget-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .coords-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.2px;
+        }
+
+        .location-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+            line-height: 1.3;
+        }
+
+        .small-action-btn {
             background: 
                 radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
                 radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
@@ -131,617 +185,370 @@
                 radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
             border: none;
             border-radius: 50%;
-            color: #000000;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .search-btn svg {
-            width: 24px !important;
-            height: 24px !important;
-            display: block;
-            flex-shrink: 0;
-        }
-
-        .search-btn:hover {
-            transform: translateY(-1px);
-            opacity: 0.9;
-        }
-
-        .search-btn:active {
-            transform: scale(0.96);
-        }
-
-        .zoom-grid {
-            position: absolute;
-            right: 20px;
-            bottom: 30px;
-            z-index: 800;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 6px;
-            border-radius: 18px;
-            background: rgba(255,255,255,0.88);
-            border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: 0 8px 24px rgba(30, 41, 59, 0.15);
-        }
-
-        .zoom-btn {
-            background: radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
-                        radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
-                        radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
-                        radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
-            border: none;
-            border-radius: 50%;
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-            transition: transform 0.15s ease;
+            flex-shrink: 0;
+            transition: transform 0.15s ease, opacity 0.2s ease;
         }
 
-        .zoom-btn:hover {
-            transform: translateY(-1px);
+        .small-action-btn:hover {
+            transform: scale(1.08);
+            opacity: 0.95;
         }
 
-        .btn-icon {
-            width: 20px !important;
-            height: 20px !important;
-            display: block;
+        .widget-divider {
+            width: 100%;
+            height: 1px;
+            background: #e2e8f0;
+            margin: 2px 0;
         }
 
-        .info-card {
-            position: absolute;
-            bottom: 24px;
-            left: 24px;
-            z-index: 800;
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 16px;
-            padding: 14px 18px;
-            box-shadow: 0 8px 24px rgba(30, 41, 59, 0.15);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 260px;
-            transition: transform 0.3s ease;
-        }
-
-        .panel-handle {
-            display: none;
-            width: 36px;
-            height: 4px;
-            background-color: #888888;
-            border-radius: 2px;
-            margin: 0 auto 4px auto;
-            cursor: pointer;
-        }
-
-        .coords-text {
+        .lang-label {
             font-size: 15px;
-            font-weight: 700;
-            color: #000000;
-        }
-
-        .location-text {
-            font-size: 13px;
             font-weight: 600;
-            color: #555555;
-            word-break: break-word;
-        }
-
-        .end-line {
-            background-color: #888888;
-            width: 100%;
-            height: 2px;
-            box-sizing: border-box;
-            margin: 4px 0;
-        }
-
-        .lang-container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            gap: 8px;
-        }
-
-        .lang-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: #000000 !important;
+            color: #0f172a;
         }
 
         #hostLang {
-            padding: 6px 8px;
-            border-radius: 25px;
+            padding: 6px 10px;
+            border-radius: 20px;
             outline: none;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
             background-color: #ffffff !important;
-            border: 2px solid #888888 !important;
+            border: 1.5px solid #94a3b8 !important;
             color: #000000 !important;
             height: 34px !important;
             width: 130px !important;
-            min-width: 130px !important;
             font-size: 12px !important;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
-        @media (max-width: 768px) {
-            .info-card {
-                bottom: 0;
+        .leaflet-top.leaflet-left {
+            top: 70px !important;
+            left: 16px !important;
+        }
+
+        @media (max-width: 640px) {
+            .sticky-header {
+                display: none;
+            }
+
+            .search-overlay {
+                top: 12px;
+                width: calc(100% - 24px);
+            }
+
+            .floating-widget {
                 left: 0;
-                width: 100%;
+                bottom: 0;
+                width: 100vw;
                 border-radius: 20px 20px 0 0;
+                border-left: none;
+                border-right: none;
                 border-bottom: none;
-                padding: 10px 16px 20px 16px;
+                padding: 18px 20px 24px 20px;
+                box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.15);
             }
 
-            .info-card.collapsed {
-                transform: translateY(calc(100% - 32px));
-            }
-
-            .panel-handle {
-                display: block;
-            }
-
-            .zoom-grid {
-                bottom: 150px;
-                right: 12px;
+            .leaflet-top.leaflet-left {
+                top: 70px !important;
+                left: 12px !important;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="app-shell">
-        <header class="sticky-header">
-            <img class="logo" src="s-mapex-logo-map.png" alt="S-Mapex Logo">
-            <h1>S-Mapex</h1>
-        </header>
+    <header class="sticky-header">
+        <img class="logo" src="s-mapex-logo-map.png" alt="S-Mapex Logo">
+        <h1>S-Mapex</h1>
+    </header>
 
-        <div class="search-bar">
-            <button class="search-btn" id="searchBtn" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    <div class="search-overlay">
+        <div class="search-pill">
+            <button class="pill-btn" id="searchBtn" title="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
+                    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 21L16.65 16.65" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <textarea class="search-text" id="searchText" rows="1" placeholder="Search..."></textarea>
-            <button class="search-btn" id="clearBtn" type="button" style="display: none;">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+            <button class="pill-btn" id="clearBtn" title="Clear">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
+                    <path d="M18 6L6 18M6 6L18 18" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
                 </svg>
             </button>
-        </div>
-
-        <div id="map"></div>
-
-        <div class="zoom-grid">
-            <button class="zoom-btn" id="locBtn" type="button" title="My Location">
-                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <path d="M12 2V5M12 19V22M2 12H5M19 12H22"></path>
-                </svg>
-            </button>
-            <button class="zoom-btn" id="inBtn" type="button" title="Zoom In">
-                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 5V19M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
-            </button>
-            <button class="zoom-btn" id="outBtn" type="button" title="Zoom Out">
-                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M5 12H19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
-            </button>
-        </div>
-
-        <div class="info-card" id="infoCard">
-            <div class="panel-handle" id="panelHandle" title="Toggle Panel"></div>
-            <div class="coords-text" id="coordsPanel">x, y</div>
-            <div class="location-text" id="locationText">City name, Country name</div>
-            <div class="end-line"></div>
-            <div class="lang-container">
-                <p class="lang-text">Language</p>
-                <select id="hostLang"></select>
-            </div>
         </div>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchBvlXb4tX9X0q0R9eBkgFJQ8BvZ0L1wL5LzQ=" crossorigin=""></script>
+    <div id="map"></div>
+
+    <div class="floating-widget">
+        <div class="widget-row">
+            <span class="coords-text untranslatable" id="coordsDisplay">4.6097, -74.0817</span>
+            <button class="small-action-btn" id="speakCoordsBtn" title="Speak Location">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" class="btn-icon" style="width:20px;height:20px;">
+                    <path fill="#ffffff" d="M120 244H175L244 175V394L175 325H120Z"/>
+                    <path fill="#ffffff" d="M147 271H186L216 241V328L186 298H147Z"/>
+                    <path fill="#ffffff" d="M271 165C328 178 367 222 367 284C367 346 328 390 271 403V374C311 363 339 331 339 284C339 237 311 205 271 194Z"/>
+                    <path fill="#ffffff" d="M271 213C294 222 306 249 306 284C306 319 294 346 271 355Z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="widget-row">
+            <span class="location-text" id="locationDisplay">Located on Bogotá, Colombia</span>
+            <button class="small-action-btn" id="copyLocationBtn" title="Copy Info">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon" style="width:18px;height:18px;">
+                    <path d="M8 7V5C8 3.9 8.9 3 10 3H19C20.1 3 21 3.9 21 5V14C21 15.1 20.1 16 19 16H17" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="3" y="7" width="14" height="14" rx="2" fill="none" stroke="#ffffff" stroke-width="2"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="widget-divider"></div>
+
+        <div class="widget-row">
+            <span class="lang-label lang-text">Language</span>
+            <select id="hostLang"></select>
+        </div>
+    </div>
+
     <script>
         const hostLanguages = {
-            "ab": "Аԥсшәа", "ace": "Aceh", "ach": "Acoli", "om": "Afaan Oromoo", "af": "Afrikaans", "alz": "Alur", "am": "አማርኛ", "ar": "العربية", "as": "অসমীয়া", "ig": "Asụsụ Igbo", "gn": "Avañe'ẽ", "awa": "अवधी", "ay": "Aymar aru", "az": "Azərbaycanca", "ban": "Balines", "bm": "Bamanankan", "ms": "Bahasa Melayu", "id": "Bahasa Indonesia", "ba": "Башҡортса", "min": "Baso Minangkabau", "mad": "Basa Madura", "jw": "Basa Jawa", "su": "Basa Sunda", "bbc": "Batak Toba", "bts": "Batak Simalungun", "btx": "Batak Karo", "be": "Беларуская", "bew": "Betawi", "bho": "भोजपुरी", "bik": "Bikol", "bo": "བོད་སྐད་", "bs": "Bosanski", "br": "Brezhoneg", "bg": "Български", "bua": "Буряад", "ca": "Català", "ceb": "Cebuano", "ny": "Chichewa", "nyan": "Chinyanja", "sn": "ChiShona", "co": "Corsu", "cy": "Cymraeg", "da": "Dansk", "zap": "Diidxazá", "doi": "डोगri", "de": "Deutsch", "dz": "རྫོང་ཁ་", "et": "Eesti", "el": "Ελληνικά", "en": "English", "eo": "Esperanto", "es": "Español", "ee": "Eʋegbe", "eu": "Euskara", "fa": "فارسی", "fr": "Français", "fy": "Frysk", "ff": "Fulfulde", "fo": "Føroyskt", "ga": "Gaeilge", "gv": "Gaelg", "sm": "Gagana Sāmoa", "gl": "Galego", "gd": "Gàidhlig", "gu": "ગુજરાતી", "ko": "한국어", "ha": "Hausa", "he": "עברית", "hi": "हिन्दी", "hmn": "Hmoob", "hr": "Hrvatski", "hy": "Հայերեն", "bem": "Ichibemba", "rn": "Ikirundi", "rw": "Ikinyarwanda", "iloc": "Ilokano", "os": "Ирон", "nr": "IsiNdebele", "xh": "isiXhosa", "zu": "isiZulu", "is": "Íslenska", "it": "Italiano", "ka": "Ქართული", "sw": "Kiswahili", "ht": "Kreyòl Ayisyen", "kri": "Krio", "ku": "Kurdî (Kurmancî)", "ckb": "Kurdî (Soranî)", "ky": "Кыргызча", "la": "Latina", "lv": "Latviešu", "lb": "Lëtzebuergesch", "lt": "Lietuvių", "ln": "Lingála", "lg": "Luganda", "yua": "Maaya t'aan", "hu": "Magyar", "mk": "Македонски", "mg": "Malagasy", "ml": "മലയാളം", "mt": "Malti", "mak": "Mangkasara’", "mi": "Māori", "mr": "मराठी", "mai": "मैथिली", "lus": "Mizo ṭawng", "mn": "Монгол хэл", "mni-Mtei": "মৈতৈলোন্", "my": "မြန်မာဘာသာ", "fj": "Na Vosa Vakaviti", "ne": "नेपाली", "nl": "Nederlands", "ja": "日本語", "no": "Norsk", "or": "ଓଡ଼ିଆ", "uz": "Oʻzbekcha", "pag": "Pangasinan", "pap": "Papiamentu", "ps": "پښتو", "km": "ភាសាខ្មែរ", "pl": "Polski", "pt": "Português", "pa": "ਪੰਜਾਬੀ", "crh": "Qırımtatarca", "kk": "Қазақ тілі", "ro": "Română", "rom": "Romani", "qu": "Runasimi", "ru": "Русский", "sa": "संस्कृतम्", "sat": "ᱥᱟᱱᱛᱟᱲᱤ", "sg": "Sängö", "nso": "Sesotho sa Leboa", "st": "Sesotho", "tn": "Setswana", "sq": "Shqip", "scn": "Sicilianu", "ss": "SiSwati", "si": "සිංහල", "sk": "Slovenčina", "sl": "Slovenščina", "so": "Soomaaliga", "sr": "Српски", "fi": "Suomi", "sv": "Svenska", "tl": "Tagalog", "tt": "Татарча", "te": "తెలుగు", "th": "ไทย", "din": "Thuɔŋjaŋ", "nus": "Thok Nath", "ti": "ትግርኛ", "vi": "Tiếng Việt", "tg": "Тоҷикӣ", "tpi": "Tok Pisin", "tr": "Türkçe", "tk": "Türkmençe", "ak": "Twi", "ug": "ئۇيغۇرچە", "uk": "Українська", "ur": "اردو", "vec": "Vèneto", "war": "Winaray", "ts": "Xitsonga", "yi": "ייִדיש", "yo": "Yorùbá", "yue": "粵語", "zh-CN": "简体中文", "zh-TW": "繁體中文"
+            "ab": "Аԥсшәа", "ace": "Aceh", "ach": "Acoli", "om": "Afaan Oromoo", "af": "Afrikaans",
+            "alz": "Alur", "am": "አማርኛ", "ar": "العربية", "as": "অসমীয়া", "ig": "Asụsụ Igbo",
+            "gn": "Avañe'ẽ", "awa": "अवधी", "ay": "Aymar aru", "az": "Azərbaycanca", "ban": "Balines",
+            "bm": "Bamanankan", "ms": "Bahasa Melayu", "id": "Bahasa Indonesia", "ba": "Башҡортса",
+            "min": "Baso Minangkabau", "mad": "Basa Madura", "jw": "Basa Jawa", "su": "Basa Sunda",
+            "bbc": "Batak Toba", "bts": "Batak Simalungun", "btx": "Batak Karo", "be": "Беларуская",
+            "bew": "Betawi", "bho": "भोजपुरी", "bik": "Bikol", "bo": "བོད་སྐད་", "bs": "Bosanski",
+            "br": "Brezhoneg", "bg": "Български", "bua": "Буряад", "ca": "Català", "ceb": "Cebuano",
+            "ny": "Chichewa", "nyan": "Chinyanja", "sn": "ChiShona", "co": "Corsu", "cy": "Cymraeg",
+            "da": "Dansk", "zap": "Diidxazá", "doi": "डोगri", "de": "Deutsch", "dz": "རྫོང་ཁ",
+            "et": "Eesti", "en": "English", "es": "Español", "eo": "Esperanto", "eu": "Euskara",
+            "ee": "Eʋegbe", "fj": "Na Vosa Vakaviti", "fil": "Filipino", "fr": "Français", "fy": "Frysk",
+            "ga": "Gaeilge", "gd": "Gàidhlig", "gl": "Galego", "lg": "Luganda", "lua": "Ciluba",
+            "kl": "Kalaallisut", "gu": "ગુજરાતી", "ht": "Kreyòl Ayisyen", "ha": "Harshen Hausa",
+            "haw": "ʻŌlelo Hawaiʻi", "he": "עברית", "hi": "हिन्दी", "hmn": "Hmoob", "hr": "Hrvatski",
+            "hu": "Magyar", "hy": "Հայերեն", "is": "Íslenska", "ilo": "Ilocano", "iu": "Inuktitut",
+            "it": "Italiano", "ja": "日本語", "kn": "ಕನ್ನಡ", "kk": "Қазақ тілі", "km": "ភាសាខ្មែរ",
+            "rw": "Kinyarwanda", "ky": "Кыргызча", "kg": "Kikongo", "kok": "கொங்கணி", "ko": "한국어",
+            "kri": "Krio", "ckb": "سۆرانی", "ku": "Kurdî", "la": "Latina", "lb": "Lëtzebuergesch",
+            "lo": "ພາສາລາວ", "lt": "Lietuvių", "luo": "Dholuo", "lv": "Latviešu", "mg": "Malagasy",
+            "mk": "Македонски", "ml": "മലയാളം", "mr": "मराठी", "mi": "Te Reo Māori", "mn": "Монгол",
+            "mt": "Malti", "my": "မြန်မာစာ", "ne": "नेपाली", "nl": "Nederlands", "no": "Norsk",
+            "or": "ଓଡ଼ିଆ", "pa": "ਪੰਜਾਬੀ", "pl": "Polski", "ps": "پښتو", "pt": "Português",
+            "qu": "Runa Simi", "ro": "Română", "ru": "Русский", "sa": "संस्कृतम्", "sd": "سنڌي",
+            "si": "සිංහල", "sk": "Slovenčina", "sl": "Slovenščina", "so": "Soomaali", "sq": "Shqip",
+            "sr": "Српски", "sv": "Svenska", "sw": "Kiswahili", "ta": "தமிழ்", "te": "తెలుగు",
+            "tg": "Тоҷикӣ", "th": "ไทย", "ti": "ትግርኛ", "tk": "Türkmen dili", "tl": "Tagalog",
+            "tr": "Türkçe", "tt": "Татарча", "ug": "ئۇيغۇرچە", "uk": "Українська", "ur": "اردو",
+            "uz": "Oʻzbekcha", "vi": "Tiếng Việt", "xh": "isiXhosa", "yi": "ייִדיש", "yo": "Yorùbá",
+            "zh-CN": "简体中文", "zh-TW": "繁體中文", "zu": "isiZulu"
         };
 
-        const translationConfig = [
-            { tag: "h1", translate: false },
-            { tag: "option", translate: true },
-            { tag: ".untranslatable", translate: false },
-            { tag: ".lang-text", translate: true },
-            { tag: ".location-text", translate: false }
-        ];
+        let map, marker;
+        let currentCity = "Bogotá";
+        let currentCountry = "Colombia";
+        let currentX = 4.6097;
+        let currentY = -74.0817;
 
-        const hostLang = document.getElementById('hostLang');
-        const searchText = document.getElementById('searchText');
-        const searchBtn = document.getElementById('searchBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const locBtn = document.getElementById('locBtn');
-        const coordsPanel = document.getElementById('coordsPanel');
-        const locationText = document.getElementById('locationText');
-        const infoCard = document.getElementById('infoCard');
-        const panelHandle = document.getElementById('panelHandle');
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                hl: params.get('hl') || 'en',
+                q: params.get('q') || '',
+                z: parseInt(params.get('z')) || 13,
+                x: parseFloat(params.get('x')) || 4.6097,
+                y: parseFloat(params.get('y')) || -74.0817,
+                l: params.get('l') === 'true'
+            };
+        }
 
-        let isLocEnabled = false;
-        let currentMarker = null;
+        function setQueryParam(key, value) {
+            const url = new URL(window.location.href);
+            url.searchParams.set(key, value);
+            window.history.replaceState({}, '', url);
+        }
 
-        function populateHLDropdowns() {
-            Object.entries(hostLanguages).forEach(([code, name]) => {
-                const opt3 = new Option(name, code);
-                opt3.classList.add('untranslatable');
-                hostLang.add(opt3);
+        function populateLanguages(selectedLang) {
+            const select = document.getElementById('hostLang');
+            select.innerHTML = '';
+            for (const [code, name] of Object.entries(hostLanguages)) {
+                const opt = document.createElement('option');
+                opt.value = code;
+                opt.textContent = name;
+                if (code === selectedLang) opt.selected = true;
+                select.appendChild(opt);
+            }
+        }
+
+        async function translatePage(targetLang) {
+            if (!targetLang || targetLang === 'en') return;
+            const elements = document.querySelectorAll('body *:not(script):not(style):not(.untranslatable):not(#hostLang)');
+            
+            elements.forEach(async (el) => {
+                if (el.children.length === 0 && el.textContent.trim() !== '') {
+                    const text = el.textContent.trim();
+                    if (/^\d+(\.\d+)?,\s*-\d+(\.\d+)?$/.test(text)) return;
+                    try {
+                        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+                        const data = await res.json();
+                        if (data && data[0] && data[0][0][0]) {
+                            el.textContent = data[0][0][0];
+                        }
+                    } catch (e) {}
+                }
             });
-            hostLang.value = 'en';
         }
 
-        populateHLDropdowns();
-
-        const map = L.map('map', {
-            zoomControl: false,
-            attributionControl: false,
-            worldCopyJump: true
-        }).setView([20.5937, 78.9629], 4);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        function clearVis() {
-            const val = searchText.value.trim();
-            clearBtn.style.display = val ? '' : 'none';
-        }
-
-        function clearInput() {
-            searchText.value = '';
-            clearVis();
-            updateTitleFromInput();
-            updateUrlParameters();
-            searchText.focus();
-        }
-
-        clearBtn.addEventListener('click', clearInput);
-        searchText.addEventListener('input', () => {
-            clearVis();
-            updateTitleFromInput();
-            updateUrlParameters();
-        });
-
-        function speakText(text, langCode) {
-            if (!text.trim()) return;
-            if (!('speechSynthesis' in window)) return;
-
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = langCode || hostLang.value || 'en';
-            window.speechSynthesis.speak(utterance);
-        }
-
-        async function speakCoords(x, y) {
-            const rawPhrase = `Location for "${x}", "${y}"`;
-            const lang = hostLang.value;
-            let phraseToSpeak = rawPhrase;
-
-            if (lang !== 'en') {
-                phraseToSpeak = await translateText(rawPhrase, lang);
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const lang = document.getElementById('hostLang').value || 'en';
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                window.speechSynthesis.speak(utterance);
             }
-            speakText(phraseToSpeak, lang);
         }
 
-        async function speakSearchResults(queryVal) {
-            const rawPhrase = `Results for "${queryVal}"`;
-            const lang = hostLang.value;
-            let phraseToSpeak = rawPhrase;
-
-            if (lang !== 'en') {
-                phraseToSpeak = await translateText(rawPhrase, lang);
-            }
-            speakText(phraseToSpeak, lang);
-        }
-
-        async function translateText(text, targetLanguage) {
-            if (!text || !text.trim()) return "";
-            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(targetLanguage)}&dt=t&q=${encodeURIComponent(text)}`;
+        async function reverseGeocode(lat, lng) {
+            currentX = parseFloat(lat.toFixed(4));
+            currentY = parseFloat(lng.toFixed(4));
+            document.getElementById('coordsDisplay').textContent = `${currentX}, ${currentY}`;
+            
+            setQueryParam('x', currentX);
+            setQueryParam('y', currentY);
 
             try {
-                const response = await fetch(url);
-                if (!response.ok) return text;
-                const data = await response.json();
-                if (data && data[0]) {
-                    return data[0].map(item => item && item[0] ? item[0] : "").join("") || text;
-                }
-            } catch (err) {
-                return text;
-            }
-            return text;
-        }
-
-        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-        window.originalText = window.originalText || new Map();
-
-        async function translatePage(lang) {
-            if (typeof translationConfig === 'undefined') return;
-
-            if (lang === "en") {
-                window.originalText.forEach((storedText, node) => {
-                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                        node.text = storedText;
-                    } else {
-                        node.nodeValue = storedText;
-                    }
-                });
-                return;
-            }
-
-            const textNodesToTranslate = [];
-            const activeTags = translationConfig.filter(r => r.translate).map(r => r.tag).join(",");
-            const excludedTags = translationConfig.filter(r => !r.translate).map(r => r.tag).join(",");
-
-            if (!activeTags) return;
-
-            document.querySelectorAll(activeTags).forEach(parentEl => {
-                if (excludedTags && parentEl.matches(excludedTags)) return;
-
-                function walk(node) {
-                    if (node.nodeType === Node.ELEMENT_NODE && excludedTags && node.matches(excludedTags)) {
-                        return;
-                    }
-
-                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                        if (node.text.trim() !== "") {
-                            if (!window.originalText.has(node)) {
-                                window.originalText.set(node, node.text);
-                            }
-                            textNodesToTranslate.push(node);
-                        }
-                        return;
-                    }
-
-                    if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
-                        if (!window.originalText.has(node)) {
-                            window.originalText.set(node, node.nodeValue);
-                        }
-                        textNodesToTranslate.push(node);
-                    }
-                    for (let child = node.firstChild; child; child = child.nextSibling) {
-                        walk(child);
-                    }
-                }
-                walk(parentEl);
-            });
-
-            for (const node of textNodesToTranslate) {
-                const text = window.originalText.get(node);
-                const translated = await translateText(text, lang);
-                if (translated) {
-                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                        node.text = translated;
-                    } else {
-                        node.nodeValue = translated;
-                    }
-                }
-                await sleep(0);
-            }
-        }
-
-        function updateCityName(lat, lng) {
-            fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`, {
-                headers: { 'User-Agent': 'S-Mapex-App' }
-            })
-            .then(res => res.json())
-            .then(data => {
+                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10`);
+                const data = await res.json();
                 if (data && data.address) {
-                    const city = data.address.city || data.address.town || data.address.village || data.address.county || '';
-                    const country = data.address.country || '';
-                    locationText.textContent = city && country ? `${city}, ${country}` : (country || 'City name, Country name');
-                } else {
-                    locationText.textContent = 'City name, Country name';
+                    currentCity = data.address.city || data.address.town || data.address.village || data.address.state || "Location";
+                    currentCountry = data.address.country || "";
+                    const locStr = currentCountry ? `Located on ${currentCity}, ${currentCountry}` : `Located on ${currentCity}`;
+                    document.getElementById('locationDisplay').textContent = locStr;
+                    
+                    const lang = document.getElementById('hostLang').value;
+                    if (lang !== 'en') translatePage(lang);
                 }
-            })
-            .catch(() => {
-                locationText.textContent = 'City name, Country name';
-            });
-        }
-
-        function updateCoordsAndMapState(triggerVoice = false) {
-            const center = map.getCenter();
-            const z = map.getZoom();
-            const x = center.lng.toFixed(5);
-            const y = center.lat.toFixed(5);
-
-            coordsPanel.textContent = `${x}, ${y}`;
-            updateCityName(center.lat, center.lng);
-            updateUrlParameters();
-
-            if (triggerVoice) {
-                speakCoords(x, y);
+            } catch (e) {
+                document.getElementById('locationDisplay').textContent = `Located on ${currentX}, ${currentY}`;
             }
         }
 
-        map.on('moveend zoomend', () => {
-            updateCoordsAndMapState(true);
-        });
-
-        function searchPlace() {
-            const query = searchText.value.trim();
+        async function searchLocation(query) {
             if (!query) return;
+            setQueryParam('q', query);
+            document.title = `${query} - S-Mapex`;
 
-            fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(query)}`, {
-                headers: { 'User-Agent': 'S-Mapex-App' }
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (!data || !data.length) return;
+            try {
+                const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+                const data = await res.json();
+                if (data && data.length > 0) {
+                    const first = data[0];
+                    const lat = parseFloat(first.lat);
+                    const lon = parseFloat(first.lon);
+                    
+                    map.setView([lat, lon], 14);
+                    marker.setLatLng([lat, lon]);
+                    reverseGeocode(lat, lon);
 
-                const place = data[0];
-                const lat = parseFloat(place.lat);
-                const lng = parseFloat(place.lon);
-
-                if (currentMarker) map.removeLayer(currentMarker);
-                currentMarker = L.marker([lat, lng]).addTo(map);
-
-                map.flyTo([lat, lng], 13, { duration: 1.5 });
-                updateTitleFromInput();
-                updateUrlParameters();
-                speakSearchResults(query);
-            })
-            .catch(err => console.error('Search failed:', err));
-        }
-
-        searchBtn.addEventListener('click', searchPlace);
-
-        searchText.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                searchPlace();
-            }
-        });
-
-        document.getElementById('inBtn').addEventListener('click', () => map.zoomIn());
-        document.getElementById('outBtn').addEventListener('click', () => map.zoomOut());
-
-        locBtn.addEventListener('click', () => {
-            if (!navigator.geolocation) {
-                alert('Geolocation is not supported by this browser.');
-                return;
-            }
-
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    isLocEnabled = true;
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-
-                    if (currentMarker) map.removeLayer(currentMarker);
-                    currentMarker = L.marker([lat, lng]).addTo(map);
-
-                    map.flyTo([lat, lng], 14, { duration: 1.5 });
-                    updateUrlParameters();
-                },
-                () => {
-                    isLocEnabled = false;
-                    alert('Unable to get your current location.');
-                    updateUrlParameters();
+                    const params = getQueryParams();
+                    if (params.l) {
+                        speakText(`Results of ${query}.`);
+                    }
                 }
-            );
-        });
-
-        panelHandle.addEventListener('click', () => {
-            infoCard.classList.toggle('collapsed');
-        });
-
-        function updateUrlParameters() {
-            const hlValue = hostLang.value;
-            const qValue = searchText.value.trim();
-            const center = map.getCenter();
-
-            const xValue = center.lng.toFixed(5);
-            const yValue = center.lat.toFixed(5);
-            const zValue = String(map.getZoom());
-            const lValue = String(Boolean(isLocEnabled));
-
-            const baseUrl = window.location.origin + window.location.pathname;
-            const params = new URLSearchParams();
-
-            params.set('hl', hlValue);
-            if (qValue) {
-                params.set('q', qValue);
-            }
-            params.set('z', zValue);
-            params.set('x', xValue);
-            params.set('y', yValue);
-            params.set('l', lValue);
-
-            const newUrl = baseUrl + '?' + params.toString();
-            history.replaceState(null, '', newUrl);
+            } catch (e) {}
         }
 
-        hostLang.addEventListener('change', () => {
-            updateUrlParameters();
-            translatePage(hostLang.value);
-        });
-
-        function matchInput() {
-            const params = new URLSearchParams(window.location.search);
-
-            const hlParam = params.get('hl');
-            const qParam = params.get('q');
-            const zParam = params.get('z');
-            const xParam = params.get('x');
-            const yParam = params.get('y');
-            const lParam = params.get('l');
-
-            if (hlParam) {
-                hostLang.value = hlParam;
-            } else {
-                hostLang.value = 'en';
-            }
-
-            if (qParam) {
-                searchText.value = qParam;
-            } else {
-                searchText.value = '';
-            }
-
-            let zoomVal = zParam ? parseInt(zParam, 10) : 4;
-            let xVal = xParam ? parseFloat(xParam) : 78.9629;
-            let yVal = yParam ? parseFloat(yParam) : 20.5937;
-
-            map.setView([yVal, xVal], zoomVal);
-
-            if (lParam !== null) {
-                isLocEnabled = (lParam === 'true');
-            } else {
-                isLocEnabled = false;
-            }
-
-            updateUrlParameters();
-            clearVis();
-            updateTitleFromInput();
-            translatePage(hostLang.value);
+        function initMap() {
+            const params = getQueryParams();
             
-            coordsPanel.textContent = `${xVal.toFixed(5)}, ${yVal.toFixed(5)}`;
-            updateCityName(yVal, xVal);
-        }
+            map = L.map('map', {
+                zoomControl: true
+            }).setView([params.x, params.y], params.z);
 
-        function updateTitleFromInput() {
-            const baseTitle = "S-Mapex";
-            if (searchText && searchText.value.trim() !== "") {
-                document.title = `${searchText.value.trim()} - ${baseTitle}`;
-            } else {
-                document.title = baseTitle;
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            marker = L.marker([params.x, params.y]).addTo(map);
+
+            map.on('click', (e) => {
+                const { lat, lng } = e.latlng;
+                marker.setLatLng([lat, lng]);
+                reverseGeocode(lat, lng);
+            });
+
+            map.on('zoomend', () => {
+                setQueryParam('z', map.getZoom());
+            });
+
+            reverseGeocode(params.x, params.y);
+
+            if (params.q) {
+                document.getElementById('searchInput').value = params.q;
+                document.title = `${params.q} - S-Mapex`;
             }
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            matchInput();
-            setTimeout(() => {
-                map.invalidateSize();
-            }, 250);
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = getQueryParams();
+            
+            populateLanguages(params.hl);
+            initMap();
+
+            if (params.hl !== 'en') {
+                translatePage(params.hl);
+            }
+
+            document.getElementById('searchBtn').addEventListener('click', () => {
+                const q = document.getElementById('searchInput').value.trim();
+                searchLocation(q);
+            });
+
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const q = document.getElementById('searchInput').value.trim();
+                    searchLocation(q);
+                }
+            });
+
+            document.getElementById('clearBtn').addEventListener('click', () => {
+                document.getElementById('searchInput').value = '';
+                document.title = 'S-Mapex';
+                setQueryParam('q', '');
+            });
+
+            document.getElementById('speakCoordsBtn').addEventListener('click', () => {
+                const text = `Coordinates ${currentX}, ${currentY} located on ${currentCity}, ${currentCountry}.`;
+                speakText(text);
+            });
+
+            document.getElementById('copyLocationBtn').addEventListener('click', () => {
+                const copyText = `${currentX}, ${currentY} (${currentCity}, ${currentCountry})`;
+                navigator.clipboard.writeText(copyText).then(() => {
+                    const btn = document.getElementById('copyLocationBtn');
+                    btn.style.opacity = '0.5';
+                    setTimeout(() => btn.style.opacity = '1', 500);
+                });
+            });
+
+            document.getElementById('hostLang').addEventListener('change', (e) => {
+                const lang = e.target.value;
+                setQueryParam('hl', lang);
+                translatePage(lang);
+            });
         });
     </script>
 </body>
