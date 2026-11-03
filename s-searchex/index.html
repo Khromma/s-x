@@ -223,6 +223,32 @@
             color: #ffffff;
         }
 
+      .creator-info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            height: 35px;
+            gap: 8px;
+            margin-top: 12px;
+            margin-left: 8px;
+        }
+        
+        .creator-text {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #000000 !important;
+        }
+
+        .creator-logo {
+            width: 15px;
+            height: 15px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+
     </style>
   </head>
   <body>
@@ -265,10 +291,11 @@
           <select id="hostLang"></select>
         </div>
 
-    <select class="ai-value">
-      <option value="search"></option>
-      <option value="ai"></option>
-    </select>
+     <div class="creator-info">
+            <p class="creator-text">By</p>
+            <img class="creator-logo" src="../khromma-logo.png" alt="Khromma logo">
+            <p class="creator-text">Khromma</p>
+        </div>
 
     <script>
 const hostLanguages = {
