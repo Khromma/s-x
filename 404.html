@@ -182,6 +182,31 @@
             box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
         }
 
+        .creator-info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            height: 35px;
+            gap: 8px;
+            margin-top: 12px;
+            margin-left: 8px;
+        }
+        
+        .creator-text {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #000000 !important;
+        }
+
+        .creator-logo {
+            width: 15px;
+            height: 15px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
     </style>    
     </head>
     <body>
@@ -195,7 +220,7 @@
         </div>
         <div class="info">
             <p class="info-text">The requested URL was not found, it might be temporally disabled or it might have moved, check any typo in the URL.</p>
-            <a href="/s-x/" target="_self">Go back to main page here.</a>
+            <a href="./" target="_self">Go back to main page here.</a>
         </div>
 
         <div class="end-line">
@@ -205,6 +230,11 @@
           <select id="hostLang"></select>
         </div>
 
+        <div class="creator-info">
+            <p class="creator-text">By</p>
+            <p class="creator-logo" src="./khromma-logo.png" alt="Khromma logo">
+            <p class="creator-text">Khromma</p>
+        </div>
         <script>
 const hostLanguages = {
     "ab": "Аԥсшәа",
