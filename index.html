@@ -83,6 +83,19 @@
                 border: none;
                 border-radius: 25px;
                 box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+
+            .tool-card-top {
+                width: 150px;
+                height: 150px;
+                box-sizing: border-box;
+                border: none;
+                border-radius: 25px 25px 0 0;
+                box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+                flex-shrink: 0;
             }
         </style>
     </head>
@@ -93,15 +106,11 @@
         </header>
 
         <div class="flex-div">
-            <a href="#">
-                <div class="tool-card"></div>
-            </a>
-            <a href="#">
-                <div class="tool-card"></div>
-            </a>
-            <a href="#">
-                <div class="tool-card"></div>
-            </a>
+            <div class="tool-card">
+                <a href="#">
+                    <div class="tool-card-top"></div>
+                </a>
+            </div>
         </div>
         <script></script>
     </body>
