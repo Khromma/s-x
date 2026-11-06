@@ -93,10 +93,25 @@
                 width: 150px;
                 height: 150px;
                 box-sizing: border-box;
+                padding: 15px;
+                gap: 20px;
                 border: none;
                 border-radius: 25px 25px 0 0;
                 box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
                 flex-shrink: 0;
+            }
+
+            .tool-card-top-img {
+                width: 70px;
+                height: 70px;
+                object-fit: contain;
+                flex-shrink: 0;
+            }
+
+            .tool-card-top-name {
+                font-size: 20px;
+                letter-spacing: 1.5;
+                color: #000000;
             }
 
             .tool-card-bottom {
@@ -119,7 +134,10 @@
         <div class="flex-div">
             <div class="tool-card">
                 <a href="#">
-                    <div class="tool-card-top"></div>
+                    <div class="tool-card-top">
+                        <img class="tool-card-top-img" src="assets/s-translatex-logo-translator.png" alt="S-Translatex Logo">
+                        <p class="tool-card-top-name">S-Translatex</p>
+                    </div>
                 </a>
                 <a href="#">
                     <div class="tool-card-bottom"></div>
