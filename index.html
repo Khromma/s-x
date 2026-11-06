@@ -132,10 +132,21 @@
                 width: 150px;
                 height: 60px;
                 box-sizing: border-box;
+                padding: 15px;
+                gap: 10px;
                 border: none;
-                border-radius: 0 0 25px 25px;
+                border-radius: 25px 25px 0 0;
                 box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
                 flex-shrink: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tool-card-bottom-info-text {
+                font-size: 18px;
+                letter-spacing: 1.5;
+                color: #000000;
             }
         </style>
     </head>
@@ -154,7 +165,9 @@
                     </div>
                 </a>
                 <a href="#">
-                    <div class="tool-card-bottom"></div>
+                    <div class="tool-card-bottom">
+                        <p class="tool-card-bottom-info-text">Information</p>
+                    </div>
                 </a>
             </div>
         </div>
