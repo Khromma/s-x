@@ -67,6 +67,24 @@
                 color: #000000 !important;
             }
 
+            .gradient-text {
+                font-size: 50px;
+                font-weight: 700;
+                display: inline-block;
+                background: linear-gradient(
+                    to right,
+                    var(--sxib) 0%,
+                    var(--sxpr) 33%,
+                    var(--sxgy) 67%,
+                    var(--sxcg) 100%
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
+                align-self: start;
+            }
+            
             .flex-div {
                 width: fit-content;
                 height: auto;
@@ -166,6 +184,8 @@
             <img class="logo" src="assets/s-x-logo.png" alt="S-X A new universe Logo">
             <h1>S-X A new universe</h1>
         </header>
+
+        <p class="gradient-text">Welcome to S-X A new universe.</p>
 
         <div class="flex-div">
             <div class="tool-card">
