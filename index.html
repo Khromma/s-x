@@ -89,6 +89,10 @@
                 justify-content: flex-start;
             }
 
+            .no-underline-link {
+                text-decoration: none;
+            }
+
             .tool-card-top {
                 width: 150px;
                 height: 150px;
@@ -110,10 +114,9 @@
             }
 
             .tool-card-top-name {
-                font-size: 15px;
+                font-size: 17px;
                 letter-spacing: 1.5;
                 color: #000000;
-                text-decoration: none;
             }
 
             .tool-card-bottom {
@@ -135,13 +138,13 @@
 
         <div class="flex-div">
             <div class="tool-card">
-                <a href="#">
+                <a class="no-underline-link" href="#">
                     <div class="tool-card-top">
                         <img class="tool-card-top-img" src="assets/s-translatex-logo-translator.png" alt="S-Translatex Logo">
                         <p class="tool-card-top-name">S-Translatex</p>
                     </div>
                 </a>
-                <a href="#">
+                <a class="no-underline-link"href="#">
                     <div class="tool-card-bottom"></div>
                 </a>
             </div>
