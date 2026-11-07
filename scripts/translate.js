@@ -29,18 +29,18 @@ function extractSourceTexts(htmlContent) {
     const regex = /data-i18n="([^"]+)"[^>]*>([^<]+)</g;
     let match;
     while ((match = regex.exec(htmlContent)) !== null) {
-        sourceMap[match] = match.trim();
+        sourceMap[match[1]] = match[2].trim();
     }
     return sourceMap;
 }
 
 async function fetchGoogleTranslateBulk(textPayload, targetLang) {
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(textPayload)}`;
+    const url = `https://googleapis.com{targetLang}&dt=t&q=${encodeURIComponent(textPayload)}`;
     const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
     const data = await response.json();
-    if (data && data) {
-        return data.map(subBlock => subBlock).join('');
+    if (data && data[0]) {
+        return data[0].map(subBlock => subBlock[0]).join('');
     }
     throw new Error("Invalid response");
 }
@@ -70,7 +70,6 @@ async function compileTranslations() {
     });
 
     await Promise.all(compilationTasks);
-    
     fs.writeFileSync(path.join(__dirname, '../locales.json'), JSON.stringify(masterDictionary));
 }
 
