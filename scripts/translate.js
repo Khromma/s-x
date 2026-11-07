@@ -35,7 +35,7 @@ function extractSourceTexts(htmlContent) {
 }
 
 async function fetchGoogleTranslateBulk(textPayload, targetLang) {
-    const url = `https://googleapis.com{targetLang}&dt=t&q=${encodeURIComponent(textPayload)}`;
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl={targetLang}&dt=t&q=${encodeURIComponent(textPayload)}`;
     const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
     const data = await response.json();
