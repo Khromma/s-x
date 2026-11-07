@@ -347,7 +347,7 @@
 
         <div class="text-container">
             <div class="textarea-wrapper">
-                <textarea id="inputText" placeholder="Text..."></textarea>
+                <textarea data-i18n="s_translatex_input_translation_textarea" id="inputText" placeholder="Text..."></textarea>
                 <div class="action-bar">
                     <button class="action-btn" id="clearBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -371,7 +371,7 @@
                 </div>
             </div>
             <div class="textarea-wrapper">
-                <textarea id="outputText" placeholder="Translation..." readonly></textarea>
+                <textarea data-i18n="s_translatex_output_translation_textarea" id="outputText" placeholder="Translation..." readonly></textarea>
                 <div class="action-bar">
                     <button class="action-btn" id="speakOutputBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" class="btn-icon">
@@ -391,7 +391,7 @@
             </div>
         </div>
         <div class="supported">
-          <span>Supported by</span>
+          <span data-i18n="s_translatex_support_google_contribution_text">Supported by</span>
           <svg aria-hidden="true" viewBox="0 0 92 30" xmlns=https://www.w3.org/2000/svg">
             <path d="M10.35 23.1c5.89.06 9.9-3.9 9.9-9.98q0-.75-.14-1.7h-9.8v2.93h6.87c-.36 3.83-3.06 5.82-6.76 5.82-4.15 0-7.33-3.12-7.33-7.66 0-4.47 3.03-7.6 7.33-7.6 2.16 0 3.76.67 5.35 2.3l2.05-2.14c-1.8-2.1-4.4-3.1-7.44-3.1-5.9 0-10.49 4.43-10.49 10.5 0 5.8 4.43 10.58 10.46 10.64" fill="#3186ff"></path>
             <path d="M29.33 23.1c4.41 0 7.6-3.23 7.6-7.72 0-4.4-3.12-7.67-7.6-7.67-4.23 0-7.57 3-7.57 7.67 0 4.45 3.15 7.73 7.57 7.73m0-2.68c-2.68 0-4.56-2.2-4.56-5.04s1.98-4.99 4.56-4.99c2.73 0 4.57 2.2 4.57 5 0 2.87-1.88 5.03-4.57 5.03" fill="#fc413d"></path>
@@ -402,11 +402,8 @@
         </svg>
       </div>
     </div>
+    
     <div class="end-line">
-    </div>
-    <div class="lang-container">
-      <p class="lang-text">Language</p>
-      <select id="hostLang"></select>
     </div>
 
      <div class="creator-info">
@@ -598,188 +595,39 @@
             "zu": "Zulu"
         };
 
-        const hostLanguages = {
-    "ab": "Аԥсшәа",
-    "ace": "Aceh",
-    "ach": "Acoli",
-    "om": "Afaan Oromoo",
-    "af": "Afrikaans",
-    "alz": "Alur",
-    "am": "አማርኛ",
-    "ar": "العربية",
-    "as": "অসমীয়া",
-    "ig": "Asụsụ Igbo",
-    "gn": "Avañe'ẽ",
-    "awa": "अवधी",
-    "ay": "Aymar aru",
-    "az": "Azərbaycanca",
-    "ban": "Balines",
-    "bm": "Bamanankan",
-    "ms": "Bahasa Melayu",
-    "id": "Bahasa Indonesia",
-    "ba": "Башҡортса",
-    "min": "Baso Minangkabau",
-    "mad": "Basa Madura",
-    "jw": "Basa Jawa",
-    "su": "Basa Sunda",
-    "bbc": "Batak Toba",
-    "bts": "Batak Simalungun",
-    "btx": "Batak Karo",
-    "be": "Беларуская",
-    "bew": "Betawi",
-    "bho": "भोजपुरी",
-    "bik": "Bikol",
-    "bo": "བོད་སྐད་",
-    "bs": "Bosanski",
-    "br": "Brezhoneg",
-    "bg": "Български",
-    "bua": "Буряад",
-    "ca": "Català",
-    "ceb": "Cebuano",
-    "ny": "Chichewa",
-    "sn": "ChiShona",
-    "co": "Corsu",
-    "cy": "Cymraeg",
-    "da": "Dansk",
-    "zap": "Diidxazá",
-    "doi": "डोगरी",
-    "de": "Deutsch",
-    "dz": "རྫོང་ཁ་",
-    "et": "Eesti",
-    "el": "Ελληνικά",
-    "en": "English",
-    "eo": "Esperanto",
-    "es": "Español",
-    "ee": "Eʋegbe",
-    "eu": "Euskara",
-    "fa": "فارسی",
-    "fr": "Français",
-    "fy": "Frysk",
-    "ff": "Fulfulde",
-    "fo": "Føroyskt",
-    "ga": "Gaeilge",
-    "gv": "Gaelg",
-    "sm": "Gagana Sāmoa",
-    "gl": "Galego",
-    "gd": "Gàidhlig",
-    "gu": "ગુજરાતી",
-    "ko": "한국어",
-    "ha": "Hausa",
-    "he": "עברית",
-    "hi": "हिन्दी",
-    "hmn": "Hmoob",
-    "hr": "Hrvatski",
-    "hy": "Հայերեն",
-    "bem": "Ichibemba",
-    "rn": "Ikirundi",
-    "rw": "Ikinyarwanda",
-    "ilo": "Ilokano",
-    "os": "Ирон",
-    "nr": "IsiNdebele",
-    "xh": "isiXhosa",
-    "zu": "isiZulu",
-    "is": "Íslenska",
-    "it": "Italiano",
-    "ka": "Ქართული",
-    "sw": "Kiswahili",
-    "ht": "Kreyòl Ayisyen",
-    "kri": "Krio",
-    "ku": "Kurdî (Kurmancî)",
-    "ckb": "Kurdî (Soranî)",
-    "ky": "Кыргызча",
-    "la": "Latina",
-    "lv": "Latviešu",
-    "lb": "Lëtzebuergesch",
-    "lt": "Lietuvių",
-    "ln": "Lingála",
-    "lg": "Luganda",
-    "yua": "Maaya t'aan",
-    "hu": "Magyar",
-    "mk": "Македонски",
-    "mg": "Malagasy",
-    "ml": "മലയാളം",
-    "mt": "Malti",
-    "mak": "Mangkasara’",
-    "mi": "Māori",
-    "mr": "मराठी",
-    "mai": "मैथिली",
-    "lus": "Mizo ṭawng",
-    "mn": "Монгол хэл",
-    "mni-Mtei": "মৈতৈলোন্",
-    "my": "မြန်မာဘာသာ",
-    "fj": "Na Vosa Vakaviti",
-    "ne": "नेपाली",
-    "nl": "Nederlands",
-    "ja": "日本語",
-    "no": "Norsk",
-    "or": "ଓଡ଼ିଆ",
-    "uz": "Oʻzbekcha",
-    "pag": "Pangasinan",
-    "pap": "Papiamentu",
-    "ps": "پښتو",
-    "km": "ភាសាខ្មែរ",
-    "pl": "Polski",
-    "pt": "Português",
-    "pa": "ਪੰਜਾਬੀ",
-    "crh": "Qırımtatarca",
-    "kk": "Қазақ тілі",
-    "ro": "Română",
-    "rom": "Romani",
-    "qu": "Runasimi",
-    "ru": "Русский",
-    "sa": "संस्कृतम्",
-    "sat": "ᱥᱟᱱᱛᱟᱲᱤ",
-    "sg": "Sängö",
-    "nso": "Sesotho sa Leboa",
-    "st": "Sesotho",
-    "tn": "Setswana",
-    "sq": "Shqip",
-    "scn": "Sicilianu",
-    "ss": "SiSwati",
-    "si": "සිංහල",
-    "sk": "Slovenčina",
-    "sl": "Slovenščina",
-    "so": "Soomaaliga",
-    "sr": "Српски",
-    "fi": "Suomi",
-    "sv": "Svenska",
-    "tl": "Tagalog",
-    "tt": "Татарча",
-    "te": "తెలుగు",
-    "th": "ไทย",
-    "din": "Thuɔŋjaŋ",
-    "nus": "Thok Nath",
-    "ti": "ትግርኛ",
-    "vi": "Tiếng Việt",
-    "tg": "Тоҷикӣ",
-    "tpi": "Tok Pisin",
-    "tr": "Türkçe",
-    "tk": "Türkmençe",
-    "ak": "Twi",
-    "ug": "ئۇيغۇرچە",
-    "uk": "Українська",
-    "ur": "اردو",
-    "vec": "Vèneto",
-    "war": "Winaray",
-    "ts": "Xitsonga",
-    "yi": "ייִדיש",
-    "yo": "Yorùbá",
-    "yue": "粵語",
-    "zh-CN": "简体中文",
-    "zh-TW": "繁體中文"
-};
+    document.addEventListener("DOMContentLoaded", async () => {
+        const userLang = (navigator.language || navigator.userLanguage).slice(0, 2);
         
-const translationConfig = [
-    { tag: "h1", translate: false },
-    { tag: "option", translate: true },
-    { tag: ".untranslatable", translate: false },
-    { tag: "span", translate: true},
-    { tag: ".lang-text", translate: true }
-];
+        if (userLang === 'en') return;
+
+        try {
+            const response = await fetch('/repo/locales.json');
+            if (!response.ok) return;
+            
+            const locales = await response.json();
+            const translations = locales[userLang];
+
+            if (translations) {
+                document.documentElement.lang = userLang;
+                
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[key]) {
+                        if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+                            element.placeholder = translations[key];
+                        } else {
+                            element.textContent = translations[key];
+                        }
+                    }
+                });
+            }
+        } catch (error) {
+            console.warn(error);
+        }
+    });   
 
         const sourceLang = document.getElementById('sourceLang');
         const targetLang = document.getElementById('targetLang');
-        const hostLang = document.getElementById('hostLang');
         const inputText = document.getElementById('inputText');
         const outputText = document.getElementById('outputText');
         const swapBtn = document.getElementById('swapBtn');
@@ -832,18 +680,7 @@ const translationConfig = [
             targetLang.value = 'en';
         }
 
-        
-function populateHLDropdowns() {
-    Object.entries(hostLanguages).forEach(([code, name]) => {
-        const opt3 = new Option(name, code);
-        opt3.classList.add('untranslatable');
-        hostLang.add(opt3);
-    });
-hostLang.value = 'en';
-}
-
         populateDropdowns();
-        populateHLDropdowns(); 
 
         let timer;
         inputText.addEventListener('input', () => {
@@ -947,103 +784,8 @@ hostLang.value = 'en';
         copyOutputBtn.addEventListener('click', () => {
             copyToClipboard(outputText.value, copyOutputBtn);
         });
-
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-window.originalText = window.originalText || new Map();
-
-async function translatePage(lang) {
-    if (typeof translationConfig === 'undefined') return;
-
-    if (lang === "en") {
-        window.originalText.forEach((storedText, node) => {
-            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                node.text = storedText;
-            } 
-            
-            else {
-                node.nodeValue = storedText;
-            }
-        });
-        return;
-    }
-
-    const textNodesToTranslate = [];
-    const activeTags = translationConfig.filter(r => r.translate).map(r => r.tag).join(",");
-    const excludedTags = translationConfig.filter(r => !r.translate).map(r => r.tag).join(",");
-
-    if (!activeTags) return;
-
-    document.querySelectorAll(activeTags).forEach(parentEl => {
-        if (excludedTags && parentEl.matches(excludedTags)) return;
-
-        function walk(node) {
-            if (node.nodeType === Node.ELEMENT_NODE && excludedTags && node.matches(excludedTags)) {
-                return;
-            }
-
-            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                if (node.text.trim() !== "") {
-                    if (!window.originalText.has(node)) {
-                        window.originalText.set(node, node.text);
-                    }
-                    textNodesToTranslate.push(node);
-                }
-                return;
-            }
-
-            if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
-                if (!window.originalText.has(node)) {
-                    window.originalText.set(node, node.nodeValue);
-                }
-                textNodesToTranslate.push(node);
-            }
-            for (let child = node.firstChild; child; child = child.nextSibling) {
-                walk(child);
-            }
-        }
-        walk(parentEl);
-    });
-
-    for (const node of textNodesToTranslate) {
-        const text = window.originalText.get(node);
-        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(lang)}&dt=t&q=${encodeURIComponent(text)}`;
-        
-        try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 4000);
-
-            const response = await fetch(url, { signal: controller.signal });
-            clearTimeout(timeoutId);
-
-            if (!response.ok) continue;
-            
-            const data = await response.json();
-            
-            if (data && data[0]) {
-                const translatedText = data[0].map(item => item && item[0] ? item[0] : "").join("");
-                if (translatedText) {
-                    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'OPTION') {
-                        node.text = translatedText;
-                    }
-                    else {
-                        node.nodeValue = translatedText;
-                    }
-                }
-            }
-        } catch (error) {
-        }
-
-        await sleep(0);
-    }
-}
-
-if (typeof hostLang !== 'undefined' && hostLang) {
-    hostLang.addEventListener('change', () => translatePage(hostLang.value));
-    }
                 
         function updateUrlParameters() {
-          var hlValue = hostLang.value;
           var slValue = sourceLang.value;
           var tlValue = targetLang.value;
           var qValue = inputText.value.trim();
@@ -1051,7 +793,6 @@ if (typeof hostLang !== 'undefined' && hostLang) {
           var baseUrl = window.location.origin + window.location.pathname;
           var params = new URLSearchParams();
 
-          params.set('hl', hlValue);
           params.set('sl', slValue);
           params.set('tl', tlValue);
   
@@ -1067,20 +808,15 @@ if (typeof hostLang !== 'undefined' && hostLang) {
          }
 
          inputText.addEventListener('input', updateUrlParameters);
-         hostLang.addEventListener('change', updateUrlParameters);
          sourceLang.addEventListener('change', updateUrlParameters);
          targetLang.addEventListener('change', updateUrlParameters);
 
          function matchInput() {
            var params = new URLSearchParams(window.location.search);
-           var hlParam = params.get('hl');
            var slParam = params.get('sl');
            var tlParam = params.get('tl');
            var qParam = params.get('q');
 
-           if (hlParam) {
-             hostLang.value = hlParam;
-           }
            if (slParam) {
              sourceLang.value = slParam;
            }
@@ -1099,7 +835,6 @@ if (typeof hostLang !== 'undefined' && hostLang) {
           translateText();
           clearVis();
           updateTitleFromInput();
-          translatePage(hostLang.value);
         }
 
         window.addEventListener('DOMContentLoaded', matchInput);
