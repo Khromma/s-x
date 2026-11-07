@@ -601,7 +601,7 @@
         if (userLang === 'en') return;
 
         try {
-            const response = await fetch('/repo/locales.json');
+            const response = await fetch('../locales.json');
             if (!response.ok) return;
             
             const locales = await response.json();
