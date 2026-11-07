@@ -1,0 +1,52 @@
+name: Deploy Auto-Translated Site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Source Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Node.js Environment Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Runtime Build System Dependencies
+        run: |
+          if [ -f package.json ]; then
+            npm install
+          fi
+
+      - name: Compile 170 Locales Document Matrix
+        run: node scripts/translate.js
+
+      - name: Setup GitHub Static Pages Deployment Target
+        uses: actions/configure-pages@v4
+
+      - name: Package Compilation Production Build Artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy Direct Compiled Pages Production Payload
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
