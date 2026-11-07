@@ -70,7 +70,6 @@
             .gradient-text {
                 font-size: 50px;
                 font-weight: 700;
-                letter-spacing: 37.5px;
                 display: inline-block;
                 background: linear-gradient(
                     to right,
@@ -262,7 +261,7 @@
             <h1>S-X A new universe</h1>
         </header>
 
-        <p class="gradient-text">Welcome to <span>S-X A new universe.</span></p>
+        <p class="gradient-text">Welcome to<span>S-X A new universe.</span></p>
 
         <div class="flex-div">
             <div class="tool-card">
@@ -630,7 +629,7 @@ if (typeof hostLang !== 'undefined' && hostLang) {
                     hostLang.value = hlParam;
                 } else {
                     hostLang.value = 'en';
-                    params.set('hl', 'en');
+                    updateUrlParameters();
                 }
 
                 setTimeout(() => {
