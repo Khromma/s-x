@@ -595,37 +595,6 @@
             "zu": "Zulu"
         };
 
-    document.addEventListener("DOMContentLoaded", async () => {
-        const userLang = (navigator.language || navigator.userLanguage).slice(0, 2);
-        
-        if (userLang === 'en') return;
-
-        try {
-            const response = await fetch('../locales.json');
-            if (!response.ok) return;
-            
-            const locales = await response.json();
-            const translations = locales[userLang];
-
-            if (translations) {
-                document.documentElement.lang = userLang;
-                
-                document.querySelectorAll('[data-i18n]').forEach(element => {
-                    const key = element.getAttribute('data-i18n');
-                    if (translations[key]) {
-                        if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
-                            element.placeholder = translations[key];
-                        } else {
-                            element.textContent = translations[key];
-                        }
-                    }
-                });
-            }
-        } catch (error) {
-            console.warn(error);
-        }
-    });   
-
         const sourceLang = document.getElementById('sourceLang');
         const targetLang = document.getElementById('targetLang');
         const inputText = document.getElementById('inputText');
