@@ -29,18 +29,18 @@ function extractSourceTexts(htmlContent) {
     const regex = /data-i18n="([^"]+)"[^>]*>([^<]+)</g;
     let match;
     while ((match = regex.exec(htmlContent)) !== null) {
-        sourceMap[match[1]] = match[2].trim();
+        sourceMap[match] = match.trim();
     }
     return sourceMap;
 }
 
 async function fetchGoogleTranslateBulk(textPayload, targetLang) {
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl={targetLang}&dt=t&q=${encodeURIComponent(textPayload)}`;
+    const url = `https://googleapis.com{targetLang}&dt=t&q=${encodeURIComponent(textPayload)}`;
     const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
     const data = await response.json();
-    if (data && data[0]) {
-        return data[0].map(subBlock => subBlock[0]).join('');
+    if (data && data) {
+        return data.map(subBlock => subBlock).join('');
     }
     throw new Error("Invalid response");
 }
@@ -53,29 +53,25 @@ async function compileTranslations() {
     const keys = Object.keys(sourceTexts);
     const bulkPayload = keys.map(k => sourceTexts[k]).join(SEPARATOR);
 
+    const masterDictionary = {};
+
     const compilationTasks = LANGUAGES.map(async (lang) => {
         try {
-            let translatedHtml = originalHtml;
             const bulkResponse = await fetchGoogleTranslateBulk(bulkPayload, lang);
             const translatedTexts = bulkResponse.split(SEPARATOR).map(t => t.trim());
-
+            
+            masterDictionary[lang] = {};
             keys.forEach((key, index) => {
-                const translatedValue = translatedTexts[index] || sourceTexts[key]; 
-                const regex = new RegExp(`data-i18n="${key}"([^>]*)?>([^<]*)<`, 'g');
-                translatedHtml = translatedHtml.replace(regex, `data-i18n="${key}"$1>${translatedValue}<`);
+                masterDictionary[lang][key] = translatedTexts[index] || sourceTexts[key];
             });
-
-            translatedHtml = translatedHtml.replace('lang="en"', `lang="${lang}"`);
-
-            const outputDir = path.join(__dirname, `../${lang}`);
-            if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
-            fs.writeFileSync(path.join(outputDir, 'index.html'), translatedHtml);
         } catch (error) {
             console.error(lang, error.message);
         }
     });
 
     await Promise.all(compilationTasks);
+    
+    fs.writeFileSync(path.join(__dirname, '../locales.json'), JSON.stringify(masterDictionary));
 }
 
 compileTranslations();
