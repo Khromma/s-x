@@ -272,35 +272,6 @@
           box-sizing: border-box;
           margin-top: 7px;
         }
-
-        .lang-container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            width: 100%;
-            height: 35px;
-            gap: 8px;
-            margin-top: 12px;
-            margin-left: 8px;
-        }
-        
-        .lang-text {            
-          font-size: 15px;
-          line-height: 1.5;
-          color: #000000 !important;
-        }
-
-        #hostLang {
-          flex: 0 0 80px !important;
-          background-color: #ffffff !important;
-          border: 2px solid #888888 !important;
-          color: #000000 !important;
-          height: 40px !important;
-          width: 160px !important;
-          min-width: 160px !important;
-          font-size: 12px !important;
-        }
         
         .creator-info {
             display: flex;
@@ -637,10 +608,12 @@
         function populateDropdowns() {
             Object.entries(languages).forEach(([code, name]) => {
                 const opt1 = new Option(name, code);
+                opt1.setAttribute('data-i18n', `s_translatex_${code}_source_lang_option`);
                 sourceLang.add(opt1);
 
                 if (code !== 'auto') {
                     const opt2 = new Option(name, code);
+                    opt2.setAttribute('data-i18n', `s_translatex_${code}_target_lang_option`);
                     targetLang.add(opt2);
                 }
             });
