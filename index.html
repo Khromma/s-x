@@ -70,6 +70,7 @@
             .gradient-text {
                 font-size: 50px;
                 font-weight: 700;
+                letter-spacing: 37.5px;
                 display: inline-block;
                 background: linear-gradient(
                     to right,
@@ -629,6 +630,7 @@ if (typeof hostLang !== 'undefined' && hostLang) {
                     hostLang.value = hlParam;
                 } else {
                     hostLang.value = 'en';
+                    params.set('hl', 'en');
                 }
 
                 setTimeout(() => {
