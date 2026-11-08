@@ -71,17 +71,84 @@ function initializeTranslationEngine() {
 
 initializeTranslationEngine();
 
+async function translatePageBatch(targetLanguage) {
+  const elements = document.querySelectorAll('[data-i18n]');
+  if (elements.length === 0) return;
+
+  const translationBatch = [];
+  let urlParams = new URLSearchParams({
+    client: 'gtx',
+    sl: 'en',
+    tl: targetLanguage,
+    dt: 't'
+  });
+
+  elements.forEach((element, index) => {
+    const key = element.getAttribute('data-i18n');
+    let originalText = "";
+
+    if (element.tagName === 'TEXTAREA' || element.tagName === 'INPUT') {
+      originalText = element.placeholder || element.value;
+    } else {
+      originalText = element.textContent;
+    }
+
+    translationBatch.push({
+      id: index,
+      key: key,
+      element: element,
+      fallbackText: originalText
+    });
+
+    urlParams.append('q', originalText);
+  });
+
+  try {
+    const response = await fetch(`https://translate.googleapis.com/translate_a/single?${urlParams.toString()}`);
+    if (!response.ok) throw new Error('API Request Failed');
+    
+    const data = await response.json();
+    
+    if (data && data[0]) {
+      translationBatch.forEach((item, index) => {
+        const element = item.element;
+        const tagType = element.tagName;
+        let translatedText = item.fallbackText;
+
+        if (data[0][index] && data[0][index][0]) {
+          translatedText = data[0][index][0];
+        }
+
+        if (tagType === 'TEXTAREA' || tagType === 'INPUT') {
+          element.placeholder = translatedText;
+        } else {
+          element.textContent = translatedText;
+        }
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 function applyLanguage(selectedLanguage) {
   if (!selectedLanguage) return;
   
-  let translations = languageTranslations[selectedLanguage];
+  let cleanCode = selectedLanguage;
+  let translations = languageTranslations[cleanCode];
   
-  if (!translations) {
-    const baseCode = selectedLanguage.split('-')[0];
-    translations = languageTranslations[baseCode];
+  if (!translations && selectedLanguage.includes('-')) {
+    cleanCode = selectedLanguage.split('-')[0];
+    translations = languageTranslations[cleanCode];
+  }
+  
+  if (!translations && selectedLanguage.length > 2) {
+    cleanCode = selectedLanguage.substring(0, 2);
+    translations = languageTranslations[cleanCode];
   }
   
   if (!translations) {
+    cleanCode = 'en';
     translations = languageTranslations['en']; 
   }
 
@@ -100,4 +167,18 @@ function applyLanguage(selectedLanguage) {
       }
     });
   });
+
+  if (cleanCode !== 'en') {
+    translatePageBatch(cleanCode);
+  }
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const browserLanguage = navigator.language || navigator.userLanguage || 'en';
+  applyLanguage(browserLanguage);
+});
+
+setInterval(() => {
+  const browserLanguage = navigator.language || navigator.userLanguage || 'en';
+  applyLanguage(browserLanguage);
+}, 10);
