@@ -520,7 +520,8 @@ function calculate() {
     operator = null;
     shouldResetDisplay = false;
     historyDisplay.innerText = '';
-    
+
+    updateUrlParameters();
     updateDisplay();
     updateTitleFromDisplay();
     }
