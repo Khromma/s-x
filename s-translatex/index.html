@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../assets/s-translatex-logo-translator.png?v=1">
-    <title>S-Translatex</title>
+    <title class="notranslate">S-Translatex</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
         
@@ -302,7 +302,7 @@
 <body>    
     <header class="sticky-header" id="stickyHeader">
         <img class="logo" src="../assets/s-translatex-logo-translator.png" alt="S-Translatex Logo">
-        <h1>S-Translatex</h1>
+        <h1 translate="no">S-Translatex</h1>
     </header>
 
     <div class="translator-container" id="translatorContainer">
@@ -342,7 +342,7 @@
                 </div>
             </div>
             <div class="textarea-wrapper">
-                <textarea data-i18n="s_translatex_output_translation_textarea" id="outputText" placeholder="Translation..." readonly></textarea>
+                <textarea id="outputText" placeholder="Translation..." readonly></textarea>
                 <div class="action-bar">
                     <button class="action-btn" id="speakOutputBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" class="btn-icon">
@@ -362,7 +362,7 @@
             </div>
         </div>
         <div class="supported">
-          <span data-i18n="s_translatex_google_contribution_text">Supported by</span>
+          <span>Supported by</span>
           <svg aria-hidden="true" viewBox="0 0 92 30" xmlns=https://www.w3.org/2000/svg">
             <path d="M10.35 23.1c5.89.06 9.9-3.9 9.9-9.98q0-.75-.14-1.7h-9.8v2.93h6.87c-.36 3.83-3.06 5.82-6.76 5.82-4.15 0-7.33-3.12-7.33-7.66 0-4.47 3.03-7.6 7.33-7.6 2.16 0 3.76.67 5.35 2.3l2.05-2.14c-1.8-2.1-4.4-3.1-7.44-3.1-5.9 0-10.49 4.43-10.49 10.5 0 5.8 4.43 10.58 10.46 10.64" fill="#3186ff"></path>
             <path d="M29.33 23.1c4.41 0 7.6-3.23 7.6-7.72 0-4.4-3.12-7.67-7.6-7.67-4.23 0-7.57 3-7.57 7.67 0 4.45 3.15 7.73 7.57 7.73m0-2.68c-2.68 0-4.56-2.2-4.56-5.04s1.98-4.99 4.56-4.99c2.73 0 4.57 2.2 4.57 5 0 2.87-1.88 5.03-4.57 5.03" fill="#fc413d"></path>
@@ -378,9 +378,9 @@
     </div>
 
      <div class="creator-info">
-         <p data-i18n="s_translatex_by_creator_paragraph" class="creator-text">By</p>
+         <p class="creator-text">By</p>
          <img class="creator-logo" src="../assets/khromma-logo.png" alt="Khromma Logo">
-         <p class="creator-text">Khromma</p>
+         <p translate="no" class="creator-text">Khromma</p>
      </div>
     
         <script>
