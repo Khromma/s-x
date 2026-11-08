@@ -34,6 +34,10 @@
             overflow-x: hidden; 
             padding-top: 45px;
         }
+
+        #google_translate_element, .skiptranslate {
+            display: none !important;
+        }
         
         .sticky-header {
             position: fixed;
@@ -300,9 +304,11 @@
     </style>
 </head>
 <body>
+    <div id="google_translate_element"></div>
+    
     <header class="sticky-header" id="stickyHeader">
         <img class="logo" src="../assets/s-translatex-logo-translator.png" alt="S-Translatex Logo">
-        <h1>S-Translatex</h1>
+        <h1 translate="no">S-Translatex</h1>
     </header>
 
     <div class="translator-container" id="translatorContainer">
@@ -380,7 +386,7 @@
      <div class="creator-info">
          <p class="creator-text">By</p>
          <img class="creator-logo" src="../assets/khromma-logo.png" alt="Khromma Logo">
-         <p class="creator-text">Khromma</p>
+         <p translate="no" class="creator-text">Khromma</p>
      </div>
     
         <script>
@@ -793,5 +799,40 @@
 
         inputText.addEventListener('input', updateTitleFromInput);
     </script>
+    <script type="text/javascript">
+        const idiomasSoportados = [
+            "ab","ace","ach","af","sq","alz","am","ar","hy","as","awa","ay","az","ban","bm","ba","eu","btx","bts","bbc","be","bem","bn","bew","bho","bik","bs","br","bg","bua","yue","ca","ceb","ny","zh-CN","zh-TW","cv","co","crh","hr","cs","da","din","doi","nl","dz","en","eo","et","ee","fo","fj","tl","fi","fr","fy","ff","ga","gl","ka","de","el","gn","gu","ht","ha","haw","he","hi","hmn","hu","is","ig","ilo","id","it","ja","jw","kn","kk","km","rw","gom","ko","kri","ku","ckb","ky","lo","la","lv","ln","lt","lg","lb","mk","mad","mai","mak","mg","ms","ml","mt","gv","mi","mr","mni-Mtei","min","lus","mn","my","nr","ne","nso","no","nus","nyan","or","om","os","pag","pap","ps","fa","pl","pt","pa","qu","ro","rom","rn","ru","sm","sg","sa","sat","gd","sr","st","sn","scn","sd","si","sk","sl","so","es","su","sw","ss","sv","tg","ta","tt","te","th","bo","ti","tpi","ts","tn","tr","tk","ak","uk","ur","ug","uz","vec","vi","war","cy","xh","yi","yo","yua","zap","zu"
+        ];
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'auto', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+
+            let userLang = navigator.language || navigator.userLanguage;
+            
+            if (!idiomasSoportados.includes(userLang)) {
+                userLang = userLang.substring(0, 2); 
+            }
+
+            if (idiomasSoportados.includes(userLang)) {
+                const observer = new MutationObserver((mutations, obs) => {
+                    const select = document.querySelector('.goog-te-combo');
+                    if (select) {
+                        select.value = userLang;
+                        select.dispatchEvent(new Event('change'));
+                        obs.disconnect(); 
+                    }
+                });
+
+                observer.observe(document.getElementById('google_translate_element'), {
+                    childList: true,
+                    subtree: true
+                });
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
 </body>
 </html>
