@@ -554,7 +554,7 @@ function speakResult() {
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(display.value);
-    utterance.lang = hostLang.value;
+    utterance.lang = navigator.language || navigator.userLanguage;
 
     window.speechSynthesis.speak(utterance);
 }
