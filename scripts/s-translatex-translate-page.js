@@ -1,5 +1,5 @@
 const languageNames = {
-  "ab": "Abkhaz", "ace": "Acehnese", "ach": "Acholi", "af": "Afrikaans", "sq": "Albanian", 
+  "en": "English", "ab": "Abkhaz", "ace": "Acehnese", "ach": "Acholi", "af": "Afrikaans", "sq": "Albanian", 
   "alz": "Alur", "am": "Amharic", "ar": "Arabic", "hy": "Armenian", "as": "Assamese", 
   "awa": "Awadhi", "ay": "Aymara", "az": "Azerbaijani", "ban": "Balinese", "bm": "Bambara", 
   "ba": "Bashkir", "eu": "Basque", "btx": "Batak Karo", "bts": "Batak Simalungun", "bbc": "Batak Toba", 
@@ -8,7 +8,7 @@ const languageNames = {
   "yue": "Cantonese", "ca": "Catalan", "ceb": "Cebuano", "ny": "Chichewa", "zh-CN": "Chinese (Simplified)", 
   "zh-TW": "Chinese (Traditional)", "cv": "Chuvash", "co": "Corsican", "crh": "Crimean Tatar", "hr": "Croatian", 
   "cs": "Czech", "da": "Danish", "din": "Dinka", "doi": "Dogri", "nl": "Dutch", 
-  "dz": "Dzongkha", "en": "English", "eo": "Esperanto", "et": "Estonian", "ee": "Ewe", 
+  "dz": "Dzongkha", "eo": "Esperanto", "et": "Estonian", "ee": "Ewe", 
   "fo": "Faroese", "fj": "Fijian", "tl": "Filipino (Tagalog)", "fi": "Finnish", "fr": "French", 
   "fy": "Frisian", "ff": "Fula", "ga": "Irish", "gl": "Galician", "ka": "Georgian", 
   "de": "German", "el": "Greek", "gn": "Guarani", "gu": "Gujarati", "ht": "Haitian Creole", 
@@ -72,8 +72,14 @@ function initializeTranslationEngine() {
 initializeTranslationEngine();
 
 function applyLanguage(selectedLanguage) {
-  const cleanCode = selectedLanguage.split('-');
-  let translations = languageTranslations[cleanCode[0]];
+  if (!selectedLanguage) return;
+  
+  let translations = languageTranslations[selectedLanguage];
+  
+  if (!translations) {
+    const baseCode = selectedLanguage.split('-')[0];
+    translations = languageTranslations[baseCode];
+  }
   
   if (!translations) {
     translations = languageTranslations['en']; 
@@ -95,8 +101,3 @@ function applyLanguage(selectedLanguage) {
     });
   });
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  const browserLanguage = navigator.language || navigator.userLanguage || 'en';
-  applyLanguage(browserLanguage);
-});
