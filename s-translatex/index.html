@@ -35,10 +35,6 @@
             padding-top: 45px;
         }
 
-        #google_translate_element, .skiptranslate {
-            display: none !important;
-        }
-        
         .sticky-header {
             position: fixed;
             top: 0;
@@ -303,12 +299,10 @@
         }
     </style>
 </head>
-<body>
-    <div id="google_translate_element"></div>
-    
+<body>    
     <header class="sticky-header" id="stickyHeader">
         <img class="logo" src="../assets/s-translatex-logo-translator.png" alt="S-Translatex Logo">
-        <h1 translate="no">S-Translatex</h1>
+        <h1>S-Translatex</h1>
     </header>
 
     <div class="translator-container" id="translatorContainer">
@@ -324,7 +318,7 @@
 
         <div class="text-container">
             <div class="textarea-wrapper">
-                <textarea data-i18n="s_translatex_input_translation_textarea" id="inputText" placeholder="Text..."></textarea>
+                <textarea id="inputText" placeholder="Text..."></textarea>
                 <div class="action-bar">
                     <button class="action-btn" id="clearBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -348,7 +342,7 @@
                 </div>
             </div>
             <div class="textarea-wrapper">
-                <textarea data-i18n="s_translatex_output_translation_textarea" id="outputText" placeholder="Translation..." readonly></textarea>
+                <textarea id="outputText" placeholder="Translation..." readonly></textarea>
                 <div class="action-bar">
                     <button class="action-btn" id="speakOutputBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" class="btn-icon">
@@ -368,7 +362,7 @@
             </div>
         </div>
         <div class="supported">
-          <span data-i18n="s_translatex_support_google_contribution_text">Supported by</span>
+          <span>Supported by</span>
           <svg aria-hidden="true" viewBox="0 0 92 30" xmlns=https://www.w3.org/2000/svg">
             <path d="M10.35 23.1c5.89.06 9.9-3.9 9.9-9.98q0-.75-.14-1.7h-9.8v2.93h6.87c-.36 3.83-3.06 5.82-6.76 5.82-4.15 0-7.33-3.12-7.33-7.66 0-4.47 3.03-7.6 7.33-7.6 2.16 0 3.76.67 5.35 2.3l2.05-2.14c-1.8-2.1-4.4-3.1-7.44-3.1-5.9 0-10.49 4.43-10.49 10.5 0 5.8 4.43 10.58 10.46 10.64" fill="#3186ff"></path>
             <path d="M29.33 23.1c4.41 0 7.6-3.23 7.6-7.72 0-4.4-3.12-7.67-7.6-7.67-4.23 0-7.57 3-7.57 7.67 0 4.45 3.15 7.73 7.57 7.73m0-2.68c-2.68 0-4.56-2.2-4.56-5.04s1.98-4.99 4.56-4.99c2.73 0 4.57 2.2 4.57 5 0 2.87-1.88 5.03-4.57 5.03" fill="#fc413d"></path>
@@ -386,7 +380,7 @@
      <div class="creator-info">
          <p class="creator-text">By</p>
          <img class="creator-logo" src="../assets/khromma-logo.png" alt="Khromma Logo">
-         <p translate="no" class="creator-text">Khromma</p>
+         <p class="creator-text">Khromma</p>
      </div>
     
         <script>
@@ -799,40 +793,5 @@
 
         inputText.addEventListener('input', updateTitleFromInput);
     </script>
-    <script type="text/javascript">
-        const idiomasSoportados = [
-            "ab","ace","ach","af","sq","alz","am","ar","hy","as","awa","ay","az","ban","bm","ba","eu","btx","bts","bbc","be","bem","bn","bew","bho","bik","bs","br","bg","bua","yue","ca","ceb","ny","zh-CN","zh-TW","cv","co","crh","hr","cs","da","din","doi","nl","dz","en","eo","et","ee","fo","fj","tl","fi","fr","fy","ff","ga","gl","ka","de","el","gn","gu","ht","ha","haw","he","hi","hmn","hu","is","ig","ilo","id","it","ja","jw","kn","kk","km","rw","gom","ko","kri","ku","ckb","ky","lo","la","lv","ln","lt","lg","lb","mk","mad","mai","mak","mg","ms","ml","mt","gv","mi","mr","mni-Mtei","min","lus","mn","my","nr","ne","nso","no","nus","nyan","or","om","os","pag","pap","ps","fa","pl","pt","pa","qu","ro","rom","rn","ru","sm","sg","sa","sat","gd","sr","st","sn","scn","sd","si","sk","sl","so","es","su","sw","ss","sv","tg","ta","tt","te","th","bo","ti","tpi","ts","tn","tr","tk","ak","uk","ur","ug","uz","vec","vi","war","cy","xh","yi","yo","yua","zap","zu"
-        ];
-
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'auto', 
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-
-            let userLang = navigator.language || navigator.userLanguage;
-            
-            if (!idiomasSoportados.includes(userLang)) {
-                userLang = userLang.substring(0, 2); 
-            }
-
-            if (idiomasSoportados.includes(userLang)) {
-                const observer = new MutationObserver((mutations, obs) => {
-                    const select = document.querySelector('.goog-te-combo');
-                    if (select) {
-                        select.value = userLang;
-                        select.dispatchEvent(new Event('change'));
-                        obs.disconnect(); 
-                    }
-                });
-
-                observer.observe(document.getElementById('google_translate_element'), {
-                    childList: true,
-                    subtree: true
-                });
-            }
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
 </body>
 </html>
