@@ -419,7 +419,6 @@
     <script>
 const display = document.getElementById('calcDisplay');
 const historyDisplay = document.getElementById('historyDisplay');
-const hostLang = document.getElementById('hostLang');
 let currentInput = '0';
 let previousInput = '';
 let operator = null;
@@ -630,8 +629,6 @@ function updateUrlParameters() {
 
     history.replaceState(null, '', newUrl);
 }
-
-hostLang.addEventListener('change', updateUrlParameters);
 
 function matchInput() {
     const params = new URLSearchParams(window.location.search);
