@@ -105,6 +105,7 @@
                 width: 150px;
                 height: 210px;
                 box-sizing: border-box;
+                margin-top: 15px;
                 border: none;
                 border-radius: 25px;
                 transition: all 0.2s ease;
@@ -227,7 +228,8 @@
         <p class="gradient-text" id="twentyPxdTopMargin">These are our tools.</a>
         
         <div class="flex-div">
-            <div class="tool-card">
+            <input type="text" placeholder="Search" id="searchText">
+            <div class="tool-card" searchquery="S-Translatex">
                 <a href="s-translatex/">
                     <div class="tool-card-top">
                         <img class="tool-card-top-img" src="assets/s-translatex-logo-translator.png" alt="S-Translatex Logo">
@@ -241,7 +243,7 @@
                 </a>
             </div>
 
-            <div class="tool-card">
+            <div class="tool-card" searchquery="S-Mathex">
                 <a href="s-mathex/">
                     <div class="tool-card-top">
                         <img class="tool-card-top-img" src="assets/s-mathex-logo-calc.png" alt="S-Mathex Logo">
@@ -255,7 +257,7 @@
                 </a>
             </div>
 
-            <div class="tool-card">
+            <div class="tool-card" searchquery="S-Colorx">
                 <a href="s-colorx/">
                     <div class="tool-card-top">
                         <img class="tool-card-top-img" src="assets/s-colorx-logo-circ.png" alt="S-Colorx Logo">
@@ -278,5 +280,30 @@
             <img class="creator-logo" src="assets/khromma-logo.png" alt="Khromma Logo">
             <p translate="no" class="creator-text">Khromma</p>
         </div>
+        <script>
+  var searchText = document.getElementById('search');
+
+  function filterProducts() {
+  
+  var searchKeywords = searchText.value.trim().toLowerCase();
+  var toolCards = document.querySelectorAll('.tool-card');
+
+  toolCards.forEach(function(toolCard) {
+    var searchQuery = (toolCard.getAttribute('searchquery') || '').toLowerCase();
+
+    var matchSearch = !searchKeywords || searchquery.includes(searchKeywords);
+
+    var targetElement = toolCard;
+
+    if (matchSearch) {
+      targetElement.style.display = "";
+    } else {
+      targetElement.style.display = "none";
+    }
+  });
+  }
+
+searchText.addEventListener('input', filterProducts);
+        </script>
     </body>
 </html>
