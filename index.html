@@ -89,6 +89,37 @@
             #twentyPxdTopMargin {
                 margin-top: 20px;
             }
+
+            .search-bar {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: stretch;
+                gap: 8px;
+                width: 100%;
+                padding: 8px;
+                border: 2px solid #000000;
+                border-radius: 25px;
+                background: #ffffff;
+            }
+
+            .search-input {
+                flex: 1 1 120px;
+                min-width: 0;
+                min-height: 42px;
+                padding: 10px 12px;
+                border: 0;
+                outline: 0;
+                background: transparent;
+                line-height: 1.5;
+                resize: none;
+                overflow: hidden;
+                field-sizing: content;
+            }
+
+            .search-input::placeholder {
+                color: #999999;
+                opacity: 1;
+            }
             
             .flex-div {
                 width: fit-content;
@@ -226,9 +257,12 @@
 
         <p class="gradient-text">Welcome to<span translate="no"> S-X A new universe.</span></p>
         <p class="gradient-text" id="twentyPxdTopMargin">These are our tools.</a>
+
+        <div class="search-bar">
+            <textarea class="search-input" id="searchText" rows="1" placeholder="Search for our products..."></textarea>
+        </div>
         
         <div class="flex-div">
-            <input type="text" placeholder="Search" id="searchText">
             <div class="tool-card" searchquery="S-Translatex">
                 <a href="s-translatex/">
                     <div class="tool-card-top">
