@@ -291,7 +291,7 @@
   toolCards.forEach(function(toolCard) {
     var searchQuery = (toolCard.getAttribute('searchquery') || '').toLowerCase();
 
-    var matchSearch = !searchKeywords || searchquery.includes(searchKeywords);
+    var matchSearch = !searchKeywords || searchQuery.includes(searchKeywords);
 
     var targetElement = toolCard;
 
