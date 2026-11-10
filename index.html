@@ -94,10 +94,10 @@
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
-                gap: 8px;
+                gap: 2px;
                 width: 100%;
                 padding: 8px;
-                border: 2px solid #000000;
+                border: 1px solid #f0f0f0;
                 border-radius: 25px;
                 background: #ffffff;
             }
@@ -105,7 +105,7 @@
             .search-input {
                 flex: 1 1 120px;
                 min-width: 0;
-                min-height: 30px;
+                min-height: 26px;
                 padding: 10px 12px;
                 border: 0;
                 outline: 0;
@@ -120,6 +120,44 @@
             .search-input::placeholder {
                 color: #999999;
                 opacity: 1;
+            }
+
+            .search-btn {
+                padding: 0;
+                font-size: 16px;
+                border: none;
+                background: 
+                    radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
+                    radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
+                    radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
+                    radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+                font-weight: bold;
+                border-radius: 50%;
+                cursor: pointer;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: transform 0.15s ease, opacity 0.2s ease;
+                color: #ffffff !important;
+                width: 26px;
+                height: 26px;
+            }
+
+            .search-btn:hover {
+                transform: translateY(-1px);
+                opacity: 0.9;
+            }
+
+            .search-btn:active {
+                transform: scale(0.96);
+            }
+
+            .btn-icon {
+                width: 20px !important;
+                height: 20px !important;
+                display: block;
+                flex-shrink: 0;
             }
             
             .flex-div {
@@ -260,6 +298,12 @@
         <p class="gradient-text" id="twentyPxdTopMargin">These are our tools.</a>
 
         <div class="search-bar">
+            <button class="search-button" id="searchBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
+                    <circle cx="10.8" cy="10.8" r="6.8"/>
+                    <path d="M16 16L21 21"/>
+                </svg>
+            </button>
             <textarea class="search-input" id="searchText" rows="1" placeholder="Search for our products..."></textarea>
         </div>
         
