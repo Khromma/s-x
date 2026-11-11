@@ -366,6 +366,7 @@
         </div>
         <script>
   var searchText = document.getElementById('searchText');
+  var searchBtn = document.getElementById('searchBtn');
 
   function filterProducts() {
   
@@ -387,7 +388,7 @@
   });
   }
 
-searchText.addEventListener('input', filterProducts);
+searchBtn.addEventListener('click', filterProducts);
         </script>
     </body>
 </html>
