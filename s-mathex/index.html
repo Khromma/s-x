@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../assets/s-mathex-logo-calc.png?v=1">
     <title class="notranslate">S-Mathex</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
         
         :root {
             --sxpr: #ff005f;
@@ -104,6 +104,11 @@
             transition: all 0.2s ease;
             box-sizing: border-box;
             border: 2px solid var(--sxcg) !important;
+            font-weight: 600;
+            -webkit-text-stroke: 0.4px rgba(0, 0, 0, 0.35);
+            text-shadow: 
+                0 1px 2px rgba(0, 0, 0, 0.55),
+                0 0 6px rgba(0, 0, 0, 0.25);
         }
 
         .calc-display:focus {
@@ -252,6 +257,7 @@
         
         .creator-text {
             font-size: 20px;
+            font-family: "Fredoka", sans-serif;
             line-height: 1.5;
             color: #000000 !important;
         }
