@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" translate="no">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -312,6 +312,11 @@
                 </svg>
             </button>
             <textarea class="search-input" id="searchText" rows="1" placeholder="Search for our tools..."></textarea>
+            <button class="search-btn" id="clearBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
+                    <path d="M8 8L16 16M16 8L8 16" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
         </div>
         
         <div class="flex-div">
@@ -369,8 +374,33 @@
         <script>
   var searchText = document.getElementById('searchText');
   var searchBtn = document.getElementById('searchBtn');
+  var clearBtn = document.getElementById('clearBtn');
 
-  function filterProducts() {
+        function clearVis() {
+          const val = searchText.value.trim();
+          if (val === '') {
+            clearBtn.style.display = "none";
+          }
+          else {
+            clearBtn.style.display = "";
+          }
+        }
+
+            clearVis();
+
+            searchText.addEventListener('input', clearVis);
+
+        function clearInput() {
+          searchText.value = "";
+          clearVis();
+          updateUrlParameters();
+          updateTitleFromSearchQuery();
+        }
+
+       clearBtn.addEventListener('click', clearInput);
+
+            
+  function filterTools() {
   
   var searchKeywords = searchText.value.trim().toLowerCase();
   var toolCards = document.querySelectorAll('.tool-card');
@@ -387,10 +417,56 @@
     } else {
       targetElement.style.display = "none";
     }
+
+      updateUrlParameters();
   });
   }
+            
+searchBtn.addEventListener('click', filterTools);
+            
+            function updateUrlParameters() {
+                var qValue = searchText.value.trim();
+                
+                var baseUrl = window.location.origin + window.location.pathname;
+                var params = new URLSearchParams();
 
-searchBtn.addEventListener('click', filterProducts);
+                if (qValue) {
+                  params.set('q', qValue);  
+                } else {
+                    params.delete('q');
+                }
+
+                var newUrl = baseUrl + '?' + params.toString();
+                history.replaceState(null, '', newUrl);
+
+            }
+
+            function matchInput() {
+                var params = new URLSearchParams(window.location.search);
+
+                var qParam = params.get('q');
+
+                if (qParam) {
+                    searchText.value = qParam;
+                    filterTools();
+                } else {
+                    searchText.value = '';
+                }
+            }
+
+            window.addEventListener('DOMContentLoaded', matchInput);
+
+            function updateTitleFromSearchQuery() {
+                const baseTitle = "S-X A new universe";
+
+           if (searchText && searchText.value.trim() !== "") {
+             document.title = `${searchText.value.trim()} - ${baseTitle}`;
+           } else {
+             document.title = baseTitle;
+           }
+            }
+
+            searchText.addEventListener('input', updateTitleFromSearchQuery);
         </script>
     </body>
 </html>
