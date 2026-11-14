@@ -393,7 +393,7 @@
         function clearInput() {
           searchText.value = "";
           clearVis();
-          updateUrlParameters();
+            updateUrlParameters();
           updateTitleFromSearchQuery();
         }
 
@@ -436,7 +436,9 @@ searchBtn.addEventListener('click', filterTools);
                     params.delete('q');
                 }
 
-                var newUrl = baseUrl + '?' + params.toString();
+                var queryString = params.toString();
+                var newUrl = queryString ? baseUrl + '?' + queryString : baseUrl;
+
                 history.replaceState(null, '', newUrl);
 
             }
@@ -452,6 +454,8 @@ searchBtn.addEventListener('click', filterTools);
                 } else {
                     searchText.value = '';
                 }
+                clearVis();
+                updateTitleFromSearchQuery();
             }
 
             window.addEventListener('DOMContentLoaded', matchInput);
