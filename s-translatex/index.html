@@ -68,7 +68,7 @@
         }
 
         .translator-container {
-            background: #ffffff !important;
+            background-color: #ffffff !important;
             width: 100%;
             max-width: 800px;
             padding: clamp(16px, 3vw, 24px);
@@ -312,6 +312,36 @@
             height: 20px;
             object-fit: contain;
             flex-shrink: 0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            *, *::before, *::after {
+                color: #ffffff !important;
+            }
+            
+            html, body {
+                background-color: #3c3c3c !important;
+            }
+
+            .sticky-header {
+                background-color: #3c3c3c !important;
+            }
+
+            .sticky-header h1 {
+                color: #ffffff !important;
+            }
+
+            .translator-container {
+                background-color: #3c3c3c !important;
+            }
+
+            .supported span {
+                color: #ffffff !important;
+            }
+
+            .creator-text {
+                color: #ffffff !important;
+            }
         }
     </style>
 </head>
