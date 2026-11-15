@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../assets/s-colorx-logo-circ.png?v=1">
+    <link rel="icon" type="image/png" href="../../assets/s-colorx-logo-circ.png?v=1">
     <title class="notranslate">S-Colorx</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
@@ -181,7 +181,7 @@
             justify-content: center;
         }
 
-        btn-icon {
+        .btn-icon {
           width: 24px !important;
           height: 24px !important;
           display: block;
@@ -191,11 +191,10 @@
         button.btn-apply,
         button.btn-copy,
         button.btn-speak {
-            background:
-                radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
-                radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
-                radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
-                radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+            background-image: url("../../assets/button-color-gradient.png") !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
             border: none !important;
             border-radius: 50%;
             color: #ffffff !important;
@@ -208,6 +207,10 @@
         }
 
         button.btn-apply {
+            background-image: url("../../assets/button-color-gradient.png") !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
             padding: 0;
             font-size: 14px;
             border-radius: 50%;
@@ -292,7 +295,7 @@
 <body>
 
     <header class="sticky-header">
-        <img class="logo" src="../assets/s-colorx-logo-circ.png" alt="S-Colorx Logo">
+        <img class="logo" src="../../assets/s-colorx-logo-circ.png" alt="S-Colorx Logo">
         <h1 translate="no">S-Colorx</h1>
     </header>
 
@@ -365,7 +368,7 @@
 
      <div class="creator-info">
          <p class="creator-text">By</p>
-         <img class="creator-logo" src="../assets/khromma-logo.png" alt="Khromma Logo">
+         <img class="creator-logo" src="../../assets/khromma-logo.png" alt="Khromma Logo">
          <p translate="no" class="creator-text">Khromma</p>
      </div>
     
@@ -425,7 +428,7 @@
             const b = document.getElementById('bval').value || '255';
 
             const utterance = new SpeechSynthesisUtterance(`RGB ${r}, ${g}, ${b}`);
-            utterance.lang = navigator.language || navigator.userLanguage;
+            utterance.lang = 'en';
 
             window.speechSynthesis.speak(utterance);
             document.getElementById('rval').focus();
@@ -441,7 +444,7 @@
 
             const hex = document.getElementById('hexarg').value.replace('#', '') || 'ffffff';
             const utterance = new SpeechSynthesisUtterance(`Hex ${hex.split('').join(' ')}`);
-            utterance.lang = navigator.language || navigator.userLanguage;
+            utterance.lang = 'en';
 
             window.speechSynthesis.speak(utterance);
             document.getElementById('hexarg').focus();
