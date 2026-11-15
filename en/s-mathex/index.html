@@ -266,6 +266,38 @@
             object-fit: contain;
             flex-shrink: 0;
         }
+
+        @media (prefers-color-scheme: dark) {
+            *, *::before, *::after {
+                color: #ffffff !important;
+            }
+
+            html, body {
+                background-color: #3c3c3c !important;
+            }
+
+            .sticky-header {
+                background-color: #3c3c3c !important;
+                border-bottom: 1px solid #2f2f2f !important;
+            }
+
+            .sticky-header h1 {
+                color: #ffffff !important;
+            }
+
+            .calculator-container {
+                backgrond: #3c3c3c !important;
+                border: 1px solid #2f2f2f !important;
+            }
+
+            .history-display {
+                color: #ffffff !important;
+            }
+
+            .creator-text {
+                color: #ffffff !important;
+            }
+        }
     </style>
 </head>
 <body>
