@@ -557,7 +557,7 @@ function calculate() {
     shouldResetDisplay = false;
     historyDisplay.innerText = '';
 
-    updateUrlParameters();
+    history.replaceState(null, '', window.location.pathname);
     updateDisplay();
     updateTitleFromDisplay();
     }
