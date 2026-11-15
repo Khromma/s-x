@@ -590,7 +590,7 @@ function speakResult() {
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(display.value);
-    utterance.lang = navigator.language || navigator.userLanguage;
+    utterance.lang = 'en';
 
     window.speechSynthesis.speak(utterance);
 }
