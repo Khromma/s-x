@@ -132,11 +132,10 @@
                 padding: 0;
                 font-size: 16px;
                 border: none;
-                background: 
-                    radial-gradient(circle at top left, var(--sxpr) 0%, transparent 70%),
-                    radial-gradient(circle at top right, var(--sxib) 0%, transparent 70%),
-                    radial-gradient(circle at bottom left, var(--sxgy) 0%, transparent 70%),
-                    radial-gradient(circle at bottom right, var(--sxcg) 0%, transparent 70%) !important;
+                background-image: url("../assets/button-color-gradient.png") !important;
+                background-size: cover !important;
+                background-position: center !important;
+                background-repeat: no-repeat !important;
                 font-weight: bold;
                 border-radius: 50%;
                 cursor: pointer;
@@ -221,6 +220,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                background: #ffffff;
             }
 
             .tool-card-top-img {
@@ -252,6 +252,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                background: #ffffff;
             }
 
             .tool-card-bottom-info-text {
@@ -292,6 +293,46 @@
                 height: 20px;
                 object-fit: contain;
                 flex-shrink: 0;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                *, *::before, *::after {
+                    color: #ffffff !important;
+                }
+            
+                html, body {
+                    background-color: #3c3c3c !important;
+                }
+
+                .sticky-header {
+                    background-color: #3c3c3c !important;
+                    border-bottom: 1px solid #2f2f2f !important;
+                }
+
+                .sticky-header h1 {
+                    color: #ffffff !important;
+                }
+
+                .search-bar {
+                    background: #3c3c3c !important;
+                    border: 1px solid #2f2f2f !important;
+                }
+
+                .search-input {
+                    color: #ffffff !important;
+                }
+
+                .tool-card-top {
+                    background: #3c3c3c !important;
+                }
+
+                .tool-card-bottom {
+                    background: #3c3c3c !important;
+                }
+
+                .creator-text {
+                    color: #ffffff !important;
+                }
             }
         </style>
     </head>
