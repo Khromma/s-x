@@ -85,6 +85,28 @@
                 align-self: start;
                 margin-top: 10px;
             }
+
+            .desc-text {
+                font-size: 20px;
+                line-height: 1.5;
+                color: #000000 !important;
+                margin-top: 20px;
+            }
+
+            .desc-text span {
+                font-weight: 700;
+                background: linear-gradient(
+                    to right,
+                    var(--sxib) 0%,
+                    var(--sxpr) 33%,
+                    var(--sxgy) 67%,
+                    var(--sxcg) 100%
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
+            }
         </style>
     </head>
     <body>
@@ -94,5 +116,6 @@
         </header>
 
         <p class="gradient-text">Learn about S-Translatex.</p>
+        <p class="desc-text"><span>S-Translatex</span> is an <span>online translation tool</span> developed by <span>Khromma</span> that allows users to <span>translate text across multiple languages</span> with <span>automatic language detection</span>. Users can easily swap between source and target languages, <span>listen to the pronunciation</span> of both the original and translated text, and <span>copy the results</span> with a single click, all powered by <span>Google translation support</span>.</p>
     </body>
 </html>
