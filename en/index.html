@@ -166,14 +166,14 @@
             }
             
             .flex-div {
-                width: fit-content;
-                height: auto;
+                width: 100%;
                 display: flex;
-                margin-inline: auto;
                 flex-wrap: wrap;
+                justify-content: center; /* Centers items once they hit max-width */
                 gap: 10px;
                 margin-top: 20px;
                 padding: 10px;
+                box-sizing: border-box;
             }
 
             .tool-card {
