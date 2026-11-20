@@ -810,13 +810,13 @@
            var tlParam = params.get('tl');
            var qParam = params.get('q');
 
-           if (slParam && Object.values(languages).includes(slParam)) {
+           if (slParam && Object.hasOwn(languages, slParam)) {
              sourceLang.value = slParam;
            } else {
              sourceLang.value = "auto";
            }
   
-           if (tlParam && Object.values(languages).includes(tlParam)) {
+           if (tlParam && Object.hasOwn(languages, slParam)) {
              targetLang.value = tlParam;
            } else {
              targetLang.value = "en";
