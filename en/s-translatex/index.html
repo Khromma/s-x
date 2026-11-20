@@ -676,6 +676,7 @@
         }
 
         populateDropdowns();
+            matchInput();
 
         let timer;
         inputText.addEventListener('input', () => {
@@ -804,38 +805,32 @@
          sourceLang.addEventListener('change', updateUrlParameters);
          targetLang.addEventListener('change', updateUrlParameters);
 
-         function matchInput() {
-           var params = new URLSearchParams(window.location.search);
-           var slParam = params.get('sl');
-           var tlParam = params.get('tl');
-           var qParam = params.get('q');
+function matchInput() {
+  const params = new URLSearchParams(window.location.search);
+  const slParam = params.get('sl');
+  const tlParam = params.get('tl');
+  const qParam = params.get('q');
 
-           if (slParam && Object.hasOwn(languages, slParam)) {
-             sourceLang.value = slParam;
-           } else {
-             sourceLang.value = "auto";
-           }
-  
-           if (tlParam && Object.hasOwn(languages, slParam)) {
-             targetLang.value = tlParam;
-           } else {
-             targetLang.value = "en";
-           }
-  
-          if (qParam) {
-            inputText.value = qParam;
-          } else {
-          inputText.value = '';
-          }
-             
-          updateUrlParameters();
-          translateText();
-          clearVis();
-          updateTitleFromInput();
-        }
+  if (slParam && Object.hasOwn(languages, slParam)) {
+    sourceLang.value = slParam;
+  } else {
+    sourceLang.value = 'auto';
+  }
 
-        window.addEventListener('DOMContentLoaded', matchInput);
+  if (tlParam && tlParam !== 'auto' && Object.hasOwn(languages, tlParam)) {
+    targetLang.value = tlParam;
+  } else {
+    targetLang.value = 'en';
+  }
 
+  inputText.value = qParam || '';
+
+  updateUrlParameters();
+  clearVis();
+  translateText();
+  updateTitleFromInput();
+}
+            
         function updateTitleFromInput() {
           const baseTitle = "S-Translatex";
 
