@@ -821,7 +821,11 @@ function matchInput() {
   if (tlParam && tlParam !== 'auto' && Object.hasOwn(languages, tlParam)) {
     targetLang.value = tlParam;
   } else {
-    targetLang.value = 'en';
+    if (slParam !== "en") {
+      targetLang.value = 'en';
+    } else {
+      targetLang.value = "es";
+    }
   }
 
   inputText.value = qParam || '';
