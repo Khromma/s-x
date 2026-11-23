@@ -67,6 +67,25 @@
                 color: #000000 !important;
             }
 
+            .return-bar {
+                display: flex;
+                justify-content: flex-end; 
+                align-items: center;     
+                align-self: flex-start;
+                gap: 6px;                  
+                font-family: sans-serif;
+                font-size: 16px;
+                color: #999999;
+                margin-top: clamp(2px, calc(2vw - 4px), 16px);
+            }
+        
+            .return-svg {
+                width: 30px;
+                height: 30px;
+                display: block;
+                flex-shrink: 0;
+            }
+
             .gradient-text {
                 font-size: 40px;
                 font-weight: 700;
@@ -176,8 +195,16 @@
             <h1>About S-Translatex</h1>
         </header>
 
+        <div class="return-bar">
+            <a href="../">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#888888" class="return-svg">
+                    <path d="M7.83,13l5.6,5.6L12,20L4,12l8-8l1.43,1.4L7.83,11H20v2H7.83Z"/>
+                </svg>
+            </a>
+        </div>
         <p class="gradient-text">Learn about S-Translatex.</p>
         <p class="desc-text"><span>S-Translatex</span> is a web translation tool developed by <span>Khromma</span> and <span>S-X A new universe</span> that allows users to <span>translate text</span> across multiple languages with <span>automatic language detection</span>. Users can easily swap between <span>source and target languages</span>, listen to the pronunciation of both the original and translated text, and copy the translated text with a <span>single click</span>, all powered by the help of the <span>Google translation API</span>.</p>
+
         <p class="gradient-text">What to use S-Translatex for?.</p>
         <p class="desc-text">As part of <span>S-X A new universe</span>, <span>S-Translatex</span> is designed to simplify busy days for <span>students and working people</span>. You can use it to quickly translate <span>study materials, emails or long text</span>, check the <span>pronunciation</span> with voice-to-text translation and audio playback, and break through <span>language barriers</span> in seconds-saving time so you can focus on what matters most.</p>
         <div class="end-line">
