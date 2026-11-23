@@ -421,45 +421,70 @@
     <script>
         document.getElementById('hexarg').focus();
         
-        function applyRGB() {
-            const r = document.getElementById('rval').value || '255';
-            const g = document.getElementById('gval').value || '255';
-            const b = document.getElementById('bval').value || '255';
-            
-            const rgbColor = `rgb(${r}, ${g}, ${b})`;
+function resetToWhite() {
+    document.getElementById('hexarg').value = 'ffffff';
+    document.getElementById('rval').value = 255;
+    document.getElementById('gval').value = 255;
+    document.getElementById('bval').value = 255;
+    document.getElementById('finalc').style.backgroundColor = '#ffffff';
 
-            document.getElementById('finalc').style.backgroundColor = rgbColor;
+    updateUrlParameters();
+    updateTitleFromColors();
+}
 
-            const hexR = parseInt(r, 10).toString(16).padStart(2, '0');
-            const hexG = parseInt(g, 10).toString(16).padStart(2, '0');
-            const hexB = parseInt(b, 10).toString(16).padStart(2, '0');
+function applyRGB() {
+    const rInput = document.getElementById('rval').value.trim();
+    const gInput = document.getElementById('gval').value.trim();
+    const bInput = document.getElementById('bval').value.trim();
 
-            document.getElementById('hexarg').value = `${hexR}${hexG}${hexB}`;
-            document.getElementById('rval').focus();
-            updateUrlParameters('rgb');
-            updateTitleFromColors()
-        }
+    if (!/^\d+$/.test(rInput) || !/^\d+$/.test(gInput) || !/^\d+$/.test(bInput) || Number(rInput) > 255 || Number(gInput) > 255 || Number(bInput) > 255) {
+        resetToWhite();
+        return;
+    }
 
-        function applyHEX() {
-            let hex = document.getElementById('hexarg').value.replace('#', '') || 'ffffff';
+    const r = Number(rInput);
+    const g = Number(gInput);
+    const b = Number(bInput);
 
-            if (hex.length === 3) {
-                hex = hex.split('').map(c => c + c).join('');
-            }
+    document.getElementById('finalc').style.backgroundColor =
+        `rgb(${r}, ${g}, ${b})`;
 
-            const hexColor = '#' + hex;
+    const hex = [r, g, b]
+        .map(value => value.toString(16).padStart(2, '0'))
+        .join('');
 
-            document.getElementById('finalc').style.backgroundColor = hexColor;
+    document.getElementById('hexarg').value = hex;
+    updateUrlParameters('rgb');
+    updateTitleFromColors();
+}
 
-            if (hex.length === 6) {
-                document.getElementById('rval').value = parseInt(hex.substring(0, 2), 16);
-                document.getElementById('gval').value = parseInt(hex.substring(2, 4), 16);
-                document.getElementById('bval').value = parseInt(hex.substring(4, 6), 16);
-                document.getElementById('hexarg').focus();
-                updateUrlParameters('hex')
-                updateTitleFromColors()
-            }
-        }
+function applyHEX() {
+    let hex = document.getElementById('hexarg').value.trim();
+
+    if (hex.startsWith('#')) {
+        hex = hex.slice(1);
+    }
+
+    if (!/^(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) {
+        resetToWhite();
+        return;
+    }
+
+    if (hex.length === 3) {
+        hex = hex.split('').map(character => character + character).join('');
+    }
+
+    hex = hex.toLowerCase();
+    document.getElementById('hexarg').value = hex;
+    document.getElementById('finalc').style.backgroundColor = `#${hex}`;
+
+    document.getElementById('rval').value = parseInt(hex.slice(0, 2), 16);
+    document.getElementById('gval').value = parseInt(hex.slice(2, 4), 16);
+    document.getElementById('bval').value = parseInt(hex.slice(4, 6), 16);
+
+    updateUrlParameters('hex');
+    updateTitleFromColors();
+}
 
         function speakRGB() {
             if (!('speechSynthesis' in window)) {
