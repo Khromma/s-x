@@ -467,6 +467,11 @@
   }
             
 searchBtn.addEventListener('click', filterTools);
+            searchText.addEventListener('input', () => {
+                if (searchText.value === "") {
+                    filterTools();
+                }
+            });
             
             function updateUrlParameters() {
                 var qValue = searchText.value.trim();
