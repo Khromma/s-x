@@ -382,26 +382,26 @@
     </div>
     <div class="translator-container" id="translatorContainer">
         <div class="controls-bar">
-            <select id="sourceLang"></select>
-            <button class="swap-btn" id="swapBtn">
+            <select title='Source Language (Press "I")' id="sourceLang"></select>
+            <button class="swap-btn" title='Swap Languages (Press "W")' id="swapBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
                   <path d="M6 9H18M15.5 6.5L18 9L15.5 11.5M18 15H6M8.5 12.5L6 15L8.5 17.5" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <select id="targetLang"></select>
+            <select title='Target Language (Press "O")' id="targetLang"></select>
         </div>
 
         <div class="text-container">
             <div class="textarea-wrapper">
-                <textarea data-i18n="s_translatex_input_translation_textarea" id="inputText" placeholder="Text..."></textarea>
+                <textarea title='Input Text (Press "T")' id="inputText" placeholder="Text..."></textarea>
                 <div class="action-bar">
-                    <button class="action-btn" id="voiceTranslationBtn">
+                    <button class="action-btn" title='Start Voice Translation (Press "M")' id="voiceTranslationBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
                             <path fill="#ffffff" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
                             <path fill="#ffffff" d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
                         </svg>
                     </button>
-                    <button class="action-btn" id="speakInputBtn">
+                    <button class="action-btn" title='Speak Input Text (Press "S")' id="speakInputBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" class="btn-icon">
                           <path fill="#ffffff" d="M120 244H175L244 175V394L175 325H120Z"/>
                           <path fill="#ffffff" d="M147 271H186L216 241V328L186 298H147Z"/>
@@ -409,13 +409,13 @@
                           <path fill="#ffffff" d="M271 213C294 222 306 249 306 284C306 319 294 346 271 355Z"/>
                         </svg>
                     </button>
-                    <button class="action-btn" id="copyInputBtn">
+                    <button class="action-btn" title='Copy Input Text (Press "C")' id="copyInputBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
                           <path d="M8 7V5C8 3.9 8.9 3 10 3H19C20.1 3 21 3.9 21 5V14C21 15.1 20.1 16 19 16H17" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                           <rect x="3" y="7" width="14" height="14" rx="2" fill="none" stroke="#ffffff" stroke-width="2"/>
                         </svg>
                     </button>
-                    <button class="action-btn" id="clearBtn">
+                    <button class="action-btn" title='Clear Input Text (Press "X")' id="clearBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                           <path d="M8 8L16 16M16 8L8 16" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
                         </svg>
@@ -425,7 +425,7 @@
             <div class="textarea-wrapper">
                 <textarea id="outputText" placeholder="Translation..." readonly></textarea>
                 <div class="action-bar">
-                    <button class="action-btn" id="speakOutputBtn">
+                    <button class="action-btn" title="Speak Translated Text (Press "L")" id="speakOutputBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" class="btn-icon">
                           <path fill="#ffffff" d="M120 244H175L244 175V394L175 325H120Z"/>
                           <path fill="#ffffff" d="M147 271H186L216 241V328L186 298H147Z"/>
@@ -433,7 +433,7 @@
                           <path fill="#ffffff" d="M271 213C294 222 306 249 306 284C306 319 294 346 271 355Z"/>
                         </svg>
                     </button>
-                    <button class="action-btn" id="copyOutputBtn">
+                    <button class="action-btn" title='Copy Translated Text (Press "Y")' id="copyOutputBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
                           <path d="M8 7V5C8 3.9 8.9 3 10 3H19C20.1 3 21 3.9 21 5V14C21 15.1 20.1 16 19 16H17" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                           <rect x="3" y="7" width="14" height="14" rx="2" fill="none" stroke="#ffffff" stroke-width="2"/>
