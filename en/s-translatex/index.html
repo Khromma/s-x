@@ -653,6 +653,7 @@
         const outputText = document.getElementById('outputText');
         const swapBtn = document.getElementById('swapBtn');
 
+        const voiceTranslationBtn = document.getElementById('voiceTranslationBtn');
         const speakInputBtn = document.getElementById('speakInputBtn');
         const copyInputBtn = document.getElementById('copyInputBtn');
         const speakOutputBtn = document.getElementById('speakOutputBtn');
@@ -757,6 +758,15 @@
                 outputText.value = 'Error connecting to translation engine.';
             }
         }
+
+            function enableVoiceTranslation() {
+                var sourceLanguage = sourceLang.value;
+                var targetLang = targetLang.value;
+                var voiceURL = `voice.html?sl=${sourceLanguage}&tl=${targetLanguage}`;
+                window.location.href = voiceURL;
+            }
+
+            voiceTranslationBtn.addEventListener('click', enableVoiceTranslation);
 
         function speakText(text, langCode) {
             if (!text.trim()) return;
