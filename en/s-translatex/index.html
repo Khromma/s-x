@@ -714,7 +714,9 @@
         });
 
         sourceLang.addEventListener('change', translateText);
+        sourceLang.addEventListener('change', changeTextsAlignment);
         targetLang.addEventListener('change', translateText);
+        targetLang.addEventListener('change', changeTextsAlignment);
 
         swapBtn.addEventListener('click', () => {
             if (sourceLang.value === 'auto') return;
@@ -731,6 +733,7 @@
             translateText();
             updateUrlParameters();
             updateTitleFromInput();
+            changeTextsAlignment();
         });
 
         async function translateText() {
@@ -758,6 +761,19 @@
                 outputText.value = 'Error connecting to translation engine.';
             }
         }
+
+            function changeTextsAlignment() {
+                if (sourceLang.value === "ar" || sourceLang.value === "ckb" || sourceLang.value === "fa" || sourceLang.value === "he" || sourceLang.value === "ps" || sourceLang.value === "ur" || sourceLang.value === "yi") {
+                    inputText.dir = "rtl";
+                } else {
+                    inputText.dir = "ltr";
+                }
+                if (targetLang.value === "ar" || targetLang.value === "ckb" || targetLang.value === "fa" || targetLang.value === "he" || targetLang.value === "ps" || targetLang.value === "ur" || targetLang.value === "yi") {
+                    outputText.dir = "rtl";
+                } else {
+                    outputText.dir = "ltr";
+                }
+            }
 
             function enableVoiceTranslation() {
                 var sourceLanguage = sourceLang.value;
@@ -873,6 +889,7 @@ function matchInput() {
   clearVis();
   translateText();
   updateTitleFromInput();
+    changeTextsAlignment();
 }
             
         function updateTitleFromInput() {
