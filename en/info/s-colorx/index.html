@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="../../../assets/s-translatex-logo-translator.png?v=1">
+        <title class="notranslate">About S-Translatex</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'); 
+                  
+            :root {
+                --sxpr: #ff005f;
+                --sxib: #4444ff;
+                --sxgy: #ffbb00;
+                --sxcg: #00ff66;
+            }
+
+            *, *::before, *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: 'Montserrat', sans-serif;
+                color: #000000;
+            }
+
+            html, body {
+                background-color: #ffffff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
+                width: 100%;
+                padding: 0 12px;
+                overflow-x: hidden; 
+                padding-top: 45px;
+            }
+
+            .sticky-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                background-color: #ffffff !important;
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 12px;
+                padding: 16px 24px;
+                border-bottom: 1px solid #e2e8f0;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+
+            .logo {
+                width: clamp(48px, 10vw, 64px);
+                height: clamp(48px, 10vw, 64px);
+                object-fit: contain;
+                flex-shrink: 0;
+            }
+
+            .sticky-header h1 {
+                font-size: clamp(18px, 4vw, 24px);
+                font-weight: 700;
+                letter-spacing: -0.5px;
+                color: #000000 !important;
+            }
+
+            .return-bar {
+                display: flex;
+                justify-content: flex-end; 
+                align-items: center;     
+                align-self: flex-start;
+                gap: 6px;                  
+                font-family: sans-serif;
+                font-size: 16px;
+                color: #999999;
+                margin-top: clamp(2px, calc(2vw - 4px), 16px);
+            }
+        
+            .return-svg {
+                width: 30px;
+                height: 30px;
+                display: block;
+                flex-shrink: 0;
+            }
+
+            .gradient-text {
+                font-size: 40px;
+                font-weight: 700;
+                display: inline-block;
+                background: linear-gradient(
+                    to right,
+                    var(--sxib) 0%,
+                    var(--sxpr) 33%,
+                    var(--sxgy) 67%,
+                    var(--sxcg) 100%
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
+                align-self: start;
+                margin-top: 10px;
+            }
+
+            .separed-title {
+                margin-top: 20px;
+            }
+
+            .desc-text {
+                font-size: 20px;
+                line-height: 1.5;
+                color: #000000 !important;
+                margin-top: 20px;
+            }
+
+            .desc-text span {
+                font-weight: 700;
+                background: linear-gradient(
+                    to right,
+                    var(--sxib) 0%,
+                    var(--sxpr) 33%,
+                    var(--sxgy) 67%,
+                    var(--sxcg) 100%
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
+            }
+
+            .end-line {
+                background-color: #888888;
+                width: 100%;
+                height: 2px;
+                box-sizing: border-box;
+                margin-top: 25px;
+            }
+        
+            .creator-info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                width: 100%;
+                height: 35px;
+                gap: 4px;
+                margin-top: 12px;
+                margin-left: 8px;
+            }
+        
+            .creator-text {
+                font-size: 20px;
+                font-family: "Fredoka", sans-serif;
+                line-height: 1.5;
+                color: #000000 !important;
+            }
+
+            .creator-logo {
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+                flex-shrink: 0;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                *, *::before, *::after {
+                    color: #ffffff !important;
+                }
+
+                html, body {
+                    background-color: #3c3c3c !important;
+                }
+
+                .sticky-header {
+                    background-color: #3c3c3c !important;
+                    border-bottom: 1px solid #2f2f2f !important;
+                }
+
+                .sticky-header h1 {
+                    color: #ffffff !important;
+                }
+
+                .desc-text {
+                    color: #ffffff !important;
+                }
+
+                .creator-text {
+                    color: #ffffff !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header class="sticky-header">
+            <img class="logo" src="../../../assets/s-translatex-logo-translator.png" alt="S-Translatex Logo">
+            <h1>About S-Translatex</h1>
+        </header>
+
+        <div class="return-bar">
+            <a href="../../" title='Go Home (Press "R")'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#888888" class="return-svg">
+                    <path d="M7.83,13l5.6,5.6L12,20L4,12l8-8l1.43,1.4L7.83,11H20v2H7.83Z"/>
+                </svg>
+            </a>
+        </div>
+        <p class="gradient-text">Learn about S-Translatex.</p>
+        <p class="desc-text"><span>S-Translatex</span> is a web translation tool developed by <span>Khromma</span> and <span>S-X A new universe</span> that allows users to <span>translate text</span> across multiple languages with <span>automatic language detection</span>. Users can easily swap between <span>source and target languages</span>, listen to the pronunciation of both the original and translated text, and copy the translated text with a <span>single click</span>, all powered by the help of the <span>Google translation API</span>.</p>
+
+        <p class="gradient-text separed-title">What to use S-Translatex for?.</p>
+        <p class="desc-text">As part of <span>S-X A new universe</span>, <span>S-Translatex</span> is designed to simplify busy days for <span>students and working people</span>. You can use it to quickly translate <span>study materials, emails or long text</span>, check the <span>pronunciation</span> with voice-to-text translation and audio playback, and break through <span>language barriers</span> in seconds-saving time so you can focus on what matters most.</p>
+
+        <div class="end-line">
+        </div>
+        
+        <div class="creator-info">
+            <p class="creator-text">By</p>
+            <img class="creator-logo" src="../../../assets/khromma-logo.png" alt="Khromma Logo">
+            <p translate="no" class="creator-text">Khromma</p>
+        </div>
+
+        <script>
+            document.addEventListener('keydown', (e) => {
+                if (e.key.toLowerCase() === 'r') { window.location.href = "../../" };
+            });
+        </script>
+    </body>
+</html>
