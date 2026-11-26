@@ -113,12 +113,46 @@
                 display: block;
                 flex-shrink: 0;
             }
+
+            .end-line {
+                background-color: #888888;
+                width: 100%;
+                height: 2px;
+                box-sizing: border-box;
+                margin-top: 7px;
+            }
+
+            .creator-info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                width: 100%;
+                height: 35px;
+                gap: 4px;
+                margin-top: 12px;
+                margin-left: 8px;
+            }
+        
+            .creator-text {
+                font-size: 20px;
+                font-family: "Fredoka", sans-serif;
+                line-height: 1.5;
+                color: #000000 !important;
+            }
+
+            .creator-logo {
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+                flex-shrink: 0;
+            }
         </style>
     </head>
     <body>
         <header class="sticky-header">
             <img class="logo" src="../../assets/s-translatex-logo-translator.png" alt="S-Translatex Logo">
-            <h1 translate="no">S-Translatex</h1>
+            <h1 translate="no">S-Translatex Voice Translation</h1>
         </header>
 
         <div class="btn-container">
@@ -128,5 +162,15 @@
                 </svg>
             </button>
         </div>
+
+        <div class="end-line">
+        </div>
+
+        <div class="creator-info">
+            <p class="creator-text">By</p>
+            <img class="creator-logo" src="../../assets/khromma-logo.png" alt="Khromma Logo">
+            <p translate="no" class="creator-text">Khromma</p>
+        </div>
+
     </body>
 </html>
