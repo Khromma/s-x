@@ -3,8 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="../assets/s-x-logo.png?v=1" media="(prefers-color-scheme: light)">
-        <link rel="icon" type="image/png" href="../assets/s-x-logo-dark.png?v=1" media="(prefers-color-scheme: dark)">
+        <link rel="icon" type="image/png" href="../assets/s-x-logo.png?v=1">
         <title class="notranslate">S-X A new universe</title>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
@@ -418,6 +417,23 @@
   var searchText = document.getElementById('searchText');
   var searchBtn = document.getElementById('searchBtn');
   var clearBtn = document.getElementById('clearBtn');
+const brandLogo = document.querySelector('.logo');
+const favicon = document.querySelector('link[rel="icon"]');
+const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+function updateLogoForTheme(e) {
+    if (e.matches) {
+        brandLogo.src = '../assets/s-x-logo-dark.png';
+        if (favicon) favicon.href = '../assets/s-x-logo-dark.png?v=1';
+    } else {
+        brandLogo.src = '../assets/s-x-logo.png';
+        if (favicon) favicon.href = '../assets/s-x-logo.png?v=1';
+    }
+}
+
+updateLogoForTheme(darkModeQuery);
+
+darkModeQuery.addEventListener('change', updateLogoForTheme);
 
         function clearVis() {
           const val = searchText.value.trim();
