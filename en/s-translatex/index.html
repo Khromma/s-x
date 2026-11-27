@@ -775,6 +775,10 @@
                 }
             }
 
+            document.addEventListener('keydown', (e) => {
+                if (e.key.toLowerCase() === 'r') { window.location.href = "../" };
+            });
+
             function enableVoiceTranslation() {
                 var sourceLanguage = sourceLang.value;
                 var targetLanguage = targetLang.value;
